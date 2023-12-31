@@ -8,56 +8,55 @@ import { useNavigate } from "react-router-dom";
 import Loading from "../pages/Loading";
 import NavBar from "../components/navbar";
 import { Larak_System_URL } from "../globals";
-var fields = [
-  {
-    dataField: "username",
-    text: "Username",
-    sort: true,
-    filter: textFilter(),
-  },
-  {
-    dataField: "first_name",
-    text: "First Name",
-    sort: true,
-    filter: textFilter(),
-  },
-  {
-    dataField: "last_name",
-    text: "Last Name",
-    sort: true,
-    filter: textFilter(),
-  },
-  {
-    dataField: "email",
-    text: "Email",
-    sort: true,
-    filter: textFilter(),
-  },
-  {
-    dataField: "phone",
-    text: "Phone Number",
-    sort: true,
-    filter: textFilter(),
-  },
-  {
-    dataField: "userType",
-    text: "User Type",
-    sort: true,
-    filter: textFilter(),
-  },
-];
 
 function NewCustomersPage() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
+  var fields = [
+    {
+      dataField: "username",
+      text: "Username",
+      sort: true,
+      filter: textFilter(),
+    },
+    {
+      dataField: "first_name",
+      text: "First Name",
+      sort: true,
+      filter: textFilter(),
+    },
+    {
+      dataField: "last_name",
+      text: "Last Name",
+      sort: true,
+      filter: textFilter(),
+    },
+    {
+      dataField: "email",
+      text: "Email",
+      sort: true,
+      filter: textFilter(),
+    },
+    {
+      dataField: "phone",
+      text: "Phone Number",
+      sort: true,
+      filter: textFilter(),
+    },
+    {
+      dataField: "userType",
+      text: "User Type",
+      sort: true,
+      filter: textFilter(),
+    },
+  ];
   const [data, setData] = useState([]);
 
   async function getAllUsers() {
     setLoading(true);
     var token = localStorage.getItem("token");
 
-    fetch(Larak_System_URL + "clients/", {
+    fetch(Larak_System_URL + "new_clients/", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
