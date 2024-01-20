@@ -1,30 +1,23 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import NavBar from "../components/navbar";
-import { Larak_System_URL } from "../globals";
+import NavBar from "../../components/navbar";
+import { Larak_System_URL } from "../../globals";
 import BootstrapTable from "react-bootstrap-table-next";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.css";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
-function HomePage() {
+function ClientProductsPage() {
   const columns = [
-    {
-      dataField: "title",
-      text: "الاسم",
-      sort: true,
-      filter: textFilter(),
-    },
-
-    {
-      dataField: "description",
-      text: "شرح",
-      sort: true,
-      filter: textFilter(),
-    },
     {
       dataField: "amount",
       text: "الكمية المتوفرة",
+      sort: true,
+      filter: textFilter(),
+    },
+    {
+      dataField: "profit",
+      text: "الربح",
       sort: true,
       filter: textFilter(),
     },
@@ -42,20 +35,21 @@ function HomePage() {
       filter: textFilter(),
     },
     {
-      dataField: "created_at",
-      text: "تاريخ انشاء المنتج",
-      sort: true,
-      filter: textFilter(),
-    },
-    {
       dataField: "category",
       text: "الصنف",
       sort: true,
       filter: textFilter(),
     },
     {
-      dataField: "created_by",
-      text: "منشأ المنتج",
+      dataField: "description",
+      text: "تفاصيل المنتج",
+      sort: true,
+      filter: textFilter(),
+    },
+
+    {
+      dataField: "title",
+      text: "الاسم",
       sort: true,
       filter: textFilter(),
     },
@@ -98,7 +92,7 @@ function HomePage() {
 
   async function loadData() {
     setLoading(true);
-    await fetch(Larak_System_URL + "products/", {
+    await fetch(Larak_System_URL + "client_products/", {
       method: "GET",
       headers: {
         accept: "application/json",
@@ -116,8 +110,8 @@ function HomePage() {
           alert(data.detail);
           return;
         }
-        console.log(data);
-        data.map((i) => console.log((i.category = i.category.title)));
+
+        window.products = data;
 
         setData(data);
       })
@@ -130,52 +124,74 @@ function HomePage() {
   }
   // Parse the string into a JavaScript object
   var categoriesAsJson = JSON.parse(storedCategories);
-  const [isOnline, setIsOnline] = useState(navigator.onLine);
 
   useEffect(() => {
     loadData();
-    // Add event listeners for online/offline events
-    const handleOnline = () => setIsOnline(true);
-    const handleOffline = () => setIsOnline(false);
-
-    window.addEventListener("online", handleOnline);
-    window.addEventListener("offline", handleOffline);
-
-    // Clean up event listeners when the component unmounts
-    return () => {
-      window.removeEventListener("online", handleOnline);
-      window.removeEventListener("offline", handleOffline);
-    };
   }, []);
   return (
     <>
-      {isOnline ? (
-        <>
-          <NavBar />
-          <div className="container-fluid text-center">
-            <h1>Home Page</h1>
+      <NavBar />
+      <div className="container-fluid text-center">
+        <h3 className="p-3 ">
+          <b> المنتجات </b>
+        </h3>
 
-            <BootstrapTable
-              hover={true}
-              bordered={false}
-              bootstrap4
-              keyField="id"
-              columns={columns}
-              data={data}
-              pagination={pagination}
-              filter={filterFactory()}
-              rowEvents={rowEvents}
-            />
-          </div>{" "}
-        </>
-      ) : (
-        <div className="container text-center text-danger rounded ">
-          {" "}
-          <h1> No Internet Connection</h1>{" "}
+        <div className="grid-container">
+          {data.map((product) => (
+            <div className="grid-item" key={product.id}>
+              <img
+                src={product.image}
+                alt={product.title}
+                width={300}
+                height={300}
+              />
+              <br />
+              <b className="border rounded m-2">{product.title}</b>
+              <br />
+              <b>{product.category}</b>
+              <br />
+              <b>{product.description}</b>
+              <br />
+              <b>
+                {product.price.toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "IQD",
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 2,
+                })}
+              </b>{" "}
+              <br />
+              {/* Add more product details here */}
+              <div
+                className="btn btn-success"
+                onClick={() => {
+                  if (window.cart === undefined) {
+                    window.cart = [];
+                  }
+                  // Check if the item already exists in the cart
+                  const existingItem = window.cart.find(
+                    (cartItem) => cartItem.id === product.id
+                  );
+
+                  if (existingItem) {
+                    // Item already exists, increase the quantity
+                    existingItem.amount += 1;
+                  } else {
+                    // Item does not exist, add to cart with a quantity of 1
+                    window.cart.push({ ...product, amount: 1 });
+                  }
+
+                  navigate("/client_products", { replace: true });
+                }}
+              >
+                اضافة للسلة
+              </div>
+            </div>
+          ))}
         </div>
-      )}
+      </div>
     </>
   );
 }
 
-export default HomePage;
+export default ClientProductsPage;

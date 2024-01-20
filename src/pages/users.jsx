@@ -5,11 +5,11 @@ import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Loading from "../pages/Loading";
+import Loading from "./Loading";
 import NavBar from "../components/navbar";
-import { Larak_System_URL } from "../globals";
+import { FormatDateTime, Larak_System_URL } from "../globals";
 
-function NewCustomersPage() {
+function UsersPage() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   var fields = [
@@ -44,8 +44,20 @@ function NewCustomersPage() {
       filter: textFilter(),
     },
     {
-      dataField: "userType",
+      dataField: "user_type",
       text: "User Type",
+      sort: true,
+      filter: textFilter(),
+    },
+    {
+      dataField: "supervisor",
+      text: "Supervisor",
+      sort: true,
+      filter: textFilter(),
+    },
+    {
+      dataField: "date_joined",
+      text: "Date Joined",
       sort: true,
       filter: textFilter(),
     },
@@ -56,7 +68,7 @@ function NewCustomersPage() {
     setLoading(true);
     var token = localStorage.getItem("token");
 
-    fetch(Larak_System_URL + "new_clients/", {
+    fetch(Larak_System_URL + "users/", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -69,6 +81,8 @@ function NewCustomersPage() {
           alert(response.detail);
           setLoading(false);
         }
+
+        response.map((i) => (i.date_joined = FormatDateTime(i.date_joined)));
 
         setData(response);
       });
@@ -92,8 +106,6 @@ function NewCustomersPage() {
 
     var token = localStorage.getItem("token");
 
-    console.log(token);
-
     if (token === "" || token === null || token === undefined) {
       navigate("/login", { replace: true });
       setLoading(false);
@@ -113,13 +125,13 @@ function NewCustomersPage() {
       <NavBar />
       <div className="container p-2 mt-2   border-2 border-bottom border-primary text-dark rounded">
         <h3 className="text-center">
-          <b> New Customers</b>
+          <b> Users </b>
         </h3>
       </div>
       <div className="container-fluid bg-light rounded p-1 text-center">
         <BootstrapTable
           hover={true}
-          bordered={true}
+          bordered={false}
           keyField="id"
           columns={fields}
           data={data}
@@ -132,4 +144,4 @@ function NewCustomersPage() {
   );
 }
 
-export default NewCustomersPage;
+export default UsersPage;

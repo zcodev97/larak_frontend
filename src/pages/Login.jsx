@@ -29,6 +29,9 @@ function LoginPage() {
           alert(data.detail);
           return;
         }
+        console.log(data);
+        window.username = data.user.username;
+        window.username_id = data.user.id;
         localStorage.setItem("token", data.access);
         localStorage.setItem("username", data.user.username);
         localStorage.setItem("first_name", data.user.first_name);
@@ -68,7 +71,7 @@ function LoginPage() {
         // Save the string in the local storage with a specific key
         localStorage.setItem("categories", jsonString);
 
-        navigate("/home", { replace: true });
+        navigate("/client_products", { replace: true });
       })
       .catch((error) => {
         alert(error);

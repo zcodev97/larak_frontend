@@ -2,6 +2,7 @@ const Larak_System_URL = "http://127.0.0.1:8000/";
 
 //format date
 function FormatDateTime(date) {
+  date = new Date(date);
   // Extract date components
   let year = date.getFullYear();
   let month = ("0" + (date.getMonth() + 1)).slice(-2);

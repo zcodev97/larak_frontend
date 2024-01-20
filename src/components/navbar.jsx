@@ -10,135 +10,74 @@ import { Larak_System_URL } from "../globals";
 function NavBar() {
   const navigate = useNavigate();
 
-  let navLinkClassName = "nav-link text-dark rounded ";
-
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState();
-
-  async function handleLogout() {
-    setLoading(true);
-    localStorage.removeItem("token");
-    localStorage.removeItem("token_exp_date");
-    localStorage.removeItem("biker_id");
-    localStorage.removeItem("biker_name");
-    localStorage.removeItem("username");
-    setLoading(false);
-    navigate("/login", { replace: true });
-  }
-
-  //get saved token and send it to backend to check its permissions
-  async function checkUserPermissions() {
-    setLoading(true);
-    var token = localStorage.getItem("token");
-
-    await fetch(Larak_System_URL + "auth/user-info", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // console.log(data);
-        setData(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        alert(error);
-      });
-    setLoading(false);
-  }
-
-  useEffect(() => {
-    // checkUserPermissions();
-  }, []);
-
-  if (loading) {
-    return (
-      <>
-        <Loading />
-      </>
-    );
-  }
+  const [normalStyle, setnormalStyle] = useState(
+    "nav-link text-dark text-center bg-light m-0 border-end border-2"
+  );
 
   return (
     <>
-      <nav className="navbar navbar-expand-sm navbar-dark rounded ">
-        <div className="container-fluid  d-flex justify-content-between">
-          {/* Start of the main navbar content */}
+      <nav
+        className="navbar navbar-expand-sm navbar-dark"
+        style={{
+          marginTop: "-10px",
+          marginBottom: "10px",
+          marginLeft: "-20px",
+          marginRight: "-25px",
+        }}
+      >
+        <div className="container-fluid d-flex justify-content-around">
+          {/* Start of the navbar links */}
+          <ul className="navbar-nav d-flex flex-row w-100">
+            <li className="nav-item flex-grow-1 text-center m-0">
+              <Link className={normalStyle} to="/client_products">
+                <p>🏠</p>
+                <b className="text-dark">المنتجات</b>
+              </Link>
+            </li>
 
-          <Link className="nav-link text-primary" to="/home">
-            <div
-              className="container pt-4 pb-4 mb-4 rounded-circle"
-              style={{ color: "#ff8000" }}
-            >
-              <h1>Larak</h1>
-            </div>
-          </Link>
+            {/* <li className="nav-item rounded flex-grow-1 m-0">
+              <Link className={normalStyle} to="/users">
+                <p>🧑‍🦲</p>
+                <b className="text-success"> المستخدمين</b>
+              </Link>
+            </li> */}
 
-          <button
-            className="navbar-toggler bg-primary"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
+            <li className="nav-item rounded text flex-grow-1 m-0">
+              <Link className={normalStyle} to="/categories">
+                <p>🦪</p>
+                <b className="text-danger"> التصنيفات</b>
+              </Link>
+            </li>
 
-          {/* End of the main navbar content */}
+            <li className="nav-item rounded text flex-grow-1 m-0">
+              <Link className={normalStyle} to="/client_orders">
+                <p>🛒</p>
+                <b className="text-dark"> الطلبات</b>
+              </Link>
+            </li>
 
-          {/* Start of the mobile menu */}
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav text-center">
-              <li className="nav-item rounded m-1">
-                <Link className={navLinkClassName} to="/home">
-                  <h4> Home</h4>
-                </Link>
-              </li>
-              <li className="nav-item rounded m-1">
-                <Link className={navLinkClassName} to="/new_clients">
-                  <h4> New Customers</h4>
-                </Link>
-              </li>
-              <li className="nav-item rounded border-4 m-1">
-                <Link className={navLinkClassName} to="/categories">
-                  <h4>Categories</h4>
-                </Link>
-              </li>
-              <li className="nav-item rounded border-4 m-1">
-                <Link className={navLinkClassName} to="/penalties">
-                  <h4>Products</h4>
-                </Link>
-              </li>
+            <li className="nav-item rounded text flex-grow-1 m-0">
+              <Link className={normalStyle} to="/client_cart">
+                <p>🚗</p>
+                <b className="text-dark"> السلة</b>
+              </Link>
+            </li>
+            <li className="nav-item rounded text flex-grow-1 m-0">
+              <Link className={normalStyle} to="/client_profile">
+                <p>🚗</p>
+                <b className="text-dark"> الملف</b>
+              </Link>
+            </li>
+            {/* <li className="nav-item rounded text flex-grow-1 m-0">
+              <Link className={normalStyle} to="/payments">
+                <p>🚗</p>
+                <b className="text-dark"> الكباتن</b>
+              </Link>
+            </li> */}
 
-              <li className="nav-item rounded border-4 m-1">
-                <Link className={navLinkClassName} to="/penalties">
-                  <h4>Finance</h4>
-                </Link>
-              </li>
-
-              <li className="nav-item rounded border-4 m-1">
-                <Link className={navLinkClassName} to="/penalties">
-                  <h4>Drivers</h4>
-                </Link>
-              </li>
-
-              <li className="nav-item rounded m-1">
-                <Link
-                  className="nav-link  text-center rounded p-2 border  border-danger"
-                  to="/login"
-                  onClick={handleLogout}
-                >
-                  <h3>📤</h3>
-                </Link>
-              </li>
-            </ul>
-          </div>
-          {/* End of the mobile menu */}
+            {/* End of the logout button */}
+          </ul>
+          {/* End of the navbar links */}
         </div>
       </nav>
 
