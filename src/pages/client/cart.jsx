@@ -22,7 +22,15 @@ function ClientCartPage() {
         },
         body: JSON.stringify({
           amount: i.amount,
-          status: { 1: "OrderCreated", 2: "", 3: "" },
+          status: {
+            client_order: {
+              date: Date.now(),
+              location: "test",
+            },
+            admin_action: {},
+            biker_action: {},
+            order_recevied: "",
+          },
           client: window.username_id,
           product: i.id,
         }),
@@ -68,8 +76,8 @@ function ClientCartPage() {
 
                 <td> </td>
                 <td>الكمية</td>
-                <td> </td>
                 <td>المنتج</td>
+                <td> </td>
               </tr>
             </thead>
             <tbody>
@@ -83,7 +91,6 @@ function ClientCartPage() {
                       maximumFractionDigits: 2,
                     })}
                   </td>
-
                   <td
                     className="btn bg-success text-light m-1"
                     onClick={() => {
@@ -93,17 +100,16 @@ function ClientCartPage() {
                   >
                     +
                   </td>
-                  <td>{i.amount}</td>
                   <td
                     className="btn bg-danger text-light m-1"
                     onClick={() => {
                       navigate("/client_cart", { replace: true });
-
                       i.amount -= 1;
                     }}
                   >
                     -
                   </td>
+                  <td>{i.amount}</td>
                   <td>{i.title}</td>
                 </tr>
               ))}

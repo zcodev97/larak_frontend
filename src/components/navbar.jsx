@@ -17,21 +17,24 @@ function NavBar() {
   return (
     <>
       <nav
-        className="navbar navbar-expand-sm navbar-dark"
+        className="navbar navbar-expand-sm navbar-dark fixed-bottom"
         style={{
-          marginTop: "-10px",
-          marginBottom: "10px",
-          marginLeft: "-20px",
-          marginRight: "-25px",
+          marginTop: "-5px",
+          marginBottom: "-12px",
+          marginLeft: "-12px",
+          marginRight: "-10px",
         }}
       >
-        <div className="container-fluid d-flex justify-content-around">
+        <div
+          className="container-fluid d-flex justify-content-around"
+          style={{ marginTop: "20px" }}
+        >
           {/* Start of the navbar links */}
           <ul className="navbar-nav d-flex flex-row w-100">
             <li className="nav-item flex-grow-1 text-center m-0">
               <Link className={normalStyle} to="/client_products">
                 <p>🏠</p>
-                <b className="text-dark">المنتجات</b>
+                <b className="text-dark">الصفحة الرئيسية</b>
               </Link>
             </li>
 
@@ -43,28 +46,31 @@ function NavBar() {
             </li> */}
 
             <li className="nav-item rounded text flex-grow-1 m-0">
-              <Link className={normalStyle} to="/categories">
+              <Link className={normalStyle} to="/client_cateogries">
                 <p>🦪</p>
                 <b className="text-danger"> التصنيفات</b>
               </Link>
             </li>
 
             <li className="nav-item rounded text flex-grow-1 m-0">
-              <Link className={normalStyle} to="/client_orders">
-                <p>🛒</p>
+              <Link
+                className={normalStyle}
+                to={window.groups === 5 ? "/admin_orders" : "/client_orders"}
+              >
+                <p>🚗</p>
                 <b className="text-dark"> الطلبات</b>
               </Link>
             </li>
 
             <li className="nav-item rounded text flex-grow-1 m-0">
               <Link className={normalStyle} to="/client_cart">
-                <p>🚗</p>
+                <p>🛒</p>
                 <b className="text-dark"> السلة</b>
               </Link>
             </li>
             <li className="nav-item rounded text flex-grow-1 m-0">
               <Link className={normalStyle} to="/client_profile">
-                <p>🚗</p>
+                <p>🧑‍🦲</p>
                 <b className="text-dark"> الملف</b>
               </Link>
             </li>

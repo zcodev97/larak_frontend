@@ -56,8 +56,8 @@ function ClientOrdersPage() {
             <thead>
               <tr>
                 <td>تاريخ الطلب</td>
-                <td>السعر</td>
-                <td>الكمية</td>
+                <td>السعر الكلي </td>
+
                 <td>المنتج</td>
               </tr>
             </thead>
@@ -66,8 +66,14 @@ function ClientOrdersPage() {
                 <tr>
                   <td>{FormatDateTime(i.created_at)}</td>
 
-                  <td>{i.price * i.amount}</td>
-                  <td>{i.amount}</td>
+                  <td>
+                    {(i.price * i.amount).toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "IQD",
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 2,
+                    })}
+                  </td>
 
                   <td>{i.product}</td>
                 </tr>

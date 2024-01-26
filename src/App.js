@@ -11,6 +11,11 @@ import ClientProductsPage from "./pages/client/products";
 import ClientCartPage from "./pages/client/cart";
 import ClientOrdersPage from "./pages/client/orders";
 import ClientProfilePage from "./pages/client/profile";
+import ClientCategoriesPage from "./pages/client/cateogries";
+import ProductsCategoryPage from "./pages/client/products_category";
+import ProductDetailsPage from "./pages/client/product_details";
+import AdminOrdersPage from "./pages/admin/orders";
+import AdminOrderDetailsPage from "./pages/admin/order_details";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -89,14 +94,29 @@ function App() {
                 }
               />
 
+              {/* admin */}
+              <Route path="/admin_orders" element={<AdminOrdersPage />} />
+              <Route
+                path="/admin_order_details"
+                element={<AdminOrderDetailsPage />}
+              />
+
               {/* clients */}
               <Route path="/client_products" element={<ClientProductsPage />} />
+              <Route path="/product_details" element={<ProductDetailsPage />} />
               <Route path="/client_cart" element={<ClientCartPage />} />
               <Route path="/client_orders" element={<ClientOrdersPage />} />
               <Route path="/client_profile" element={<ClientProfilePage />} />
               {/*  */}
 
-              <Route path="/categories" element={<CategoriesPage />} />
+              <Route
+                path="/client_cateogries"
+                element={<ClientCategoriesPage />}
+              />
+              <Route
+                path="/client_products_cateogry"
+                element={<ProductsCategoryPage />}
+              />
               <Route path="/users" element={<UsersPage />} />
 
               <Route path="/login" element={<LoginPage />} />
@@ -106,7 +126,7 @@ function App() {
           </BrowserRouter>
         </div>
       ) : (
-        <div className="container text-center text-danger ">
+        <div className="container text-center text-danger border rounded  mt-4">
           <h1> لايوجد اتصال انترنت</h1>
         </div>
       )}

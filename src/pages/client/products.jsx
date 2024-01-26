@@ -8,80 +8,6 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
 function ClientProductsPage() {
-  const columns = [
-    {
-      dataField: "amount",
-      text: "الكمية المتوفرة",
-      sort: true,
-      filter: textFilter(),
-    },
-    {
-      dataField: "profit",
-      text: "الربح",
-      sort: true,
-      filter: textFilter(),
-    },
-    {
-      dataField: "cost",
-      text: "سعر الشراء",
-      sort: true,
-      filter: textFilter(),
-    },
-
-    {
-      dataField: "price",
-      text: "سعر البيع",
-      sort: true,
-      filter: textFilter(),
-    },
-    {
-      dataField: "category",
-      text: "الصنف",
-      sort: true,
-      filter: textFilter(),
-    },
-    {
-      dataField: "description",
-      text: "تفاصيل المنتج",
-      sort: true,
-      filter: textFilter(),
-    },
-
-    {
-      dataField: "title",
-      text: "الاسم",
-      sort: true,
-      filter: textFilter(),
-    },
-  ];
-
-  const rowEvents = {
-    onClick: (e, row, rowIndex) => {
-      navigate("/inner_legan_record_details", {
-        state: {
-          id: row.id,
-          name: row.name,
-          members: row.members,
-          order_number: row.order_number,
-          advices: row.advices,
-          legna_steps: row.legna_steps,
-          legna_date_end: row.legna_date_end,
-        },
-      });
-    },
-  };
-
-  const pagination = paginationFactory({
-    page: 1,
-    sizePerPage: 15,
-    lastPageText: ">>",
-    firstPageText: "<<",
-    nextPageText: ">",
-    prePageText: "<",
-    showTotal: true,
-    alwaysShowAllBtns: true,
-  });
-
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -133,37 +59,53 @@ function ClientProductsPage() {
       <NavBar />
       <div className="container-fluid text-center">
         <h3 className="p-3 ">
-          <b> المنتجات </b>
+          <b> الصفحة الرئيسية </b>
         </h3>
 
         <div className="grid-container">
           {data.map((product) => (
             <div className="grid-item" key={product.id}>
-              <img
-                src={product.image}
-                alt={product.title}
-                width={300}
-                height={300}
-              />
-              <br />
-              <b className="border rounded m-2">{product.title}</b>
-              <br />
-              <b>{product.category}</b>
-              <br />
-              <b>{product.description}</b>
-              <br />
-              <b>
-                {product.price.toLocaleString("en-US", {
-                  style: "currency",
-                  currency: "IQD",
-                  minimumFractionDigits: 0,
-                  maximumFractionDigits: 2,
-                })}
-              </b>{" "}
-              <br />
+              <div
+                className="container"
+                onClick={() => {
+                  navigate("/product_details", {
+                    state: {
+                      id: product.id,
+                      cateogry: product.cateogry,
+                      image: product.image,
+                      title: product.title,
+                      description: product.description,
+                      price: product.price,
+                    },
+                  });
+                }}
+              >
+                <img
+                  src={product.image}
+                  alt={product.title}
+                  style={{ width: "auto", height: "100px" }}
+                />
+                <br />
+                <b className="mb-2">{product.title}</b>
+                {/* <br />
+              <b>{product.category}</b> */}
+                {/* <br /> */}
+                {/* <b>{product.description}</b> */}
+                <br />
+                <b className="mb-2">
+                  {product.price.toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "IQD",
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 2,
+                  })}
+                </b>{" "}
+                <br />
+              </div>
+
               {/* Add more product details here */}
               <div
-                className="btn btn-success"
+                className="btn btn-warning"
                 onClick={() => {
                   if (window.cart === undefined) {
                     window.cart = [];
@@ -184,7 +126,37 @@ function ClientProductsPage() {
                   navigate("/client_products", { replace: true });
                 }}
               >
-                اضافة للسلة
+                {window.cart === undefined
+                  ? ""
+                  : window.cart.find((i) => i.id === product.id)?.amount ?? 0}
+                {"  "} <b> + </b>
+              </div>
+              <div
+                className="btn btn-warning"
+                onClick={() => {
+                  if (window.cart === undefined) {
+                    window.cart = [];
+                  }
+                  // Check if the item already exists in the cart
+                  const existingItem = window.cart.find(
+                    (cartItem) => cartItem.id === product.id
+                  );
+
+                  if (existingItem) {
+                    // Item already exists, increase the quantity
+                    existingItem.amount += 1;
+                  } else {
+                    // Item does not exist, add to cart with a quantity of 1
+                    window.cart.push({ ...product, amount: 1 });
+                  }
+
+                  navigate("/client_products", { replace: true });
+                }}
+              >
+                {window.cart === undefined
+                  ? 0
+                  : window.cart.find((i) => i.id === product.id)?.amount ?? 0}
+                {"  "} <b> - </b>
               </div>
             </div>
           ))}
