@@ -13,15 +13,6 @@ function ProductsCategoryPage() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  async function loadData() {
-    setLoading(true);
-    console.log(location.state.d);
-    setLoading(false);
-  }
-
-  useEffect(() => {
-    loadData();
-  }, []);
   return (
     <>
       <NavBar />
@@ -30,71 +21,115 @@ function ProductsCategoryPage() {
           <b> المنتجات </b>
         </h3>
 
-        <div className="grid-container">
-          {loading ? (
-            <Loading />
-          ) : (
-            location.state.d.map((product) => (
-              <div className="grid-item" key={product.id}>
-                <div className="container">
+        {loading ? (
+          <Loading />
+        ) : (
+          location.state.d?.map((product) => (
+            <div className="container" key={product.id}>
+              <div className="container mb-2">
+                <div className="container-fluid d-flex">
                   <img
+                    className="rounded"
+                    onClick={() => {
+                      navigate("/product_details", {
+                        state: {
+                          id: product.id,
+                          cateogry: product.cateogry,
+                          image: product.image,
+                          title: product.title,
+                          description: product.description,
+                          price: product.price,
+                        },
+                      });
+                    }}
                     src={product.image}
                     alt={product.title}
-                    style={{ width: "auto", height: "100px" }}
+                    style={{ width: "25%", height: "50%" }}
                   />
-                </div>
-                <br />
-                <b className="border rounded m-2">{product.title}</b>
-                {/* <br />
-              <b>{product.category}</b> */}
-                {/* <br /> */}
-                {/* <b>{product.description}</b> */}
-                <br />
-                <b>
-                  {product.price.toLocaleString("en-US", {
-                    style: "currency",
-                    currency: "IQD",
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 2,
-                  })}
-                </b>{" "}
-                <br />
-                {/* Add more product details here */}
-                <div
-                  className="btn btn-success"
-                  onClick={() => {
-                    if (window.cart === undefined) {
-                      window.cart = [];
-                    }
-                    // Check if the item already exists in the cart
-                    const existingItem = window.cart.find(
-                      (cartItem) => cartItem.id === product.id
-                    );
+                  <b className="m-3 text-start" style={{ fontSize: "16px" }}>
+                    {product.title.length > 10
+                      ? product.title.substring(0, 10)
+                      : product.title}
+                    <br />
+                    {product.price.toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "IQD",
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 2,
+                    })}{" "}
+                  </b>
+                  <br />
+                  <div className="container text-end">
+                    <div
+                      className="btn btn-light "
+                      style={{
+                        color: "#ff8000",
+                        border: "solid",
+                        borderWidth: "2px",
+                      }}
+                      onClick={() => {
+                        if (window.cart === undefined) {
+                          window.cart = [];
+                        }
+                        // Check if the item already exists in the cart
+                        const existingItem = window.cart.find(
+                          (cartItem) => cartItem.id === product.id
+                        );
 
-                    if (existingItem) {
-                      // Item already exists, increase the quantity
-                      existingItem.amount += 1;
-                    } else {
-                      // Item does not exist, add to cart with a quantity of 1
-                      window.cart.push({ ...product, amount: 1 });
-                    }
+                        if (existingItem) {
+                          // Item already exists, increase the quantity
+                          existingItem.amount += 1;
+                        } else {
+                          // Item does not exist, add to cart with a quantity of 1
+                          window.cart.push({ ...product, amount: 1 });
+                        }
 
-                    navigate("/client_products_cateogry", {
-                      state: {
-                        d: location.state.d,
-                      },
-                    });
-                  }}
-                >
-                  {window.cart === undefined
-                    ? 0
-                    : window.cart.find((i) => i.id === product.id)?.amount ?? 0}
-                  {"  "} اضافة للسلة
+                        navigate("/client_products", { replace: true });
+                      }}
+                    >
+                      <b style={{ fontSize: "20px" }}> + </b>
+                    </div>
+                    <b className="m-2" style={{ fontSize: "16px" }}>
+                      {window.cart === undefined
+                        ? []
+                        : window.cart.find((i) => i.id === product.id)
+                            ?.amount ?? 0}
+                    </b>
+                    <div
+                      className="btn btn-light"
+                      style={{
+                        color: "#ff8000",
+                        border: "solid",
+                        borderWidth: "2px",
+                      }}
+                      onClick={() => {
+                        if (window.cart === undefined) {
+                          window.cart = [];
+                        }
+                        // Check if the item already exists in the cart
+                        const existingItem = window?.cart.find(
+                          (cartItem) => cartItem.id === product.id
+                        );
+
+                        if (existingItem) {
+                          if (existingItem.amount === 0) {
+                          } else {
+                            // Item already exists, increase the quantity
+                            existingItem.amount -= 1;
+                          }
+                        }
+                        navigate("/client_products", { replace: true });
+                      }}
+                    >
+                      <b style={{ fontSize: "20px" }}> - </b>
+                    </div>
+                  </div>
                 </div>
+                <hr />
               </div>
-            ))
-          )}
-        </div>
+            </div>
+          ))
+        )}
       </div>
     </>
   );

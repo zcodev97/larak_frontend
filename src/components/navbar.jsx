@@ -25,16 +25,14 @@ function NavBar() {
           marginRight: "-10px",
         }}
       >
-        <div
-          className="container-fluid d-flex justify-content-around"
-          style={{ marginTop: "20px" }}
-        >
+        <div className="container-fluid d-flex justify-content-around">
           {/* Start of the navbar links */}
           <ul className="navbar-nav d-flex flex-row w-100">
             <li className="nav-item flex-grow-1 text-center m-0">
               <Link className={normalStyle} to="/client_products">
-                <p>🏠</p>
-                <b className="text-dark">الصفحة الرئيسية</b>
+                <p style={{ color: "#ff8000" }}>
+                  <i className="fa fa-home  fa-4x" aria-hidden="true"></i>
+                </p>
               </Link>
             </li>
 
@@ -47,31 +45,42 @@ function NavBar() {
 
             <li className="nav-item rounded text flex-grow-1 m-0">
               <Link className={normalStyle} to="/client_cateogries">
-                <p>🦪</p>
-                <b className="text-danger"> التصنيفات</b>
+                <p style={{ color: "#ff8000" }}>
+                  <i class="fa fa-puzzle-piece fa-4x" aria-hidden="true"></i>
+                </p>
               </Link>
             </li>
 
             <li className="nav-item rounded text flex-grow-1 m-0">
               <Link
                 className={normalStyle}
-                to={window.groups === 5 ? "/admin_orders" : "/client_orders"}
+                to={
+                  "/client_orders"
+                  // window.groups === 5 ?
+
+                  // "/admin_orders" :
+
+                  // "/client_orders"
+                }
               >
-                <p>🚗</p>
-                <b className="text-dark"> الطلبات</b>
+                <p style={{ color: "#ff8000" }}>
+                  <i class="fa fa-history fa-4x" aria-hidden="true"></i>
+                </p>
               </Link>
             </li>
 
             <li className="nav-item rounded text flex-grow-1 m-0">
               <Link className={normalStyle} to="/client_cart">
-                <p>🛒</p>
-                <b className="text-dark"> السلة</b>
+                <p style={{ color: "#ff8000" }}>
+                  <i class="fa fa-shopping-cart fa-4x" aria-hidden="true"></i>
+                </p>
               </Link>
             </li>
             <li className="nav-item rounded text flex-grow-1 m-0">
               <Link className={normalStyle} to="/client_profile">
-                <p>🧑‍🦲</p>
-                <b className="text-dark"> الملف</b>
+                <p style={{ color: "#ff8000" }}>
+                  <i class="fa fa-user fa-4x" aria-hidden="true"></i>
+                </p>
               </Link>
             </li>
             {/* <li className="nav-item rounded text flex-grow-1 m-0">

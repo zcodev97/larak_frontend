@@ -9,7 +9,7 @@
 }
 
 .grid-item {
-  border: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
   border-radius: 8px;
   padding: 8px;
   text-align: center;

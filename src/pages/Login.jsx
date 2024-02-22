@@ -35,9 +35,12 @@ function LoginPage() {
         window.groups = data.user.groups[0];
         localStorage.setItem("token", data.access);
         localStorage.setItem("username", data.user.username);
+        localStorage.setItem("username_id", data.user.id);
         localStorage.setItem("first_name", data.user.first_name);
         localStorage.setItem("last_name", data.user.last_name);
         localStorage.setItem("email", data.user.email);
+        localStorage.setItem("phone", data.user.phone);
+        localStorage.setItem("user_type", data.user.user_type);
 
         // navigate("/home", { replace: true });
       })
@@ -104,9 +107,9 @@ function LoginPage() {
         <div className="container p-4     text-center text-dark">
           <div
             className="container pt-4 pb-4 mb-4 rounded-circle"
-            style={{ color: "#ff8000" }}
+            style={{ color: "#ff8000", fontSize: "50px" }}
           >
-            <h1>Larak</h1>
+            <b>Larak</b>
           </div>
           <div className="row d-flex justify-content-center align-items-center p-4 m-1">
             <div className="col-md-6 m-1">
@@ -114,7 +117,11 @@ function LoginPage() {
                 <input
                   type="text"
                   className="form-control text-center"
-                  style={{ backgroundColor: "#e6e6e6" }}
+                  style={{
+                    backgroundColor: "#e6e6e6",
+                    fontSize: "20px",
+                    padding: "20px",
+                  }}
                   id="email"
                   placeholder="أسم المستخدم"
                   name="email"
@@ -122,12 +129,19 @@ function LoginPage() {
                 />
               </div>
             </div>
+
             <div className="col-md-6 m-1">
               <div className="container-fluid">
                 <input
                   type="password"
                   className="form-control text-center"
-                  style={{ backgroundColor: "#e6e6e6" }}
+                  style={{
+                    backgroundColor: "#e6e6e6",
+                    fontSize: "20px",
+                    padding: "20px",
+                    marginBottom: "20px",
+                    marginTop: "20px",
+                  }}
                   id="pwd"
                   placeholder="كلمة السر"
                   name="pswd"
@@ -135,11 +149,12 @@ function LoginPage() {
                 />
               </div>
             </div>
+            <hr />
           </div>
 
           <button
-            className="btn border rounded border-2 p-2"
-            style={{ color: "#ff8000" }}
+            className="btn   rounded-circle border border-1 p-4"
+            style={{ color: "#ff8000", fontSize: "20px" }}
             onClick={() => {
               checkIfUsernameAndPasswordIsCorrect();
             }}
@@ -147,7 +162,7 @@ function LoginPage() {
               checkIfUsernameAndPasswordIsCorrect();
             }}
           >
-            <b> دخول</b>
+            <b style={{ fontWeight: "bold" }}> دخول</b>
           </button>
         </div>
       </form>

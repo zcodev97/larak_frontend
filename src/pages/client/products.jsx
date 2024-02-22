@@ -13,8 +13,40 @@ function ClientProductsPage() {
 
   // Retrieve the string from the local storage
   var storedCategories = localStorage.getItem("categories");
+  const [data, setData] = useState();
 
-  const [data, setData] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  async function loadCategories() {
+    setLoading(true);
+    await fetch(Larak_System_URL + "categories/", {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.detail === "Given token not valid for any token type") {
+          navigate("/login", { replace: true });
+          return;
+        }
+        if (data.detail) {
+          alert(data.detail);
+          return;
+        }
+
+        setCategories(data);
+      })
+      .catch((error) => {
+        alert(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
 
   async function loadData() {
     setLoading(true);
@@ -53,114 +85,243 @@ function ClientProductsPage() {
 
   useEffect(() => {
     loadData();
+    loadCategories();
   }, []);
   return (
     <>
       <NavBar />
-      <div className="container-fluid text-center">
-        <h3 className="p-3 ">
-          <b> الصفحة الرئيسية </b>
-        </h3>
-
-        <div className="grid-container">
-          {data.map((product) => (
-            <div className="grid-item" key={product.id}>
-              <div
-                className="container"
-                onClick={() => {
-                  navigate("/product_details", {
-                    state: {
-                      id: product.id,
-                      cateogry: product.cateogry,
-                      image: product.image,
-                      title: product.title,
-                      description: product.description,
-                      price: product.price,
-                    },
-                  });
-                }}
-              >
-                <img
-                  src={product.image}
-                  alt={product.title}
-                  style={{ width: "auto", height: "100px" }}
+      <div
+        className="container-fluid text-center"
+        style={{
+          float: "right",
+          overflowY: "scroll",
+          overflow: "auto",
+          height: window.innerHeight - 50,
+        }}
+      >
+        <div
+          id="carouselExampleIndicators"
+          className="carousel slide"
+          data-bs-ride="carousel"
+        >
+          <div className="carousel-indicators bg-dark rounded">
+            {data
+              ?.filter((product) => product.on_banner)
+              .map((product, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  data-bs-target="#carouselExampleIndicators"
+                  data-bs-slide-to={index}
+                  className={index === 0 ? "active" : ""}
+                  aria-current={index === 0 ? "true" : ""}
+                  aria-label={`Slide ${index + 1}`}
                 />
-                <br />
-                <b className="mb-2">{product.title}</b>
-                {/* <br />
-              <b>{product.category}</b> */}
-                {/* <br /> */}
-                {/* <b>{product.description}</b> */}
-                <br />
-                <b className="mb-2">
-                  {product.price.toLocaleString("en-US", {
-                    style: "currency",
-                    currency: "IQD",
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 2,
-                  })}
-                </b>{" "}
-                <br />
+              ))}
+          </div>
+          <div className="carousel-inner">
+            {data
+              ?.filter((product) => product.on_banner)
+              .map((product, index) => (
+                <div
+                  key={product.id}
+                  className={`carousel-item ${index === 0 ? "active" : ""}`}
+                >
+                  <img
+                    onClick={() => {
+                      navigate("/product_details", {
+                        state: {
+                          id: product.id,
+                          cateogry: product.cateogry,
+                          image: product.image,
+                          title: product.title,
+                          description: product.description,
+                          price: product.price,
+                        },
+                      });
+                    }}
+                    className="d-block w-100 rounded m-2"
+                    src={product?.image}
+                    alt={product?.title}
+                    height={250}
+                    width={250}
+                  />
+                </div>
+              ))}
+          </div>
+          <button
+            className="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="prev"
+          >
+            <span
+              className="carousel-control-prev-icon bg-dark rounded p-4"
+              aria-hidden="true"
+            />
+            <span className="visually-hidden">Previous</span>
+          </button>
+          <button
+            className="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="next"
+          >
+            <span
+              className="carousel-control-next-icon bg-dark rounded p-4"
+              aria-hidden="true"
+            />
+            <span className="visually-hidden">Next</span>
+          </button>
+        </div>
+
+        {/* categories section */}
+        <hr />
+
+        <div className="container d-flex" style={{ overflowX: "auto" }}>
+          {categories
+            ?.filter((product) => product.on_home_screen)
+            .map((item) => (
+              <div className="container w-100" key={item.id}>
+                <div
+                  className="container w-100 bg-light rounded mt-2  text-dark  "
+                  onClick={() => {
+                    let data = window.products?.filter(
+                      (i) => i.category === item.title
+                    );
+                    navigate("/client_products_cateogry", {
+                      state: {
+                        d: data,
+                      },
+                    });
+                  }}
+                >
+                  <div className="container rounded p-3">
+                    <b
+                      style={{
+                        fontSize: "20px",
+                        color: "#ff8000",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {" "}
+                      {item.title}
+                    </b>
+                  </div>
+                </div>
               </div>
+            ))}
+        </div>
 
-              {/* Add more product details here */}
-              <div
-                className="btn btn-warning"
-                onClick={() => {
-                  if (window.cart === undefined) {
-                    window.cart = [];
-                  }
-                  // Check if the item already exists in the cart
-                  const existingItem = window.cart.find(
-                    (cartItem) => cartItem.id === product.id
-                  );
+        <hr />
+        {/* products section */}
+        {data
+          ?.filter((product) => product.on_home_screen)
+          .map((product) => (
+            <div className="container" key={product.id}>
+              <div className="container mb-2">
+                <div className="container-fluid d-flex">
+                  <img
+                    className="rounded"
+                    onClick={() => {
+                      navigate("/product_details", {
+                        state: {
+                          id: product.id,
+                          cateogry: product.cateogry,
+                          image: product.image,
+                          title: product.title,
+                          description: product.description,
+                          price: product.price,
+                        },
+                      });
+                    }}
+                    src={product.image}
+                    alt={product.title}
+                    style={{ width: "25%", height: "50%" }}
+                  />
+                  <b className="m-3 text-start" style={{ fontSize: "16px" }}>
+                    {product.title.length > 16
+                      ? product.title.substring(0, 16)
+                      : product.title}
+                    <br />
+                    {product.price.toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "IQD",
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 2,
+                    })}{" "}
+                  </b>
+                  <br />
+                  <div className="container text-end">
+                    <div
+                      className="btn btn-light "
+                      style={{
+                        color: "#ff8000",
+                        border: "solid",
+                        borderWidth: "2px",
+                      }}
+                      onClick={() => {
+                        if (window.cart === undefined) {
+                          window.cart = [];
+                        }
+                        // Check if the item already exists in the cart
+                        const existingItem = window.cart.find(
+                          (cartItem) => cartItem.id === product.id
+                        );
 
-                  if (existingItem) {
-                    // Item already exists, increase the quantity
-                    existingItem.amount += 1;
-                  } else {
-                    // Item does not exist, add to cart with a quantity of 1
-                    window.cart.push({ ...product, amount: 1 });
-                  }
+                        if (existingItem) {
+                          // Item already exists, increase the quantity
+                          existingItem.amount += 1;
+                        } else {
+                          // Item does not exist, add to cart with a quantity of 1
+                          window.cart.push({ ...product, amount: 1 });
+                        }
 
-                  navigate("/client_products", { replace: true });
-                }}
-              >
-                {window.cart === undefined
-                  ? ""
-                  : window.cart.find((i) => i.id === product.id)?.amount ?? 0}
-                {"  "} <b> + </b>
-              </div>
-              <div
-                className="btn btn-warning"
-                onClick={() => {
-                  if (window.cart === undefined) {
-                    window.cart = [];
-                  }
-                  // Check if the item already exists in the cart
-                  const existingItem = window.cart.find(
-                    (cartItem) => cartItem.id === product.id
-                  );
+                        navigate("/client_products", { replace: true });
+                      }}
+                    >
+                      <b style={{ fontSize: "20px" }}> + </b>
+                    </div>
+                    <b className="m-2" style={{ fontSize: "16px" }}>
+                      {window.cart === undefined
+                        ? []
+                        : window.cart.find((i) => i.id === product.id)
+                            ?.amount ?? 0}
+                    </b>
+                    <div
+                      className="btn btn-light"
+                      style={{
+                        color: "#ff8000",
+                        border: "solid",
+                        borderWidth: "2px",
+                      }}
+                      onClick={() => {
+                        if (window.cart === undefined) {
+                          window.cart = [];
+                        }
+                        // Check if the item already exists in the cart
+                        const existingItem = window?.cart.find(
+                          (cartItem) => cartItem.id === product.id
+                        );
 
-                  if (existingItem) {
-                    // Item already exists, increase the quantity
-                    existingItem.amount += 1;
-                  } else {
-                    // Item does not exist, add to cart with a quantity of 1
-                    window.cart.push({ ...product, amount: 1 });
-                  }
-
-                  navigate("/client_products", { replace: true });
-                }}
-              >
-                {window.cart === undefined
-                  ? 0
-                  : window.cart.find((i) => i.id === product.id)?.amount ?? 0}
-                {"  "} <b> - </b>
+                        if (existingItem) {
+                          if (existingItem.amount === 0) {
+                          } else {
+                            // Item already exists, increase the quantity
+                            existingItem.amount -= 1;
+                          }
+                        }
+                        navigate("/client_products", { replace: true });
+                      }}
+                    >
+                      <b style={{ fontSize: "20px" }}> - </b>
+                    </div>
+                  </div>
+                </div>
+                <hr />
               </div>
             </div>
           ))}
-        </div>
       </div>
     </>
   );

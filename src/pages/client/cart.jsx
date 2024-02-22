@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NavBar from "../../components/navbar";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -12,51 +12,55 @@ function ClientCartPage() {
   async function orderItems() {
     setLoading(true);
 
-    window.cart.map(async (i) => {
-      await fetch(Larak_System_URL + "client_submit_order/", {
-        method: "POST",
-        headers: {
-          accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify({
-          amount: i.amount,
-          status: {
-            client_order: {
-              date: Date.now(),
-              location: "test",
-            },
-            admin_action: {},
-            biker_action: {},
-            order_recevied: "",
-          },
-          client: window.username_id,
-          product: i.id,
-        }),
+    console.log(
+      JSON.stringify({
+        client: window.username_id,
       })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.detail === "Given token not valid for any token type") {
-            navigate("/login", { replace: true });
-            return;
-          }
-          if (data.detail) {
-            alert(data.detail);
-            return;
-          }
-        })
-        .catch((error) => {
-          alert(error);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    });
+    );
+
+    await fetch(Larak_System_URL + "client_submit_order/", {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify({
+        client: localStorage.getItem("username_id"),
+        cart: window.cart,
+        status: {
+          client_order: {
+            date: Date.now(),
+            location: "test",
+          },
+        },
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.detail === "Given token not valid for any token type") {
+          navigate("/login", { replace: true });
+          return;
+        }
+        if (data.detail) {
+          alert(data.detail);
+          return;
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
     window.cart = undefined;
     setLoading(false);
     navigate("/client_orders", { replace: true });
   }
+
+  useEffect(() => {
+    window.cart = window.cart?.filter((i) => i.amount > 0);
+  }, []);
 
   return (
     <>
@@ -64,25 +68,59 @@ function ClientCartPage() {
       {loading ? (
         "loading"
       ) : window.cart === undefined ? (
-        <div className="container text-center mt-4">
-          <h3> اضف منتجات للسلة</h3>
+        <div
+          className="container text-center mt-4"
+          style={{ fontSize: "24px", fontWeight: "bold" }}
+        >
+          <p> اضف منتجات للسلة</p>
         </div>
       ) : (
         <div className="container-fluid">
           <table className="table table-striped text-center">
-            <thead>
+            <thead style={{ fontSize: "16px", fontWeight: "bold" }}>
               <tr>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+
                 <td>السعر</td>
 
-                <td> </td>
                 <td>الكمية</td>
                 <td>المنتج</td>
-                <td> </td>
               </tr>
             </thead>
-            <tbody>
+            <tbody style={{ fontSize: "16px" }}>
               {window.cart.map((i) => (
                 <tr>
+                  <td
+                    onClick={() => {
+                      navigate("/client_cart", { replace: true });
+                      i.amount += 1;
+                    }}
+                    style={{
+                      color: "#ff8000",
+                      fontSize: "24px",
+                    }}
+                  >
+                    <b> +</b>
+                  </td>
+                  <td></td>
+                  <td
+                    onClick={() => {
+                      navigate("/client_cart", { replace: true });
+                      if (i.amount === 0) {
+                      } else {
+                        i.amount -= 1;
+                      }
+                    }}
+                    style={{
+                      color: "#ff8000",
+                      fontSize: "24px",
+                    }}
+                  >
+                    <b> - </b>
+                  </td>
+
                   <td>
                     {(i.price * i.amount).toLocaleString("en-US", {
                       style: "currency",
@@ -91,26 +129,11 @@ function ClientCartPage() {
                       maximumFractionDigits: 2,
                     })}
                   </td>
-                  <td
-                    className="btn bg-success text-light m-1"
-                    onClick={() => {
-                      navigate("/client_cart", { replace: true });
-                      i.amount += 1;
-                    }}
-                  >
-                    +
-                  </td>
-                  <td
-                    className="btn bg-danger text-light m-1"
-                    onClick={() => {
-                      navigate("/client_cart", { replace: true });
-                      i.amount -= 1;
-                    }}
-                  >
-                    -
-                  </td>
+
                   <td>{i.amount}</td>
-                  <td>{i.title}</td>
+                  <td>
+                    {i.title.length > 16 ? i.title.substring(0, 16) : i.title}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -127,8 +150,9 @@ function ClientCartPage() {
                   alert("تم الغاء العملية");
                 }
               }}
+              style={{ fontSize: "24px" }}
             >
-              طلب
+              <b>طلب</b>
             </div>
           </div>
         </div>

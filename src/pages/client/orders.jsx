@@ -53,29 +53,23 @@ function ClientOrdersPage() {
       ) : (
         <div className="container-fluid">
           <table className="table table-striped text-center">
-            <thead>
+            <thead style={{ fontSize: "16px" }}>
               <tr>
                 <td>تاريخ الطلب</td>
-                <td>السعر الكلي </td>
 
-                <td>المنتج</td>
+                <td>السلة</td>
               </tr>
             </thead>
-            <tbody>
+            <tbody style={{ fontSize: "16px" }}>
               {data.reverse().map((i) => (
                 <tr>
                   <td>{FormatDateTime(i.created_at)}</td>
 
                   <td>
-                    {(i.price * i.amount).toLocaleString("en-US", {
-                      style: "currency",
-                      currency: "IQD",
-                      minimumFractionDigits: 0,
-                      maximumFractionDigits: 2,
-                    })}
+                    {i.cart?.map((i) => (
+                      <div className="cotnainer">{i.title}</div>
+                    ))}
                   </td>
-
-                  <td>{i.product}</td>
                 </tr>
               ))}
             </tbody>

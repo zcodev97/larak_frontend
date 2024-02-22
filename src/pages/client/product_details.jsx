@@ -12,7 +12,10 @@ function ProductDetailsPage() {
   return (
     <>
       <NavBar />
-      <div className="container-fluid text-center">
+      <div
+        className="container-fluid text-center"
+        style={{ height: "1000px", overflowY: "scroll" }}
+      >
         <h3 className="p-3 ">
           <b> تفاصيل المنتج </b>
         </h3>
@@ -22,14 +25,16 @@ function ProductDetailsPage() {
             <img
               className="rounded"
               src={location.state.image}
-              style={{ width: "300px", height: "auto" }}
+              style={{ width: "300px", height: "300px" }}
               alt=""
             />
           </div>
           <hr />
           <h3>{location.state.title}</h3>
           <br />
-          <h3>{location.state.description}</h3>
+          <div className="container">
+            <p>{location.state.description}</p>
+          </div>
           <hr />
           <h3>
             {location.state.price.toLocaleString("en-US", {
