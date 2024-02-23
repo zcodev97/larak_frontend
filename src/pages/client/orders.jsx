@@ -31,6 +31,7 @@ function ClientOrdersPage() {
           alert(data.detail);
           return;
         }
+        console.log(data);
         setData(data);
       })
       .catch((error) => {
@@ -51,25 +52,35 @@ function ClientOrdersPage() {
       {loading ? (
         "loading"
       ) : (
-        <div className="container-fluid">
+        <div
+          className="container-fluid"
+          style={{ height: window.innerHeight - 85, overflowY: "auto" }}
+        >
           <table className="table table-striped text-center">
             <thead style={{ fontSize: "16px" }}>
               <tr>
+                <td>حالة الطلب</td>
                 <td>تاريخ الطلب</td>
 
                 <td>السلة</td>
+                <td>رقم الطلب</td>
               </tr>
             </thead>
             <tbody style={{ fontSize: "16px" }}>
               {data.reverse().map((i) => (
-                <tr>
+                <tr className="text-center">
+                  <td>{Object.keys(i?.status[0])}</td>
                   <td>{FormatDateTime(i.created_at)}</td>
 
-                  <td>
+                  <td className="text-end">
                     {i.cart?.map((i) => (
-                      <div className="cotnainer">{i.title}</div>
+                      <div className="container d-flex text-end">
+                        <p className="pr-2 text-end">{i.amount}</p>
+                        <p>{i.title}</p>
+                      </div>
                     ))}
                   </td>
+                  <td>{i.order_id}</td>
                 </tr>
               ))}
             </tbody>

@@ -16,7 +16,10 @@ function ProductsCategoryPage() {
   return (
     <>
       <NavBar />
-      <div className="container-fluid text-center">
+      <div
+        className="container-fluid text-center"
+        style={{ height: window.innerHeight - 85, overflowY: "auto" }}
+      >
         {loading ? (
           <Loading />
         ) : (

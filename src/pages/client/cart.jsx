@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import NavBar from "../../components/navbar";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { Larak_System_URL } from "../../globals";
+import { FormatDateTime, Larak_System_URL } from "../../globals";
+import { v4 as uuidv4 } from "uuid";
 
 function ClientCartPage() {
   const navigate = useNavigate();
@@ -10,14 +11,26 @@ function ClientCartPage() {
   const [loading, setLoading] = useState(false);
   const [cart, setCart] = useState();
 
+  function generateOrderId() {
+    // Customize the prefix or length as needed
+    const uniqueId = uuidv4().replace(/-/g, "").substring(0, 6); // Extract 6 characters from the UUID
+    return String(uniqueId);
+  }
+
   async function orderItems() {
     setLoading(true);
+    let orderId = generateOrderId();
 
-    console.log(
-      JSON.stringify({
-        client: window.username_id,
-      })
-    );
+    let dataTosend = JSON.stringify({
+      client: localStorage.getItem("username_id"),
+      cart: window.cart,
+      status: [
+        {
+          ordered: new Date(),
+        },
+      ],
+      order_id: orderId,
+    });
 
     await fetch(Larak_System_URL + "client_submit_order/", {
       method: "POST",
@@ -26,16 +39,7 @@ function ClientCartPage() {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-      body: JSON.stringify({
-        client: localStorage.getItem("username_id"),
-        cart: window.cart,
-        status: {
-          client_order: {
-            date: Date.now(),
-            location: "test",
-          },
-        },
-      }),
+      body: dataTosend,
     })
       .then((response) => response.json())
       .then((data) => {
@@ -78,7 +82,10 @@ function ClientCartPage() {
           <p> اضف منتجات للسلة</p>
         </div>
       ) : (
-        <div className="container-fluid">
+        <div
+          className="container-fluid"
+          style={{ height: window.innerHeight - 85, overflowY: "auto" }}
+        >
           <table className="table table-striped text-center">
             <thead style={{ fontSize: "16px", fontWeight: "bold" }}>
               <tr>

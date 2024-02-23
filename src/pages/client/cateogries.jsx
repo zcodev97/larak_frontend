@@ -53,7 +53,13 @@ function ClientCategoriesPage() {
   return (
     <>
       <NavBar />
-      <div className="container ">
+      <div
+        className="container "
+        style={{
+          height: window.innerHeight - 85,
+          overflowY: "auto",
+        }}
+      >
         {data?.map((item) => (
           <div className="container-fluid text-center">
             <div className="container w-100" key={item.id}>
@@ -70,11 +76,15 @@ function ClientCategoriesPage() {
                   });
                 }}
               >
-                <div className="container rounded p-3">
-                  <h3>
-                    {" "}
-                    <b> {item.title} </b>{" "}
-                  </h3>
+                <div
+                  className="container rounded p-3"
+                  style={{
+                    fontSize: "20px",
+                    color: "#ff8000",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {item.title}
                 </div>
               </div>
             </div>

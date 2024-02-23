@@ -14,7 +14,7 @@ function ProductDetailsPage() {
       <NavBar />
       <div
         className="container-fluid text-center"
-        style={{ height: "1000px", overflowY: "scroll" }}
+        style={{ height: window.innerHeight - 85, overflowY: "auto" }}
       >
         <h3 className="p-3 " style={{ fontSize: "26px" }}>
           <b> تفاصيل المنتج </b>

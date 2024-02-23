@@ -16,6 +16,7 @@ import ProductsCategoryPage from "./pages/client/products_category";
 import ProductDetailsPage from "./pages/client/product_details";
 import AdminOrdersPage from "./pages/admin/orders";
 import AdminOrderDetailsPage from "./pages/admin/order_details";
+import AllClientProductsPage from "./pages/client/all_products";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -102,6 +103,10 @@ function App() {
               />
 
               {/* clients */}
+              <Route
+                path="/all_client_products"
+                element={<AllClientProductsPage />}
+              />
               <Route path="/client_products" element={<ClientProductsPage />} />
               <Route path="/product_details" element={<ProductDetailsPage />} />
               <Route path="/client_cart" element={<ClientCartPage />} />

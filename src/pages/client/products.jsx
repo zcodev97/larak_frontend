@@ -94,9 +94,8 @@ function ClientProductsPage() {
         className="container-fluid text-center"
         style={{
           float: "right",
-          overflowY: "scroll",
-          overflow: "auto",
-          height: window.innerHeight - 50,
+          overflowY: "auto",
+          height: window.innerHeight - 70,
         }}
       >
         <div
@@ -215,113 +214,125 @@ function ClientProductsPage() {
 
         <hr />
         {/* products section */}
-        {data
-          ?.filter((product) => product.on_home_screen)
-          .map((product) => (
-            <div className="container" key={product.id}>
-              <div className="container mb-2">
-                <div className="container-fluid d-flex">
-                  <img
-                    className="rounded"
-                    onClick={() => {
-                      navigate("/product_details", {
-                        state: {
-                          id: product.id,
-                          cateogry: product.cateogry,
-                          image: product.image,
-                          title: product.title,
-                          description: product.description,
-                          price: product.price,
-                        },
-                      });
-                    }}
-                    src={product.image}
-                    alt={product.title}
-                    style={{ width: "25%", height: "50%" }}
-                  />
-                  <b className="m-3 text-start" style={{ fontSize: "16px" }}>
-                    {product.title.length > 16
-                      ? product.title.substring(0, 16)
-                      : product.title}
-                    <br />
-                    {product.price.toLocaleString("en-US", {
-                      style: "currency",
-                      currency: "IQD",
-                      minimumFractionDigits: 0,
-                      maximumFractionDigits: 2,
-                    })}{" "}
-                  </b>
-                  <br />
-                  <div className="container text-end">
-                    <div
-                      className="btn btn-light "
-                      style={{
-                        color: "#ff8000",
-                        border: "solid",
-                        borderWidth: "2px",
-                      }}
+        <div
+          className="container-fluid"
+          style={{ height: window.innerHeight - 100, overflowY: "auto" }}
+        >
+          {data
+            ?.filter((product) => product.on_home_screen)
+            .map((product) => (
+              <div className="container" key={product.id}>
+                <div className="container mb-2">
+                  <div className="container-fluid d-flex">
+                    <img
+                      className="rounded"
                       onClick={() => {
-                        if (window.cart === undefined) {
-                          window.cart = [];
-                        }
-                        // Check if the item already exists in the cart
-                        const existingItem = window.cart.find(
-                          (cartItem) => cartItem.id === product.id
-                        );
-
-                        if (existingItem) {
-                          // Item already exists, increase the quantity
-                          existingItem.amount += 1;
-                        } else {
-                          // Item does not exist, add to cart with a quantity of 1
-                          window.cart.push({ ...product, amount: 1 });
-                        }
-
-                        navigate("/client_products", { replace: true });
+                        navigate("/product_details", {
+                          state: {
+                            id: product.id,
+                            cateogry: product.cateogry,
+                            image: product.image,
+                            title: product.title,
+                            description: product.description,
+                            price: product.price,
+                          },
+                        });
                       }}
-                    >
-                      <b style={{ fontSize: "20px" }}> + </b>
-                    </div>
-                    <b className="m-2" style={{ fontSize: "16px" }}>
-                      {window.cart === undefined
-                        ? []
-                        : window.cart.find((i) => i.id === product.id)
-                            ?.amount ?? 0}
+                      src={product.image}
+                      alt={product.title}
+                      style={{ width: "25%", height: "50%" }}
+                    />
+                    <b className="m-3 text-start" style={{ fontSize: "16px" }}>
+                      {product.title.length > 16
+                        ? product.title.substring(0, 16)
+                        : product.title}
+                      <br />
+                      {product.price.toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "IQD",
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 2,
+                      })}{" "}
                     </b>
-                    <div
-                      className="btn btn-light"
-                      style={{
-                        color: "#ff8000",
-                        border: "solid",
-                        borderWidth: "2px",
-                      }}
-                      onClick={() => {
-                        if (window.cart === undefined) {
-                          window.cart = [];
-                        }
-                        // Check if the item already exists in the cart
-                        const existingItem = window?.cart.find(
-                          (cartItem) => cartItem.id === product.id
-                        );
-
-                        if (existingItem) {
-                          if (existingItem.amount === 0) {
-                          } else {
-                            // Item already exists, increase the quantity
-                            existingItem.amount -= 1;
+                    <br />
+                    <div className="container text-end">
+                      <div
+                        className="btn btn-light "
+                        style={{
+                          color: "#ff8000",
+                          // border: "solid",
+                          // borderWidth: "2px",
+                        }}
+                        onClick={() => {
+                          if (window.cart === undefined) {
+                            window.cart = [];
                           }
-                        }
-                        navigate("/client_products", { replace: true });
-                      }}
-                    >
-                      <b style={{ fontSize: "20px" }}> - </b>
+                          // Check if the item already exists in the cart
+                          const existingItem = window.cart.find(
+                            (cartItem) => cartItem.id === product.id
+                          );
+
+                          if (existingItem) {
+                            // Item already exists, increase the quantity
+                            existingItem.amount += 1;
+                          } else {
+                            // Item does not exist, add to cart with a quantity of 1
+                            window.cart.push({ ...product, amount: 1 });
+                          }
+
+                          navigate("/client_products", { replace: true });
+                        }}
+                      >
+                        <b style={{ fontSize: "20px" }}> + </b>
+                      </div>
+                      <b
+                        className="m-4"
+                        style={{
+                          fontSize: "16px",
+
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {window.cart === undefined
+                          ? []
+                          : window.cart.find((i) => i.id === product.id)
+                              ?.amount ?? 0}
+                      </b>
+                      <div
+                        className="btn btn-light"
+                        style={{
+                          color: "#ff8000",
+                          // border: "solid",
+                          // borderWidth: "2px",
+                        }}
+                        onClick={() => {
+                          if (window.cart === undefined) {
+                            window.cart = [];
+                          }
+                          // Check if the item already exists in the cart
+                          const existingItem = window?.cart.find(
+                            (cartItem) => cartItem.id === product.id
+                          );
+
+                          if (existingItem) {
+                            if (existingItem.amount === 0) {
+                            } else {
+                              // Item already exists, increase the quantity
+                              existingItem.amount -= 1;
+                            }
+                          }
+                          navigate("/client_products", { replace: true });
+                        }}
+                      >
+                        <b style={{ fontSize: "20px" }}> - </b>
+                      </div>
                     </div>
                   </div>
+                  <hr />
                 </div>
-                <hr />
               </div>
-            </div>
-          ))}
+            ))}
+        </div>
       </div>
     </>
   );
