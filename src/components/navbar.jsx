@@ -11,7 +11,7 @@ function NavBar() {
   const navigate = useNavigate();
 
   const [normalStyle, setnormalStyle] = useState(
-    "nav-link text-dark text-center bg-light m-0 border-end border-2"
+    "nav-link text-dark text-center  m-0 border-end border-2"
   );
 
   return (

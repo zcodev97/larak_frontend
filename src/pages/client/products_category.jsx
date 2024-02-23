@@ -17,15 +17,11 @@ function ProductsCategoryPage() {
     <>
       <NavBar />
       <div className="container-fluid text-center">
-        <h3 className="p-3 ">
-          <b> المنتجات </b>
-        </h3>
-
         {loading ? (
           <Loading />
         ) : (
           location.state.d?.map((product) => (
-            <div className="container" key={product.id}>
+            <div className="container-fluid mt-4" key={product.id}>
               <div className="container mb-2">
                 <div className="container-fluid d-flex">
                   <img
@@ -84,7 +80,11 @@ function ProductsCategoryPage() {
                           window.cart.push({ ...product, amount: 1 });
                         }
 
-                        navigate("/client_products", { replace: true });
+                        navigate("/client_products_cateogry", {
+                          state: {
+                            d: location.state.d,
+                          },
+                        });
                       }}
                     >
                       <b style={{ fontSize: "20px" }}> + </b>
@@ -118,7 +118,11 @@ function ProductsCategoryPage() {
                             existingItem.amount -= 1;
                           }
                         }
-                        navigate("/client_products", { replace: true });
+                        navigate("/client_products_cateogry", {
+                          state: {
+                            d: location.state.d,
+                          },
+                        });
                       }}
                     >
                       <b style={{ fontSize: "20px" }}> - </b>

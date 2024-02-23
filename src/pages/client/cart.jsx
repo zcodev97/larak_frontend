@@ -8,6 +8,7 @@ function ClientCartPage() {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
+  const [cart, setCart] = useState();
 
   async function orderItems() {
     setLoading(true);
@@ -59,7 +60,7 @@ function ClientCartPage() {
   }
 
   useEffect(() => {
-    window.cart = window.cart?.filter((i) => i.amount > 0);
+    setCart(window.cart);
   }, []);
 
   return (
@@ -67,7 +68,9 @@ function ClientCartPage() {
       <NavBar />
       {loading ? (
         "loading"
-      ) : window.cart === undefined ? (
+      ) : window.cart?.length === 0 ||
+        window.cart === undefined ||
+        window.cart?.filter((i) => i.amount > 0).length === 0 ? (
         <div
           className="container text-center mt-4"
           style={{ fontSize: "24px", fontWeight: "bold" }}
@@ -90,7 +93,7 @@ function ClientCartPage() {
               </tr>
             </thead>
             <tbody style={{ fontSize: "16px" }}>
-              {window.cart.map((i) => (
+              {window.cart?.map((i) => (
                 <tr>
                   <td
                     onClick={() => {
@@ -108,7 +111,9 @@ function ClientCartPage() {
                   <td
                     onClick={() => {
                       navigate("/client_cart", { replace: true });
-                      if (i.amount === 0) {
+                      if (i.amount === 1) {
+                        let index = window.cart.findIndex((x) => x.id === i.id);
+                        window.cart.splice(index, 1);
                       } else {
                         i.amount -= 1;
                       }
@@ -132,7 +137,7 @@ function ClientCartPage() {
 
                   <td>{i.amount}</td>
                   <td>
-                    {i.title.length > 16 ? i.title.substring(0, 16) : i.title}
+                    {i.title?.length > 16 ? i.title.substring(0, 16) : i.title}
                   </td>
                 </tr>
               ))}

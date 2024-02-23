@@ -9,11 +9,7 @@ function ClientProfilePage() {
 
   async function handleLogout() {
     setLoading(true);
-    localStorage.removeItem("token");
-    localStorage.removeItem("last_name");
-    localStorage.removeItem("first_name");
-    localStorage.removeItem("id");
-    localStorage.removeItem("username");
+    localStorage.clear();
     setLoading(false);
     navigate("/login", { replace: true });
   }
