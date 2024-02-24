@@ -60,7 +60,7 @@ function ClientOrdersPage() {
             <thead style={{ fontSize: "16px" }}>
               <tr>
                 <td>حالة الطلب</td>
-                <td>تاريخ الطلب</td>
+                {/* <td>تاريخ الطلب</td> */}
 
                 <td>السلة</td>
                 <td>رقم الطلب</td>
@@ -70,7 +70,7 @@ function ClientOrdersPage() {
               {data.reverse().map((i) => (
                 <tr className="text-center">
                   <td>{Object.keys(i?.status[0])}</td>
-                  <td>{FormatDateTime(i.created_at)}</td>
+                  {/* <td>{FormatDateTime(i.created_at)}</td> */}
 
                   <td className="text-end">
                     {i.cart?.map((i) => (

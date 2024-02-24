@@ -198,12 +198,11 @@ function ClientProductsPage() {
                   <div className="container rounded p-3">
                     <b
                       style={{
-                        fontSize: "20px",
+                        fontSize: "16px",
                         color: "#ff8000",
                         fontWeight: "bold",
                       }}
                     >
-                      {" "}
                       {item.title}
                     </b>
                   </div>
@@ -221,8 +220,8 @@ function ClientProductsPage() {
           {data
             ?.filter((product) => product.on_home_screen)
             .map((product) => (
-              <div className="container" key={product.id}>
-                <div className="container mb-2">
+              <div className="container-fluid" key={product.id}>
+                <div className="container-fluid mb-2">
                   <div className="container-fluid d-flex">
                     <img
                       className="rounded"
@@ -255,7 +254,7 @@ function ClientProductsPage() {
                       })}{" "}
                     </b>
                     <br />
-                    <div className="container text-end">
+                    <div className="container-fluid text-end">
                       <div
                         className="btn btn-light "
                         style={{

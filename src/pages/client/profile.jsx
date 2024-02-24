@@ -19,25 +19,61 @@ function ClientProfilePage() {
       <NavBar />
 
       <p
-        className=" p-2  text-end"
+        className=" pt-4  text-center "
         style={{ fontWeight: "bold", fontSize: "24px" }}
       >
-        تفاصيل المستخدم
+        الاعدادات
+      </p>
+      <p
+        className=" pt-4  text-center "
+        style={{ fontWeight: "bold", fontSize: "20px" }}
+      >
+        <b>{localStorage.getItem("username")}</b>
       </p>
 
+      <div className="container text-center border rounded mt-2 mb-1">
+        <div
+          className="btn"
+          style={{
+            fontSize: "20px",
+            color: "#ff8000",
+            fontWeight: "bold",
+          }}
+          onClick={() => {
+            navigate("/client_profile_details");
+          }}
+        >
+          تفاصيل المستخدم
+        </div>
+      </div>
+      <hr />
+      <div className="container text-center border rounded mt-2 mb-1">
+        <div
+          className="btn"
+          style={{
+            fontSize: "20px",
+            color: "#ff8000",
+            fontWeight: "bold",
+          }}
+        >
+          الموظفين
+        </div>
+      </div>
+      <hr />
+      <div className="container text-center border rounded mt-2 mb-1">
+        <div
+          className="btn"
+          style={{
+            fontSize: "20px",
+            color: "#ff8000",
+            fontWeight: "bold",
+          }}
+        >
+          طلبات الموطفين
+        </div>
+      </div>
+
       <div className="container text-center mt-4" style={{ fontSize: "20px" }}>
-        <b>{localStorage.getItem("username")}</b>
-        <hr />
-
-        <b>{localStorage.getItem("first_name")}</b>
-        <hr />
-
-        <b>{localStorage.getItem("last_name")}</b>
-        <hr />
-        <b>{localStorage.getItem("email")}</b>
-        <hr />
-
-        <b>{localStorage.getItem("phone")}</b>
         <hr />
 
         <div className="container-fluid">

@@ -27,53 +27,18 @@ function LoginPage() {
       .then((data) => {
         if (data.detail) {
           alert(data.detail);
+          setLoading(false);
           return;
         }
         console.log(data);
         window.username = data.user.username;
         window.username_id = data.user.id;
-        window.groups = data.user.groups[0];
+        // window.groups = data.user.groups[0];
         localStorage.setItem("token", data.access);
         localStorage.setItem("username", data.user.username);
         localStorage.setItem("username_id", data.user.id);
-        localStorage.setItem("first_name", data.user.first_name);
-        localStorage.setItem("last_name", data.user.last_name);
-        localStorage.setItem("email", data.user.email);
-        localStorage.setItem("phone", data.user.phone);
+
         localStorage.setItem("user_type", data.user.user_type);
-
-        // navigate("/home", { replace: true });
-      })
-      .catch((error) => {
-        alert(error);
-      });
-
-    var token = localStorage.getItem("token");
-
-    if (token === null || token === "") {
-      return;
-    }
-
-    await fetch(Larak_System_URL + "categories/", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.detail) {
-          alert(data.detail);
-          return;
-        }
-        console.log(data);
-
-        // Convert the JSON object to a string
-        var jsonString = JSON.stringify(data);
-
-        // Save the string in the local storage with a specific key
-        localStorage.setItem("categories", jsonString);
 
         navigate("/client_products", { replace: true });
       })
@@ -115,16 +80,16 @@ function LoginPage() {
             <div className="col-md-6 m-1">
               <div className="container-fluid">
                 <input
-                  type="text"
+                  type="number"
                   className="form-control text-center"
                   style={{
                     backgroundColor: "#e6e6e6",
                     fontSize: "20px",
                     padding: "20px",
                   }}
-                  id="email"
-                  placeholder="أسم المستخدم"
-                  name="email"
+                  id="phone"
+                  placeholder="رقم الهاتف"
+                  name="phone"
                   onChange={handleUsername}
                 />
               </div>
@@ -153,16 +118,42 @@ function LoginPage() {
           </div>
 
           <button
-            className="btn   rounded-circle border border-1 p-4"
+            className="btn p-4"
             style={{ color: "#ff8000", fontSize: "20px" }}
             onClick={() => {
+              if (
+                username === undefined ||
+                (username === "" && password === undefined) ||
+                password === ""
+              ) {
+                alert("ادخل معلومات المستخدم");
+                return;
+              }
               checkIfUsernameAndPasswordIsCorrect();
             }}
             onKeyDown={() => {
+              if (
+                username === undefined ||
+                (username === "" && password === undefined) ||
+                password === ""
+              ) {
+                alert("ادخل معلومات المستخدم");
+                return;
+              }
               checkIfUsernameAndPasswordIsCorrect();
             }}
           >
             <b style={{ fontWeight: "bold" }}> دخول</b>
+          </button>
+          <br />
+          <button
+            className="btn p-4"
+            style={{ color: "#ff8000", fontSize: "16px" }}
+            onClick={() => {
+              navigate("/sign_up", { replace: true });
+            }}
+          >
+            <b style={{ fontWeight: "normal" }}> تسجيل مستخدم جديد</b>
           </button>
         </div>
       </form>

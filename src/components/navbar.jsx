@@ -17,6 +17,10 @@ function NavBar() {
 
   const [normalStyle, setnormalStyle] = useState("nav-link text-center");
 
+  function normalUser() {
+    return {};
+  }
+
   return (
     <>
       <nav
@@ -35,23 +39,16 @@ function NavBar() {
               <Link className={normalStyle} to="/client_products">
                 <p style={{ color: "#ff8000" }}>
                   {/* <i className="fa fa-home  fa-4x" aria-hidden="true"></i> */}
-                  <img src={home} alt="" srcset="" width={50} />
+                  <img src={home} alt="" srcset="" width={30} />
                 </p>
               </Link>
             </li>
-
-            {/* <li className="nav-item rounded flex-grow-1 m-0">
-              <Link className={normalStyle} to="/users">
-                <p>🧑‍🦲</p>
-                <b className="text-success"> المستخدمين</b>
-              </Link>
-            </li> */}
 
             <li className="nav-item rounded text flex-grow-1 m-0">
               <Link className={normalStyle} to="/all_client_products">
                 <p style={{ color: "#ff8000" }}>
                   {/* <i class="fa fa-puzzle-piece fa-4x" aria-hidden="true"></i> */}
-                  <img src={products} alt="" srcset="" width={50} />
+                  <img src={products} alt="" srcset="" width={30} />
                 </p>
               </Link>
             </li>
@@ -59,7 +56,7 @@ function NavBar() {
               <Link className={normalStyle} to="/client_cateogries">
                 <p style={{ color: "#ff8000" }}>
                   {/* <i class="fa fa-puzzle-piece fa-4x" aria-hidden="true"></i> */}
-                  <img src={category} alt="" srcset="" width={50} />
+                  <img src={category} alt="" srcset="" width={30} />
                 </p>
               </Link>
             </li>
@@ -78,7 +75,7 @@ function NavBar() {
               >
                 <p style={{ color: "#ff8000" }}>
                   {/* <i class="fa fa-history fa-4x" aria-hidden="true"></i> */}
-                  <img src={history} alt="" srcset="" width={50} />
+                  <img src={history} alt="" srcset="" width={30} />
                 </p>
               </Link>
             </li>
@@ -87,7 +84,7 @@ function NavBar() {
               <Link className={normalStyle} to="/client_cart">
                 <p style={{ color: "#ff8000" }}>
                   {/* <i class="fa fa-shopping-cart fa-4x" aria-hidden="true"></i> */}
-                  <img src={cart} alt="" srcset="" width={50} />
+                  <img src={cart} alt="" srcset="" width={30} />
                 </p>
               </Link>
             </li>
@@ -95,7 +92,7 @@ function NavBar() {
               <Link className={normalStyle} to="/client_profile">
                 <p style={{ color: "#ff8000" }}>
                   {/* <i class="fa fa-user fa-4x" aria-hidden="true"></i> */}
-                  <img src={profile} alt="" srcset="" width={50} />
+                  <img src={profile} alt="" srcset="" width={30} />
                 </p>
               </Link>
             </li>

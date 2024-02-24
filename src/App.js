@@ -17,6 +17,8 @@ import ProductDetailsPage from "./pages/client/product_details";
 import AdminOrdersPage from "./pages/admin/orders";
 import AdminOrderDetailsPage from "./pages/admin/order_details";
 import AllClientProductsPage from "./pages/client/all_products";
+import SignUpPage from "./pages/SignUp";
+import ClientProfileDetailsPage from "./pages/client/profileDetails";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -95,13 +97,6 @@ function App() {
                 }
               />
 
-              {/* admin */}
-              <Route path="/admin_orders" element={<AdminOrdersPage />} />
-              <Route
-                path="/admin_order_details"
-                element={<AdminOrderDetailsPage />}
-              />
-
               {/* clients */}
               <Route
                 path="/all_client_products"
@@ -112,8 +107,10 @@ function App() {
               <Route path="/client_cart" element={<ClientCartPage />} />
               <Route path="/client_orders" element={<ClientOrdersPage />} />
               <Route path="/client_profile" element={<ClientProfilePage />} />
-              {/*  */}
-
+              <Route
+                path="/client_profile_details"
+                element={<ClientProfileDetailsPage />}
+              />
               <Route
                 path="/client_cateogries"
                 element={<ClientCategoriesPage />}
@@ -122,9 +119,24 @@ function App() {
                 path="/client_products_cateogry"
                 element={<ProductsCategoryPage />}
               />
-              <Route path="/users" element={<UsersPage />} />
 
+              {/* admin */}
+              {/* list of 
+              managers
+              users 
+              orders
+              bikers
+              */}
+              <Route path="/users" element={<UsersPage />} />
+              <Route path="/admin_orders" element={<AdminOrdersPage />} />
+              <Route
+                path="/admin_order_details"
+                element={<AdminOrderDetailsPage />}
+              />
+
+              {/* shared */}
               <Route path="/login" element={<LoginPage />} />
+              <Route path="/sign_up" element={<SignUpPage />} />
 
               <Route path="*" element={<NoPage />} />
             </Routes>
