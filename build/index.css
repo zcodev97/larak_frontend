@@ -1,0 +1,26 @@
+.react-bootstrap-table table {
+  table-layout: auto !important;
+}
+
+table {
+  table-layout: auto !important;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  gap: 10px; /* Space between grid items */
+}
+
+.grid-item {
+  border-bottom: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px;
+  text-align: center;
+}
+
+.grid-item img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  padding: 0;
+}

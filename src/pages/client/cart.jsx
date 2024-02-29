@@ -26,7 +26,7 @@ function ClientCartPage() {
       cart: window.cart,
       status: [
         {
-          ordered: new Date(),
+          "قيد الموافقة": new Date(),
         },
       ],
       order_id: orderId,
