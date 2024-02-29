@@ -56,8 +56,8 @@ function ClientOrdersPage() {
           className="container-fluid"
           style={{ height: window.innerHeight - 85, overflowY: "auto" }}
         >
-          <table className="table table-striped text-center">
-            <thead style={{ fontSize: "16px" }}>
+          <table className="table text-center">
+            <thead style={{ fontSize: "20px" }}>
               <tr>
                 <td>حالة الطلب</td>
                 {/* <td>تاريخ الطلب</td> */}
@@ -67,20 +67,48 @@ function ClientOrdersPage() {
               </tr>
             </thead>
             <tbody style={{ fontSize: "16px" }}>
-              {data.reverse().map((i) => (
+              {data.reverse().map((d) => (
                 <tr className="text-center">
-                  <td>{Object.keys(i?.status[0])}</td>
+                  <td>{Object.keys(d?.status[0])}</td>
                   {/* <td>{FormatDateTime(i.created_at)}</td> */}
 
                   <td className="text-end">
-                    {i.cart?.map((i) => (
-                      <div className="container d-flex text-end">
-                        <p className="pr-2 text-end">{i.amount}</p>
-                        <p>{i.title}</p>
-                      </div>
-                    ))}
+                    <table className="table rounded">
+                      <thead>
+                        <td>السعر</td>
+                        <td>الكمية</td>
+                        <td>المنتج</td>
+                      </thead>
+                      {d.cart?.map((i) => (
+                        <tbody>
+                          <tr>
+                            <td>
+                              <b>
+                                {(i.price * i.amount).toLocaleString("en-US", {
+                                  style: "currency",
+                                  currency: "IQD",
+                                  minimumFractionDigits: 0,
+                                  maximumFractionDigits: 2,
+                                })}
+                              </b>
+                            </td>
+                            <td>
+                              <b>
+                                {" "}
+                                <b className="pr-2 text-center">{i.amount}</b>
+                              </b>
+                            </td>
+                            <td>
+                              <b>{i.title}</b>
+                            </td>
+                          </tr>
+                        </tbody>
+                      ))}
+                    </table>
                   </td>
-                  <td>{i.order_id}</td>
+                  <td>
+                    <b> {d.order_id} </b>
+                  </td>
                 </tr>
               ))}
             </tbody>

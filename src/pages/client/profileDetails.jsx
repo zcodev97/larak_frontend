@@ -14,75 +14,31 @@ import OSM from "ol/source/OSM";
 import { Circle as CircleStyle, Fill, Stroke, Style } from "ol/style";
 import { fromLonLat, transform } from "ol/proj";
 import Circle from "ol/geom/Circle";
+import Icon from "ol/style/Icon";
+import { Larak_System_URL } from "../../globals";
 
 function MapComponent() {
   const mapRef = useRef(null);
+  const [map, setMap] = useState(null);
 
   useEffect(() => {
-    if (!mapRef.current) return;
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        function (position) {
-          console.log("Latitude:", position.coords.latitude);
-          console.log("Longitude:", position.coords.longitude);
-
-          localStorage.setItem("lon", position.coords.latitude);
-          localStorage.setItem("lat", position.coords.longitude);
-
-          const coords = [position.coords.longitude, position.coords.latitude];
-          const circleFeature = new Feature(new Circle(fromLonLat(coords), 50));
-
-          const vectorSource = new VectorSource({
-            features: [circleFeature],
-          });
-
-          const vectorLayer = new VectorLayer({
-            source: vectorSource,
-            style: new Style({
-              stroke: new Stroke({
-                color: "blue",
-                width: 3,
-              }),
-              fill: new Fill({
-                color: "rgba(0, 0, 255, 0.1)",
-              }),
-            }),
-          });
-
-          map.addLayer(vectorLayer);
-          map.getView().setCenter(fromLonLat(coords));
-          map.getView().setZoom(15);
-        },
-        function (error) {
-          console.error("Error getting location:", error);
-        }
-      );
-    } else {
-      console.error("Geolocation is not supported by this browser.");
-    }
     const vectorSource = new VectorSource();
     const vectorLayer = new VectorLayer({
       source: vectorSource,
       style: new Style({
-        image: new CircleStyle({
-          radius: 6,
-          fill: new Fill({ color: "rgba(255, 0, 0, 0.5)" }),
-          stroke: new Stroke({ color: "red", width: 2 }),
+        image: new Icon({
+          anchor: [0.5, 1],
+          src: "https://openlayers.org/en/latest/examples/data/icon.png",
         }),
       }),
     });
 
-    const map = new Map({
+    const initialMap = new Map({
       target: mapRef.current,
       layers: [
         new TileLayer({
           source: new XYZ({
-            //                  url: 'https://maps.dijlh.com/?z={z}&y={y}&x={x}&layer=streets',
             url: "https://{1-4}.base.maps.api.here.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?app_id=aWkeLP21AKVpB5R5JZ3I&app_code=tmLcVPJ_CRu8j1Uq_4Y-ag",
-
-            //url: 'https://s3.eu-central-1.amazonaws.com/dijlh/tiles/streets/{z}/{y}/{x}.png',
-            minZoom: 0,
-            maxZoom: 20,
             crossOrigin: "anonymous",
           }),
           visible: true,
@@ -91,49 +47,105 @@ function MapComponent() {
       ],
       view: new View({
         center: fromLonLat([
-          parseFloat(localStorage.getItem("lat")),
-          parseFloat(localStorage.getItem("lon")),
+          parseFloat(44.3852922139959),
+          parseFloat(33.32711910085179),
         ]),
         zoom: 15,
       }),
     });
 
+    setMap(initialMap);
+
+    return () => {
+      if (initialMap) {
+        initialMap.setTarget(null);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!map) return;
+
     const draw = new Draw({
-      source: vectorSource,
+      source: map.getLayers().array_[1].getSource(),
       type: "Point",
       maxPoints: 1,
     });
 
-    let feature = null; // declare a variable to store the drawn feature
-
     draw.on("drawend", function (event) {
-      if (feature) {
-        vectorSource.removeFeature(feature); // remove previous feature if it exists
-      }
-
-      feature = event.feature;
+      const vectorSource = map.getLayers().array_[1].getSource();
+      vectorSource.clear(); // Clear existing features before adding a new one
+      const feature = event.feature;
       const coords = feature.getGeometry().getCoordinates();
-      const lonLatCoords = transform(coords, "EPSG:3857", "EPSG:4326"); // convert to lat/lon
+      const lonLatCoords = transform(coords, "EPSG:3857", "EPSG:4326");
       console.log("Selected point coordinates (lon/lat):", lonLatCoords);
-
       localStorage.setItem("lon", lonLatCoords[0]);
       localStorage.setItem("lat", lonLatCoords[1]);
+      // No need to manually add the feature, as it's already added by the Draw interaction
     });
 
     map.addInteraction(draw);
 
     return () => {
       map.removeInteraction(draw);
-      map.setTarget(null);
     };
-  }, []);
+  }, [map]);
+
+  const getCurrentLocation = () => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const coords = [position.coords.longitude, position.coords.latitude];
+          const view = map.getView();
+          view.setCenter(fromLonLat(coords));
+          view.setZoom(15);
+
+          const locationFeature = new Feature({
+            geometry: new Point(fromLonLat(coords)),
+          });
+          const vectorSource = map.getLayers().array_[1].getSource();
+          vectorSource.clear(); // Clear existing features before adding a new one
+          vectorSource.addFeature(locationFeature); // Add the new location feature
+
+          localStorage.setItem("lon", position.coords.longitude);
+          localStorage.setItem("lat", position.coords.latitude);
+        },
+        (error) => {
+          console.error("Error getting location:", error);
+        },
+        {
+          enableHighAccuracy: true, // Request high accuracy
+        }
+      );
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+    }
+  };
 
   return (
-    <div
-      className="container rounded"
-      ref={mapRef}
-      style={{ width: window.innerWidth / 1.2, height: window.innerHeight / 2 }}
-    ></div>
+    <div>
+      <div
+        ref={mapRef}
+        style={{
+          width: window.innerWidth / 1.2,
+          height: window.innerHeight / 2,
+        }}
+        className="container rounded"
+      ></div>
+      <div className="container text-center">
+        <button
+          className="btn p-2 mt-2 border rounded"
+          onClick={getCurrentLocation}
+          style={{
+            fontSize: "20px",
+            color: "#ff8000",
+            fontWeight: "bold",
+          }}
+        >
+          👆 موقعي الحالي
+        </button>
+      </div>
+    </div>
   );
 }
 
@@ -141,45 +153,86 @@ function ClientProfileDetailsPage() {
   const [loading, setLoading] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [location, setLocation] = useState(false);
+  const [location, setLocation] = useState("");
   const navigate = useNavigate();
   const [position, setPosition] = useState(null);
+  const [data, setData] = useState([]);
 
-  // async function submitUserInfo() {
-  //   setLoading(true);
-  //   await fetch(Larak_System_URL + "add_user/", {
-  //     method: "POST",
-  //     headers: {
-  //       accept: "application/json",
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       username: phone,
-  //       password: password,
-  //       user_type: "639a74b7-3311-458d-aa3a-ba20eb5bf0c4",
-  //       supervisor: "31dc0b00-85fd-49a1-9d4f-5a3345f5cb84",
-  //     }),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       if (data.detail) {
-  //         alert(data.detail);
-  //         return;
-  //       }
-  //       if (data.password) {
-  //         alert(data.password);
-  //         return;
-  //       }
+  async function loadData() {
+    setLoading(true);
+    await fetch(
+      Larak_System_URL + "get_user_info/" + localStorage.getItem("username_id"),
+      {
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.detail === "Given token not valid for any token type") {
+          navigate("/login", { replace: true });
+          return;
+        }
+        if (data.detail) {
+          alert(data.detail);
+          return;
+        }
 
-  //       navigate("/login", { replace: true });
-  //     })
-  //     .catch((error) => {
-  //       alert(error);
-  //     })
-  //     .finally(() => {
-  //       setLoading(false);
-  //     });
-  // }
+        setFirstName(data?.first_name);
+        setLastName(data?.last_name);
+        setLocation(data?.location);
+
+        setData(data);
+      })
+      .catch((error) => {
+        alert(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
+
+  async function submitUserInfo() {
+    setLoading(true);
+
+    await fetch(Larak_System_URL + "add_user_info/", {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify({
+        user: localStorage.getItem("username_id"),
+        first_name: firstName,
+        last_name: lastName,
+        location: location,
+        lon: localStorage.getItem("lon"),
+        lat: localStorage.getItem("lat"),
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.detail) {
+          alert(data.detail);
+          return;
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
+
+  useEffect(() => {
+    loadData();
+  }, []);
 
   return (
     <>
@@ -192,9 +245,23 @@ function ClientProfileDetailsPage() {
         تفاصيل المستخدم
       </p>
 
-      <div className="container-fluid">
+      <div
+        className="container-fluid"
+        style={{
+          float: "right",
+          overflowY: "auto",
+          height: window.innerHeight - 70,
+        }}
+      >
+        <p
+          className=" pt-4  text-center "
+          style={{ fontWeight: "bold", fontSize: "16px" }}
+        >
+          الاسم الاول
+        </p>
         <div className="container-fluid">
           <input
+            value={data?.first_name ?? ""}
             type="text"
             className="form-control text-center"
             style={{
@@ -211,8 +278,15 @@ function ClientProfileDetailsPage() {
           />
         </div>
         <hr />
+        <p
+          className=" pt-4  text-center "
+          style={{ fontWeight: "bold", fontSize: "16px" }}
+        >
+          الاسم الاخير
+        </p>
         <div className="container-fluid">
           <input
+            value={data?.last_name ?? ""}
             type="text"
             className="form-control text-center"
             style={{
@@ -229,8 +303,15 @@ function ClientProfileDetailsPage() {
           />
         </div>
         <hr />
+        <p
+          className=" pt-4  text-center "
+          style={{ fontWeight: "bold", fontSize: "16px" }}
+        >
+          الموقع كتابتا
+        </p>
         <div className="container-fluid">
           <input
+            value={data?.location ?? ""}
             type="text"
             className="form-control text-center"
             style={{
@@ -249,12 +330,59 @@ function ClientProfileDetailsPage() {
         <hr />
 
         <div className="container mt-2 text-center">
-          <div className="container p-2">
+          <div
+            className="container p-2"
+            style={{
+              fontSize: "20px",
+              color: "#ff8000",
+              fontWeight: "bold",
+            }}
+          >
             <b> الموقع </b>
           </div>
         </div>
 
         <MapComponent />
+
+        <div className="container  mt-4 p-2 text-center">
+          <div
+            className="btn border rounded"
+            style={{
+              fontSize: "20px",
+              color: "#ff8000",
+              fontWeight: "bold",
+            }}
+            onClick={() => {
+              // console.log(
+              //   firstName.length === 0 && data[0]?.first_name.length === 0
+              // );
+
+              // if (firstName.length !== 0 && data[0]?.first_name.length !== 0) {
+              //   alert("الرجاء تحديد الاسم الاول");
+              //   return;
+              // }
+              // if (lastName.length === 0 && data[0]?.last_name.length === 0) {
+              //   alert("الرجاء تحديد الاسم الاخير");
+              //   return;
+              // }
+              // if (location.length === 0 && data[0]?.location.length === 0) {
+              //   alert("الرجاء تحديد الموقع كتابتا");
+              //   return;
+              // }
+              if (
+                localStorage.getItem("lon").length === 0 &&
+                localStorage.getItem("lat").length === 0
+              ) {
+                alert("على الخريطة الرجاء تحديد الموقع");
+                return;
+              }
+
+              submitUserInfo();
+            }}
+          >
+            ✅ حفظ
+          </div>
+        </div>
       </div>
     </>
   );

@@ -38,6 +38,8 @@ function ClientProfilePage() {
             fontSize: "20px",
             color: "#ff8000",
             fontWeight: "bold",
+            display:
+              localStorage.getItem("user_type") === "user" ? "none" : "block",
           }}
           onClick={() => {
             navigate("/client_profile_details");
@@ -46,7 +48,12 @@ function ClientProfilePage() {
           تفاصيل المستخدم
         </div>
       </div>
-      <hr />
+      <hr
+        style={{
+          display:
+            localStorage.getItem("user_type") === "user" ? "none" : "block",
+        }}
+      />
       <div className="container text-center border rounded mt-2 mb-1">
         <div
           className="btn"
@@ -54,12 +61,22 @@ function ClientProfilePage() {
             fontSize: "20px",
             color: "#ff8000",
             fontWeight: "bold",
+            display:
+              localStorage.getItem("user_type") === "user" ? "none" : "block",
+          }}
+          onClick={() => {
+            navigate("/employees_list");
           }}
         >
           الموظفين
         </div>
       </div>
-      <hr />
+      <hr
+        style={{
+          display:
+            localStorage.getItem("user_type") === "user" ? "none" : "block",
+        }}
+      />
       <div className="container text-center border rounded mt-2 mb-1">
         <div
           className="btn"
@@ -67,6 +84,9 @@ function ClientProfilePage() {
             fontSize: "20px",
             color: "#ff8000",
             fontWeight: "bold",
+
+            display:
+              localStorage.getItem("user_type") === "user" ? "none" : "block",
           }}
         >
           طلبات الموطفين
@@ -75,24 +95,6 @@ function ClientProfilePage() {
 
       <div className="container text-center mt-4" style={{ fontSize: "20px" }}>
         <hr />
-
-        <div className="container-fluid">
-          <input
-            type="text"
-            className="form-control text-center"
-            style={{
-              backgroundColor: "#e6e6e6",
-              fontSize: "20px",
-              padding: "20px",
-            }}
-            id="location"
-            placeholder="الموقع"
-            name="location"
-            onChange={(e) => {
-              setLocation(e.target.value);
-            }}
-          />
-        </div>
 
         <div className="container  text-center p-4">
           Role : {localStorage.getItem("user_type")}

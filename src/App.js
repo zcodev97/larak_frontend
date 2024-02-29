@@ -19,7 +19,10 @@ import AdminOrderDetailsPage from "./pages/admin/order_details";
 import AllClientProductsPage from "./pages/client/all_products";
 import SignUpPage from "./pages/SignUp";
 import ClientProfileDetailsPage from "./pages/client/profileDetails";
-
+import "leaflet/dist/leaflet.css";
+import ManagerEmployeesPage from "./pages/client/managerEmployees";
+import AddEmployeePage from "./pages/client/addEmployee";
+import EmployeeDetailsPage from "./pages/client/employeeDetails";
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -119,6 +122,15 @@ function App() {
                 path="/client_products_cateogry"
                 element={<ProductsCategoryPage />}
               />
+              <Route
+                path="/employees_list"
+                element={<ManagerEmployeesPage />}
+              />
+              <Route
+                path="/update_employee_password"
+                element={<EmployeeDetailsPage />}
+              />
+              <Route path="/add_employee" element={<AddEmployeePage />} />
 
               {/* admin */}
               {/* list of 
@@ -143,8 +155,18 @@ function App() {
           </BrowserRouter>
         </div>
       ) : (
-        <div className="container text-center text-danger border rounded  mt-4">
-          <h1> لايوجد اتصال انترنت</h1>
+        <div
+          className="container text-center text-danger border rounded  mt-4 d-flex"
+          style={{
+            fontSize: "24px",
+            fontWeight: "bold",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            height: window.innerHeight,
+          }}
+        >
+          <p> لايوجد اتصال انترنت </p>
         </div>
       )}
     </>

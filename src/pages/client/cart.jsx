@@ -76,8 +76,15 @@ function ClientCartPage() {
         window.cart === undefined ||
         window.cart?.filter((i) => i.amount > 0).length === 0 ? (
         <div
-          className="container text-center mt-4"
-          style={{ fontSize: "24px", fontWeight: "bold" }}
+          className="container"
+          style={{
+            fontSize: "24px",
+            fontWeight: "bold",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            height: window.innerHeight,
+          }}
         >
           <p> اضف منتجات للسلة</p>
         </div>

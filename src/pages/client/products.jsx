@@ -183,7 +183,7 @@ function ClientProductsPage() {
             .map((item) => (
               <div className="container w-100" key={item.id}>
                 <div
-                  className="container w-100 bg-light rounded mt-2  text-dark  "
+                  className="container w-100  rounded mt-2  text-dark  "
                   onClick={() => {
                     let data = window.products?.filter(
                       (i) => i.category === item.title
@@ -194,13 +194,18 @@ function ClientProductsPage() {
                       },
                     });
                   }}
+                  style={{ backgroundColor: "#EF774C" }}
                 >
-                  <div className="container rounded p-3">
+                  <div className="container text-center d-flex rounded p-3">
                     <b
+                      className="text-center"
                       style={{
                         fontSize: "16px",
-                        color: "#ff8000",
+                        color: "#FFECDF",
                         fontWeight: "bold",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
                       }}
                     >
                       {item.title}

@@ -1,5 +1,6 @@
-const Larak_System_URL = "http://192.168.0.103:8000/";
+// const Larak_System_URL = "http://192.168.0.103:8000/";
 // const Larak_System_URL = "http://192.168.6.107:8000/";
+const Larak_System_URL = "http://localhost:8000/";
 // const Larak_System_URL = "http://172.20.10.3:8000/";
 // const Larak_System_URL = "http://192.168.22.48:8000/";
 

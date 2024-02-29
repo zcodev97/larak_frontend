@@ -24,12 +24,15 @@ function NavBar() {
   return (
     <>
       <nav
-        className="navbar navbar-expand-sm navbar-dark fixed-bottom"
+        className="navbar navbar-expand-sm navbar-dark fixed-bottom "
         style={{
           marginTop: "-5px",
-          marginBottom: "-12px",
-          marginLeft: "-12px",
-          marginRight: "-10px",
+          marginBottom: "5px",
+          marginLeft: "-10px",
+          marginRight: "-5px",
+          backgroundColor: "#FFECDF",
+          height: "60px",
+          borderRadius: "20px",
         }}
       >
         <div className="container-fluid d-flex justify-content-around">

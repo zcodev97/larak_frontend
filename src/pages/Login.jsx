@@ -80,7 +80,8 @@ function LoginPage() {
             <div className="col-md-6 m-1">
               <div className="container-fluid">
                 <input
-                  type="number"
+                  maxLength={11}
+                  type="tel"
                   className="form-control text-center"
                   style={{
                     backgroundColor: "#e6e6e6",
