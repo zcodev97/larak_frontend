@@ -107,54 +107,60 @@ function ClientCartPage() {
               </tr>
             </thead>
             <tbody style={{ fontSize: "16px" }}>
-              {window.cart?.map((i) => (
-                <tr>
-                  <td
-                    onClick={() => {
-                      navigate("/client_cart", { replace: true });
-                      i.amount += 1;
-                    }}
-                    style={{
-                      color: "#ff8000",
-                      fontSize: "24px",
-                    }}
-                  >
-                    <b> +</b>
-                  </td>
-                  <td></td>
-                  <td
-                    onClick={() => {
-                      navigate("/client_cart", { replace: true });
-                      if (i.amount === 1) {
-                        let index = window.cart.findIndex((x) => x.id === i.id);
-                        window.cart.splice(index, 1);
-                      } else {
-                        i.amount -= 1;
-                      }
-                    }}
-                    style={{
-                      color: "#ff8000",
-                      fontSize: "24px",
-                    }}
-                  >
-                    <b> - </b>
-                  </td>
+              {window.cart
+                ?.filter((i) => i.amount !== 0 || i.amount < 0)
+                .map((i) => (
+                  <tr>
+                    <td
+                      onClick={() => {
+                        navigate("/client_cart", { replace: true });
+                        i.amount += 1;
+                      }}
+                      style={{
+                        color: "#ff8000",
+                        fontSize: "24px",
+                      }}
+                    >
+                      <b> +</b>
+                    </td>
+                    <td></td>
+                    <td
+                      onClick={() => {
+                        navigate("/client_cart", { replace: true });
+                        if (i.amount === 1) {
+                          let index = window.cart.findIndex(
+                            (x) => x.id === i.id
+                          );
+                          window.cart.splice(index, 1);
+                        } else {
+                          i.amount -= 1;
+                        }
+                      }}
+                      style={{
+                        color: "#ff8000",
+                        fontSize: "24px",
+                      }}
+                    >
+                      <b> - </b>
+                    </td>
 
-                  <td>
-                    {(i.price * i.amount).toLocaleString("en-US", {
-                      style: "currency",
-                      currency: "IQD",
-                      minimumFractionDigits: 0,
-                      maximumFractionDigits: 2,
-                    })}
-                  </td>
+                    <td>
+                      {(i.price * i.amount).toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "IQD",
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
 
-                  <td>{i.amount}</td>
-                  <td>
-                    {i.title?.length > 16 ? i.title.substring(0, 16) : i.title}
-                  </td>
-                </tr>
-              ))}
+                    <td>{i.amount}</td>
+                    <td>
+                      {i.title?.length > 16
+                        ? i.title.substring(0, 16)
+                        : i.title}
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
 
