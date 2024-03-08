@@ -69,7 +69,11 @@ function ClientOrdersPage() {
             <tbody style={{ fontSize: "16px" }}>
               {data.reverse().map((d) => (
                 <tr className="text-center">
-                  <td>{Object.keys(d?.status[0])}</td>
+                  <td>
+                    {d?.status[0]?.manager_status !== undefined
+                      ? d?.status[0]?.manager_status.accept
+                      : d?.status[0]?.vendor_status.accept}
+                  </td>
                   {/* <td>{FormatDateTime(i.created_at)}</td> */}
 
                   <td className="text-end">

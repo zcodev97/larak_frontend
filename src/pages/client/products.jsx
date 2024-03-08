@@ -120,7 +120,7 @@ function ClientProductsPage() {
           </div>
           <div className="carousel-inner">
             {data
-              ?.filter((product) => product.on_banner)
+              ?.filter((product) => product.on_banner && product.active)
               .map((product, index) => (
                 <div
                   key={product.id}
@@ -179,7 +179,7 @@ function ClientProductsPage() {
 
         <div className="container d-flex" style={{ overflowX: "auto" }}>
           {categories
-            ?.filter((product) => product.on_home_screen)
+            ?.filter((product) => product.on_home_screen && product.active)
             .map((item) => (
               <div className="container w-100" key={item.id}>
                 <div

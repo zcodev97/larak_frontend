@@ -19,16 +19,62 @@ function ClientCartPage() {
 
   async function orderItems() {
     setLoading(true);
+
+    let status = [];
+    let currentUserType = localStorage.getItem("user_type");
+    if (currentUserType === "manager" || currentUserType === "admin") {
+      status = [
+        {
+          vendor_status: {
+            user: localStorage.getItem("username"),
+            accept: "pending",
+            date: null,
+            reason: "",
+          },
+        },
+        {
+          biker_status: {
+            biker: "",
+            delivered: false,
+            date: null,
+            reason: "",
+          },
+        },
+      ];
+    } else if (currentUserType === "user") {
+      status = [
+        {
+          manager_status: {
+            accept: "pending",
+            date: null,
+            reason: "",
+          },
+        },
+        {
+          vendor_status: {
+            accept: "",
+            date: null,
+            reason: "",
+          },
+        },
+        {
+          biker_status: {
+            delivered: "",
+            date: null,
+            reason: "",
+          },
+        },
+      ];
+    } else {
+      alert("You Don't have Permission To Order !?");
+      return;
+    }
     let orderId = generateOrderId();
 
     let dataTosend = JSON.stringify({
       client: localStorage.getItem("username_id"),
       cart: window.cart,
-      status: [
-        {
-          "قيد الموافقة": new Date(),
-        },
-      ],
+      status: status,
       order_id: orderId,
     });
 

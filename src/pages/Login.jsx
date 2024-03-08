@@ -39,6 +39,7 @@ function LoginPage() {
         localStorage.setItem("username_id", data.user.id);
 
         localStorage.setItem("user_type", data.user.user_type);
+        localStorage.setItem("supervisor", data.user.supervisor);
 
         navigate("/client_products", { replace: true });
       })

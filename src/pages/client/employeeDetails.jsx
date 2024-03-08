@@ -43,8 +43,6 @@ function EmployeeDetailsPage() {
         }
 
         console.log(data);
-
-        navigate("/employees_list", { replace: true });
       })
       .catch((error) => {
         alert(error);
@@ -74,12 +72,12 @@ function EmployeeDetailsPage() {
           navigate("/login", { replace: true });
           return;
         }
+
+        console.log(data);
         if (data.detail) {
           alert(data.detail);
           return;
         }
-
-        console.log(data);
 
         setData(data);
       })
@@ -91,37 +89,48 @@ function EmployeeDetailsPage() {
       });
   }
 
-  const columns = [
-    {
-      dataField: "username",
-      text: "اسم المستخدم",
-      sort: true,
-      filter: textFilter(),
-    },
-  ];
+  async function updateOrder(order, status) {
+    order.status[0].manager_status.accept = status;
+    order.status[0].manager_status.manager = localStorage.getItem("supervisor");
+    order.status[0].manager_status.date = new Date();
 
-  const rowEvents = {
-    onClick: (e, row, rowIndex) => {
-      navigate("/update_employee_password", {
-        state: {
-          id: row.id,
-          username: row.username,
-          date_joined: row.date_joined,
-        },
+    console.log(order);
+
+    setLoading(true);
+
+    await fetch(Larak_System_URL + "update_order/" + order.id, {
+      method: "PUT",
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify({
+        status: order.status,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.detail === "Given token not valid for any token type") {
+          navigate("/login", { replace: true });
+          return;
+        }
+        if (data.detail) {
+          alert(data.detail);
+          return;
+        }
+
+        navigate("/employees_list", { replace: true });
+
+        setData(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
-    },
-  };
-
-  const pagination = paginationFactory({
-    page: 1,
-    sizePerPage: 5,
-    lastPageText: ">>",
-    firstPageText: "<<",
-    nextPageText: ">",
-    prePageText: "<",
-    showTotal: true,
-    alwaysShowAllBtns: true,
-  });
+  }
 
   useEffect(() => {
     clientOrders();
@@ -187,6 +196,7 @@ function EmployeeDetailsPage() {
           <table className="table text-center">
             <thead style={{ fontSize: "20px" }}>
               <tr>
+                <td> </td>
                 <td>حالة الطلب</td>
                 {/* <td>تاريخ الطلب</td> */}
 
@@ -197,7 +207,45 @@ function EmployeeDetailsPage() {
             <tbody style={{ fontSize: "16px" }}>
               {data?.reverse().map((d) => (
                 <tr className="text-center">
-                  <td>{Object.keys(d?.status[0])}</td>
+                  <td>
+                    <button
+                      className="btn btn-success"
+                      style={{ fontSize: "16px" }}
+                      onClick={() => {
+                        updateOrder(d, "manager accept");
+                      }}
+                      disabled={
+                        d?.status[0]?.manager_status?.accept === "pending"
+                          ? false
+                          : true
+                      }
+                    >
+                      قبول
+                    </button>
+                    <hr />
+                    <button
+                      className="btn btn-danger"
+                      style={{ fontSize: "16px" }}
+                      onClick={() => {
+                        updateOrder(d, "manager declined");
+                      }}
+                      disabled={
+                        d?.status[0]?.manager_status?.accept === "pending"
+                          ? false
+                          : true
+                      }
+                    >
+                      رفض
+                    </button>
+                  </td>
+                  <td>
+                    {d?.status[0]?.manager_status?.accept === "manager accept"
+                      ? "manager accept"
+                      : d?.status[0]?.manager_status?.accept ===
+                        "manager declined"
+                      ? "manager declined"
+                      : "pending"}
+                  </td>
                   {/* <td>{FormatDateTime(i.created_at)}</td> */}
 
                   <td className="text-end">
