@@ -41,7 +41,6 @@ function NavBar() {
             <li className="nav-item flex-grow-1 text-center m-0">
               <Link className={normalStyle} to="/client_products">
                 <p style={{ color: "#ff8000" }}>
-                  {/* <i className="fa fa-home  fa-4x" aria-hidden="true"></i> */}
                   <img src={home} alt="" srcset="" width={30} />
                 </p>
               </Link>
@@ -50,7 +49,6 @@ function NavBar() {
             <li className="nav-item rounded text flex-grow-1 m-0">
               <Link className={normalStyle} to="/all_client_products">
                 <p style={{ color: "#ff8000" }}>
-                  {/* <i class="fa fa-puzzle-piece fa-4x" aria-hidden="true"></i> */}
                   <img src={products} alt="" srcset="" width={30} />
                 </p>
               </Link>
@@ -58,7 +56,6 @@ function NavBar() {
             <li className="nav-item rounded text flex-grow-1 m-0">
               <Link className={normalStyle} to="/client_cateogries">
                 <p style={{ color: "#ff8000" }}>
-                  {/* <i class="fa fa-puzzle-piece fa-4x" aria-hidden="true"></i> */}
                   <img src={category} alt="" srcset="" width={30} />
                 </p>
               </Link>
@@ -77,7 +74,6 @@ function NavBar() {
                 }
               >
                 <p style={{ color: "#ff8000" }}>
-                  {/* <i class="fa fa-history fa-4x" aria-hidden="true"></i> */}
                   <img src={history} alt="" srcset="" width={30} />
                 </p>
               </Link>
@@ -86,7 +82,6 @@ function NavBar() {
             <li className="nav-item rounded text flex-grow-1 m-0">
               <Link className={normalStyle} to="/client_cart">
                 <p style={{ color: "#ff8000" }}>
-                  {/* <i class="fa fa-shopping-cart fa-4x" aria-hidden="true"></i> */}
                   <img src={cart} alt="" srcset="" width={30} />
                 </p>
               </Link>
@@ -94,7 +89,6 @@ function NavBar() {
             <li className="nav-item rounded text flex-grow-1 m-0">
               <Link className={normalStyle} to="/client_profile">
                 <p style={{ color: "#ff8000" }}>
-                  {/* <i class="fa fa-user fa-4x" aria-hidden="true"></i> */}
                   <img src={profile} alt="" srcset="" width={30} />
                 </p>
               </Link>
