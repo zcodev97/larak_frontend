@@ -66,6 +66,8 @@ function MapComponent() {
   useEffect(() => {
     if (!map) return;
 
+    getSavedLocation();
+
     const draw = new Draw({
       source: map.getLayers().array_[1].getSource(),
       type: "Point",
@@ -120,6 +122,20 @@ function MapComponent() {
     } else {
       console.error("Geolocation is not supported by this browser.");
     }
+  };
+
+  const getSavedLocation = () => {
+    const coords = [localStorage.getItem("lon"), localStorage.getItem("lat")];
+    const view = map.getView();
+    view.setCenter(fromLonLat(coords));
+    view.setZoom(15);
+
+    const locationFeature = new Feature({
+      geometry: new Point(fromLonLat(coords)),
+    });
+    const vectorSource = map.getLayers().array_[1].getSource();
+    vectorSource.clear(); // Clear existing features before adding a new one
+    vectorSource.addFeature(locationFeature); // Add the new location feature
   };
 
   return (
@@ -250,7 +266,7 @@ function ClientProfileDetailsPage() {
         style={{
           float: "right",
           overflowY: "auto",
-          height: window.innerHeight - 70,
+          height: window.innerHeight - 125,
         }}
       >
         <p
@@ -261,7 +277,8 @@ function ClientProfileDetailsPage() {
         </p>
         <div className="container-fluid">
           <input
-            value={data?.first_name ?? ""}
+            // value={data?.first_name ?? ""}
+            defaultValue={data?.first_name ?? ""}
             type="text"
             className="form-control text-center"
             style={{
@@ -286,7 +303,7 @@ function ClientProfileDetailsPage() {
         </p>
         <div className="container-fluid">
           <input
-            value={data?.last_name ?? ""}
+            defaultValue={data?.last_name ?? ""}
             type="text"
             className="form-control text-center"
             style={{
@@ -311,7 +328,7 @@ function ClientProfileDetailsPage() {
         </p>
         <div className="container-fluid">
           <input
-            value={data?.location ?? ""}
+            defaultValue={data?.location ?? ""}
             type="text"
             className="form-control text-center"
             style={{
@@ -344,7 +361,7 @@ function ClientProfileDetailsPage() {
 
         <MapComponent />
 
-        <div className="container  mt-4 p-2 text-center">
+        <div className="container   p-2 text-center">
           <div
             className="btn border rounded"
             style={{
