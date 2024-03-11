@@ -4,6 +4,7 @@ import { Outlet, Link } from "react-router-dom";
 import Loading from "../pages/Loading";
 import { useNavigate } from "react-router-dom";
 import { Larak_System_URL } from "../globals";
+import "@flaticon/flaticon-uicons/css/all/all.css"; // Import Flaticon CSS
 
 // db password Qymbg5QhNbAzRn!
 
@@ -45,7 +46,7 @@ function NavBar() {
           height: "60px",
           borderTopLeftRadius: "20px",
           borderTopRightRadius: "20px",
-          borderTop: "solid",
+          borderTop: "solid 0.5",
           borderColor: "lightgray",
           borderBottom: "none",
         }}
@@ -56,7 +57,7 @@ function NavBar() {
             <li className="nav-item flex-grow-1 text-center m-0">
               <Link className={normalStyle} to="/client_products">
                 <p style={{ color: "#8c8c8c" }}>
-                  <i class="fa fa-home fa-3x" aria-hidden="true"></i>
+                  <i class="fi fi-rr-home" style={{ fontSize: "20px" }}></i>
                   <br />
                   <p style={{ fontSize: "14px" }}>Home</p>
                 </p>
@@ -66,13 +67,16 @@ function NavBar() {
             <li className="nav-item rounded text flex-grow-1 m-0">
               <Link className={normalStyle} to="/all_client_products">
                 <p style={{ color: "#8c8c8c" }}>
-                  <i class="fa fa-list fa-3x" aria-hidden="true"></i>
+                  <i
+                    class="fi fi-rr-menu-burger"
+                    style={{ fontSize: "20px" }}
+                  ></i>
                   <br />
                   <p style={{ fontSize: "14px" }}>Items</p>
                 </p>
               </Link>
             </li>
-            <li className="nav-item rounded text flex-grow-1 m-0">
+            {/* <li className="nav-item rounded text flex-grow-1 m-0">
               <Link className={normalStyle} to="/client_cateogries">
                 <p style={{ color: "#8c8c8c" }}>
                   <i class="fa fa-object-group fa-3x" aria-hidden="true"></i>
@@ -80,12 +84,15 @@ function NavBar() {
                   <p style={{ fontSize: "14px" }}>Categories</p>
                 </p>
               </Link>
-            </li>
+            </li> */}
 
             <li className="nav-item rounded text flex-grow-1 m-0">
               <Link className={normalStyle} to={"/client_orders"}>
                 <p style={{ color: "#8c8c8c" }}>
-                  <i class="fa fa-history fa-3x" aria-hidden="true"></i>
+                  <i
+                    class="fi fi-rr-apps-sort"
+                    style={{ fontSize: "20px" }}
+                  ></i>
                   <br />
                   <p style={{ fontSize: "14px" }}>Orders</p>
                 </p>
@@ -95,7 +102,10 @@ function NavBar() {
             <li className="nav-item rounded text flex-grow-1 m-0">
               <Link className={normalStyle} to="/client_cart">
                 <p style={{ color: "#8c8c8c" }}>
-                  <i class="fa fa-shopping-cart fa-3x" aria-hidden="true"></i>
+                  <i
+                    className="fi fi-rr-shopping-cart"
+                    style={{ fontSize: "20px" }}
+                  ></i>
                   <br />
                   <p style={{ fontSize: "14px" }}>Cart</p>
                 </p>
@@ -104,7 +114,7 @@ function NavBar() {
             <li className="nav-item rounded text flex-grow-1 m-0">
               <Link className={normalStyle} to="/client_profile">
                 <p style={{ color: "#8c8c8c" }}>
-                  <i class="fa fa-user fa-3x" aria-hidden="true"></i>
+                  <i class="fi fi-rr-user" style={{ fontSize: "20px" }}></i>
                   <br />
                   <p style={{ fontSize: "14px" }}>Profile</p>
                 </p>
