@@ -34,6 +34,8 @@ function ClientProductsPage() {
           navigate("/login", { replace: true });
           return;
         }
+
+        console.log(data);
         if (data.detail) {
           alert(data.detail);
           return;
@@ -190,78 +192,85 @@ function ClientProductsPage() {
                   </div>
                 ))}
             </div>
-            {/* <button
-              className="carousel-control-prev"
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide="prev"
-            >
-              <span
-                className="carousel-control-prev-icon bg-dark rounded p-4"
-                aria-hidden="true"
-              />
-              <span className="visually-hidden">Previous</span>
-            </button>
-            <button
-              className="carousel-control-next"
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide="next"
-            >
-              <span
-                className="carousel-control-next-icon bg-dark rounded p-4"
-                aria-hidden="true"
-              />
-              <span className="visually-hidden">Next</span>
-            </button> */}
           </div>
 
           {/* categories section */}
           <hr />
 
-          <div className="container d-flex" style={{ overflowX: "auto" }}>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(4, 1fr)",
+              gap: "10px",
+            }}
+          >
             {categories
               ?.filter((product) => product.on_home_screen)
               .map((item) => (
-                <div className="container w-100" key={item.id}>
+                <div
+                  className="rounded mt-1"
+                  key={item.id}
+                  onClick={() => {
+                    let data = window.products?.filter(
+                      (i) => i.category === item.title
+                    );
+                    navigate("/client_products_category", {
+                      state: {
+                        d: data,
+                      },
+                    });
+                  }}
+                >
                   <div
-                    className="container w-100  rounded mt-2  text-dark  "
-                    onClick={() => {
-                      let data = window.products?.filter(
-                        (i) => i.category === item.title
-                      );
-                      navigate("/client_products_cateogry", {
-                        state: {
-                          d: data,
-                        },
-                      });
-                    }}
-                    style={{ backgroundColor: "#de3d33" }}
+                    className="d-flex rounded p-3"
+                    style={{ alignItems: "center", justifyContent: "center" }}
                   >
-                    <div className="container text-center d-flex rounded p-3">
-                      <b
-                        className="text-center"
-                        style={{
-                          fontSize: "16px",
-                          color: "white",
-                          fontWeight: "bold",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          alignItems: "center",
-                        }}
-                      >
-                        {item.title}
-                      </b>
-                    </div>
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      style={{
+                        width: "50%",
+                        height: "50%",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    />
+                  </div>
+                  <div>
+                    <b
+                      className="text-center text-dark"
+                      style={{
+                        fontSize: "16px",
+                        color: "white",
+                        fontWeight: "bold",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        alignItems: "center",
+                        marginLeft: "10px", // Add some space between the image and the text
+                      }}
+                    >
+                      {item.title}
+                    </b>
                   </div>
                 </div>
               ))}
+            {/* {categories?.length >= 8 && (
+              <div>
+                <button
+                  className="btn btn-light w-100 h-100"
+                  onClick={() => navigate("/client_cateogries")}
+                  // style={{ fontSize: "16px" }}
+                >
+                  View All
+                </button>
+              </div>
+            )} */}
           </div>
 
           <hr />
           {/* products section */}
-          <div
+          {/* <div
             className="container-fluid "
             style={{ height: window.innerHeight - 100, overflowY: "auto" }}
           >
@@ -382,7 +391,7 @@ function ClientProductsPage() {
                   </div>
                 </div>
               ))}
-          </div>
+          </div> */}
         </div>
       )}
     </>
