@@ -67,11 +67,8 @@ function LoginPage() {
         style={{
           width: window.innerWidth,
           height: window.innerHeight,
-          // margin: "0px",
           backgroundColor: "#de3d33",
           marginLeft: "-8px",
-
-          // minWidth: window.innerWidth,
         }}
       >
         <form

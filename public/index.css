@@ -6,6 +6,19 @@
   color: #000;
 }
 
+.carousel-indicators {
+  background: transparent !important;
+}
+
+.rounded-button {
+  border-radius: 50% !important; /* This creates a circular shape */
+  padding: 5px; /* Adjust the padding to your preference */
+  width: 5px !important; /* Set the width of the button */
+  height: 5px !important; /* Set the height of the button */
+  font-size: 16px !important;
+  /* Add any other styles you want for the button */
+}
+
 table {
   table-layout: auto !important;
 }

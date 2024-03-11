@@ -143,7 +143,7 @@ function ClientProductsPage() {
               marginRight: "10px",
             }}
           >
-            <div className="carousel-indicators bg-dark rounded">
+            <div className="carousel-indicators">
               {data
                 ?.filter((product) => product.on_banner)
                 .map((product, index) => (
@@ -152,7 +152,7 @@ function ClientProductsPage() {
                     type="button"
                     data-bs-target="#carouselExampleIndicators"
                     data-bs-slide-to={index}
-                    className={index === 0 ? "active" : ""}
+                    className={`rounded-button ${index === 0 ? "active" : ""}`}
                     aria-current={index === 0 ? "true" : ""}
                     aria-label={`Slide ${index + 1}`}
                   />
@@ -190,7 +190,7 @@ function ClientProductsPage() {
                   </div>
                 ))}
             </div>
-            <button
+            {/* <button
               className="carousel-control-prev"
               type="button"
               data-bs-target="#carouselExampleIndicators"
@@ -213,7 +213,7 @@ function ClientProductsPage() {
                 aria-hidden="true"
               />
               <span className="visually-hidden">Next</span>
-            </button>
+            </button> */}
           </div>
 
           {/* categories section */}
