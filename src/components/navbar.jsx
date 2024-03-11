@@ -37,14 +37,17 @@ function NavBar() {
         className="navbar navbar-expand-sm navbar-dark fixed-bottom "
         style={{
           // marginTop: "5px",
-          marginBottom: "0px",
+          marginBottom: "14px",
           paddingTop: "0px",
           marginLeft: "-10px",
           marginRight: "-5px",
-          backgroundColor: "#de3d33",
+          // backgroundColor: "light",
           height: "60px",
           borderTopLeftRadius: "20px",
           borderTopRightRadius: "20px",
+          borderTop: "solid",
+          borderColor: "lightgray",
+          borderBottom: "none",
         }}
       >
         <div className="container-fluid d-flex justify-content-around">
@@ -52,46 +55,58 @@ function NavBar() {
           <ul className="navbar-nav d-flex flex-row w-100">
             <li className="nav-item flex-grow-1 text-center m-0">
               <Link className={normalStyle} to="/client_products">
-                <p style={{ color: "white" }}>
+                <p style={{ color: "#8c8c8c" }}>
                   <i class="fa fa-home fa-3x" aria-hidden="true"></i>
+                  <br />
+                  <p style={{ fontSize: "14px" }}>Home</p>
                 </p>
               </Link>
             </li>
 
             <li className="nav-item rounded text flex-grow-1 m-0">
               <Link className={normalStyle} to="/all_client_products">
-                <p style={{ color: "white" }}>
+                <p style={{ color: "#8c8c8c" }}>
                   <i class="fa fa-list fa-3x" aria-hidden="true"></i>
+                  <br />
+                  <p style={{ fontSize: "14px" }}>Items</p>
                 </p>
               </Link>
             </li>
             <li className="nav-item rounded text flex-grow-1 m-0">
               <Link className={normalStyle} to="/client_cateogries">
-                <p style={{ color: "white" }}>
+                <p style={{ color: "#8c8c8c" }}>
                   <i class="fa fa-object-group fa-3x" aria-hidden="true"></i>
+                  <br />
+                  <p style={{ fontSize: "14px" }}>Categories</p>
                 </p>
               </Link>
             </li>
 
             <li className="nav-item rounded text flex-grow-1 m-0">
               <Link className={normalStyle} to={"/client_orders"}>
-                <p style={{ color: "white" }}>
+                <p style={{ color: "#8c8c8c" }}>
                   <i class="fa fa-history fa-3x" aria-hidden="true"></i>
+                  <br />
+                  <p style={{ fontSize: "14px" }}>Orders</p>
                 </p>
               </Link>
             </li>
 
             <li className="nav-item rounded text flex-grow-1 m-0">
               <Link className={normalStyle} to="/client_cart">
-                <p style={{ color: "white" }}>
+                <p style={{ color: "#8c8c8c" }}>
                   <i class="fa fa-shopping-cart fa-3x" aria-hidden="true"></i>
+                  <br />
+                  <p style={{ fontSize: "14px" }}>Cart</p>
                 </p>
               </Link>
             </li>
             <li className="nav-item rounded text flex-grow-1 m-0">
               <Link className={normalStyle} to="/client_profile">
-                <p style={{ color: "white" }}>
+                <p style={{ color: "#8c8c8c" }}>
                   <i class="fa fa-user fa-3x" aria-hidden="true"></i>
+                  <br />
+                  <p style={{ fontSize: "14px" }}>Profile</p>
                 </p>
               </Link>
             </li>

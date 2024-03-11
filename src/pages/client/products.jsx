@@ -117,7 +117,7 @@ function ClientProductsPage() {
             <i
               class="fa fa-bell fa-3x"
               aria-hidden="true"
-              style={{ color: "#de3d33" }}
+              style={{ color: "lightgray" }}
             ></i>
             <div style={{ width: "10px" }}></div>
 
@@ -131,7 +131,7 @@ function ClientProductsPage() {
                 padding: "20px",
               }}
               id="phone"
-              placeholder="....ابحث"
+              placeholder="البحث عن صنف"
               name="phone"
             />
           </div>
@@ -208,7 +208,11 @@ function ClientProductsPage() {
               ?.filter((product) => product.on_home_screen)
               .map((item) => (
                 <div
-                  className="rounded mt-1"
+                  className="border  mt-1"
+                  style={{
+                    borderRadius: "15px",
+                    boxShadow: "0px 0px 5px 2px #e6e6e6",
+                  }}
                   key={item.id}
                   onClick={() => {
                     let data = window.products?.filter(
@@ -229,29 +233,26 @@ function ClientProductsPage() {
                       src={item.image}
                       alt={item.title}
                       style={{
-                        width: "50%",
+                        width: "75%",
                         height: "50%",
                         alignItems: "center",
                         justifyContent: "center",
                       }}
                     />
                   </div>
-                  <div>
-                    <b
-                      className="text-center text-dark"
-                      style={{
-                        fontSize: "16px",
-                        color: "white",
-                        fontWeight: "bold",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        alignItems: "center",
-                        marginLeft: "10px", // Add some space between the image and the text
-                      }}
-                    >
-                      {item.title}
-                    </b>
+
+                  <div
+                    className="container text-center text-dark"
+                    style={{
+                      fontSize: "16px",
+                      color: "white",
+                      fontWeight: "normal",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                    }}
+                  >
+                    <p className="text-center"> {item.title}</p>
                   </div>
                 </div>
               ))}
@@ -268,7 +269,7 @@ function ClientProductsPage() {
             )} */}
           </div>
 
-          <hr />
+          {/* <hr /> */}
           {/* products section */}
           {/* <div
             className="container-fluid "
