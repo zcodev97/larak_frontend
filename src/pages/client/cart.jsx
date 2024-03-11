@@ -163,7 +163,7 @@ function ClientCartPage() {
                         i.amount += 1;
                       }}
                       style={{
-                        color: "#ff8000",
+                        color: "#de3d33",
                         fontSize: "24px",
                       }}
                     >
@@ -183,7 +183,7 @@ function ClientCartPage() {
                         }
                       }}
                       style={{
-                        color: "#ff8000",
+                        color: "#de3d33",
                         fontSize: "24px",
                       }}
                     >

@@ -4,7 +4,7 @@ function Loading() {
       className="container-flex"
       style={{
         height: window.innerHeight,
-        color: "#ff8000",
+        color: "#de3d33",
         fontSize: "40px",
         display: "flex",
         alignItems: "center",

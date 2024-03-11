@@ -2,7 +2,7 @@ import { useState, React, useEffect } from "react";
 import Loading from "./Loading";
 import { useNavigate } from "react-router-dom";
 import { Larak_System_URL } from "../globals";
-
+import LarakLogo from "../components/logo_larak.png";
 function LoginPage() {
   const navigate = useNavigate();
 
@@ -63,102 +63,114 @@ function LoginPage() {
 
   return (
     <>
-      <form
+      <div
         style={{
-          minHeight: window.innerHeight,
-          display: "grid",
-          alignItems: "center",
+          width: window.innerWidth,
+          height: window.innerHeight,
+          // margin: "0px",
+          backgroundColor: "#de3d33",
+          marginLeft: "-8px",
+
+          // minWidth: window.innerWidth,
         }}
       >
-        <div className="container p-4     text-center text-dark">
-          <div
-            className="container pt-4 pb-4 mb-4 rounded-circle"
-            style={{ color: "#ff8000", fontSize: "50px" }}
-          >
-            <b>Larak</b>
-          </div>
-          <div className="row d-flex justify-content-center align-items-center p-4 m-1">
-            <div className="col-md-6 m-1">
-              <div className="container-fluid">
-                <input
-                  maxLength={11}
-                  type="tel"
-                  className="form-control text-center"
-                  style={{
-                    backgroundColor: "#e6e6e6",
-                    fontSize: "20px",
-                    padding: "20px",
-                  }}
-                  id="phone"
-                  placeholder="رقم الهاتف"
-                  name="phone"
-                  onChange={handleUsername}
-                />
+        <form
+          style={{
+            minHeight: window.innerHeight,
+            // minWidth: window.innerWidth,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "#de3d33",
+          }}
+        >
+          <div className="container-fluid  text-center text-dark">
+            <div className="container    rounded-circle">
+              <img src={LarakLogo} alt="" srcset="" width={250} />
+            </div>
+            <div className="row d-flex justify-content-center align-items-center pt-4  m-1">
+              <div className="col-md-6 m-1">
+                <div className="container-fluid">
+                  <input
+                    maxLength={11}
+                    type="tel"
+                    className="form-control text-center"
+                    style={{
+                      backgroundColor: "#e6e6e6",
+                      fontSize: "20px",
+                      padding: "20px",
+                    }}
+                    id="phone"
+                    placeholder="رقم الهاتف"
+                    name="phone"
+                    onChange={handleUsername}
+                  />
+                </div>
               </div>
+
+              <div className="col-md-6 m-1">
+                <div className="container-fluid">
+                  <input
+                    type="password"
+                    className="form-control text-center"
+                    style={{
+                      backgroundColor: "#e6e6e6",
+                      fontSize: "20px",
+                      padding: "20px",
+                      marginBottom: "20px",
+                      marginTop: "20px",
+                    }}
+                    id="pwd"
+                    placeholder="كلمة السر"
+                    name="pswd"
+                    onChange={handlePassword}
+                  />
+                </div>
+              </div>
+              <hr />
             </div>
 
-            <div className="col-md-6 m-1">
-              <div className="container-fluid">
-                <input
-                  type="password"
-                  className="form-control text-center"
-                  style={{
-                    backgroundColor: "#e6e6e6",
-                    fontSize: "20px",
-                    padding: "20px",
-                    marginBottom: "20px",
-                    marginTop: "20px",
-                  }}
-                  id="pwd"
-                  placeholder="كلمة السر"
-                  name="pswd"
-                  onChange={handlePassword}
-                />
-              </div>
-            </div>
-            <hr />
+            <button
+              className="btn p-4"
+              style={{ color: "white", fontSize: "20px" }}
+              onClick={() => {
+                if (
+                  username === undefined ||
+                  (username === "" && password === undefined) ||
+                  password === ""
+                ) {
+                  alert("ادخل معلومات المستخدم");
+                  return;
+                }
+                checkIfUsernameAndPasswordIsCorrect();
+              }}
+              onKeyDown={() => {
+                if (
+                  username === undefined ||
+                  (username === "" && password === undefined) ||
+                  password === ""
+                ) {
+                  alert("ادخل معلومات المستخدم");
+                  return;
+                }
+                checkIfUsernameAndPasswordIsCorrect();
+              }}
+            >
+              <b style={{ fontWeight: "bold" }}> دخول</b>
+            </button>
+            <br />
+            <button
+              className="btn p-4"
+              style={{ color: "white", fontSize: "16px" }}
+              onClick={() => {
+                navigate("/sign_up", { replace: true });
+              }}
+            >
+              <b style={{ fontWeight: "normal" }}> تسجيل مستخدم جديد</b>
+            </button>
           </div>
-
-          <button
-            className="btn p-4"
-            style={{ color: "#ff8000", fontSize: "20px" }}
-            onClick={() => {
-              if (
-                username === undefined ||
-                (username === "" && password === undefined) ||
-                password === ""
-              ) {
-                alert("ادخل معلومات المستخدم");
-                return;
-              }
-              checkIfUsernameAndPasswordIsCorrect();
-            }}
-            onKeyDown={() => {
-              if (
-                username === undefined ||
-                (username === "" && password === undefined) ||
-                password === ""
-              ) {
-                alert("ادخل معلومات المستخدم");
-                return;
-              }
-              checkIfUsernameAndPasswordIsCorrect();
-            }}
-          >
-            <b style={{ fontWeight: "bold" }}> دخول</b>
-          </button>
-          <br />
-          <button
-            className="btn p-4"
-            style={{ color: "#ff8000", fontSize: "16px" }}
-            onClick={() => {
-              navigate("/sign_up", { replace: true });
-            }}
-          >
-            <b style={{ fontWeight: "normal" }}> تسجيل مستخدم جديد</b>
-          </button>
-        </div>
-      </form>
+        </form>
+      </div>
     </>
   );
 }

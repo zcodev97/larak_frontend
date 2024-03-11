@@ -2,6 +2,7 @@ import { useState, React, useEffect } from "react";
 import Loading from "./Loading";
 import { useNavigate } from "react-router-dom";
 import { Larak_System_URL } from "../globals";
+import LarakLogo from "../components/logo_larak.png";
 
 function SignUpPage() {
   const navigate = useNavigate();
@@ -50,101 +51,110 @@ function SignUpPage() {
 
   return (
     <>
-      <form
+      <div
         style={{
-          minHeight: window.innerHeight,
-          display: "grid",
-          alignItems: "center",
+          width: window.innerWidth,
+          height: window.innerHeight,
+          backgroundColor: "#de3d33",
+          marginLeft: "-8px",
         }}
       >
-        <div className="container p-4     text-center text-dark">
-          <div
-            className="container pt-4 pb-4 mb-4 rounded-circle"
-            style={{ color: "#ff8000", fontSize: "50px" }}
-          >
-            <b>Larak</b>
-          </div>
-          <div
-            className="container pt-4 pb-4 mb-4 rounded-circle"
-            style={{ color: "#ff8000", fontSize: "30px" }}
-          >
-            <b> تسجيل مستخدم جديد </b>
-          </div>
+        <form
+          style={{
+            minHeight: window.innerHeight,
+            display: "grid",
+            alignItems: "center",
+          }}
+        >
+          <div className="container p-4     text-center text-dark">
+            <div className="container    rounded-circle">
+              <img src={LarakLogo} alt="" srcset="" width={250} />
+            </div>
+            <div
+              className="container pt-4 pb-4 mb-4 rounded-circle"
+              style={{ color: "white", fontSize: "30px" }}
+            >
+              <b> تسجيل مستخدم جديد </b>
+            </div>
 
-          <div className="container-fluid">
-            <input
-              maxLength={11}
-              type="tel"
-              className="form-control text-center"
-              style={{
-                backgroundColor: "#e6e6e6",
-                fontSize: "20px",
-                padding: "20px",
-                marginBottom: "20px",
-                marginTop: "20px",
+            <div className="container-fluid">
+              <input
+                maxLength={11}
+                type="tel"
+                className="form-control text-center"
+                style={{
+                  backgroundColor: "#e6e6e6",
+                  fontSize: "20px",
+                  padding: "20px",
+                  marginBottom: "20px",
+                  marginTop: "20px",
+                }}
+                id="phone"
+                placeholder=" رقم الهاتف"
+                name="phone"
+                onChange={(event) => {
+                  setPhone(event.target.value);
+                }}
+              />
+            </div>
+
+            <div className="container-fluid">
+              <input
+                type="password"
+                className="form-control text-center"
+                style={{
+                  backgroundColor: "#e6e6e6",
+                  fontSize: "20px",
+                  padding: "20px",
+                  marginBottom: "20px",
+                  marginTop: "20px",
+                }}
+                id="pwd"
+                placeholder="كلمة السر"
+                name="pswd"
+                onChange={(event) => {
+                  setPassword(event.target.value);
+                }}
+              />
+            </div>
+
+            <button
+              className="btn p-4"
+              style={{ color: "white", fontSize: "20px" }}
+              onClick={() => {
+                if (phone.length !== 11) {
+                  alert("phone number must be 11 numbers");
+                  return;
+                }
+                registerUser();
               }}
-              id="phone"
-              placeholder=" رقم الهاتف"
-              name="phone"
-              onChange={(event) => {
-                setPhone(event.target.value);
+              onKeyDown={() => {
+                if (phone.length !== 11) {
+                  alert("phone number must be 11 numbers");
+                  return;
+                }
+                registerUser();
               }}
-            />
+            >
+              <b style={{ fontWeight: "bold" }}> تسجيل</b>
+            </button>
+            <br />
+
+            <button
+              className="btn p-4"
+              style={{ color: "#ff8000", fontSize: "16px" }}
+              onClick={() => {
+                navigate("/login", { replace: true });
+              }}
+            >
+              <b style={{ fontWeight: "normal", color: "white" }}>
+                {" "}
+                لديك حساب{" "}
+              </b>
+            </button>
           </div>
-
-          <div className="container-fluid">
-            <input
-              type="password"
-              className="form-control text-center"
-              style={{
-                backgroundColor: "#e6e6e6",
-                fontSize: "20px",
-                padding: "20px",
-                marginBottom: "20px",
-                marginTop: "20px",
-              }}
-              id="pwd"
-              placeholder="كلمة السر"
-              name="pswd"
-              onChange={(event) => {
-                setPassword(event.target.value);
-              }}
-            />
-          </div>
-
-          <button
-            className="btn p-4"
-            style={{ color: "#ff8000", fontSize: "20px" }}
-            onClick={() => {
-              if (phone.length !== 11) {
-                alert("phone number must be 11 numbers");
-                return;
-              }
-              registerUser();
-            }}
-            onKeyDown={() => {
-              if (phone.length !== 11) {
-                alert("phone number must be 11 numbers");
-                return;
-              }
-              registerUser();
-            }}
-          >
-            <b style={{ fontWeight: "bold" }}> تسجيل</b>
-          </button>
-          <br />
-
-          <button
-            className="btn p-4"
-            style={{ color: "#ff8000", fontSize: "16px" }}
-            onClick={() => {
-              navigate("/login", { replace: true });
-            }}
-          >
-            <b style={{ fontWeight: "normal" }}> لديك حساب </b>
-          </button>
-        </div>
-      </form>
+        </form>
+      </div>
     </>
   );
 }

@@ -104,9 +104,44 @@ function ClientProductsPage() {
           }}
         >
           <div
+            className="container "
+            style={{
+              marginTop: "10px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <i
+              class="fa fa-bell fa-3x"
+              aria-hidden="true"
+              style={{ color: "#de3d33" }}
+            ></i>
+            <div style={{ width: "10px" }}></div>
+
+            <input
+              maxLength={11}
+              type="tel"
+              className="form-control text-end"
+              style={{
+                backgroundColor: "#e6e6e6",
+                fontSize: "20px",
+                padding: "20px",
+              }}
+              id="phone"
+              placeholder="....ابحث"
+              name="phone"
+            />
+          </div>
+          <div
             id="carouselExampleIndicators"
             className="carousel slide"
             data-bs-ride="carousel"
+            style={{
+              marginTop: "10px",
+              marginLeft: "10px",
+              marginRight: "10px",
+            }}
           >
             <div className="carousel-indicators bg-dark rounded">
               {data
@@ -144,11 +179,13 @@ function ClientProductsPage() {
                           },
                         });
                       }}
-                      className="d-block w-100 rounded m-2"
+                      style={{
+                        borderRadius: "5%",
+                      }}
+                      className="d-block w-100   m-2"
                       src={product?.image}
                       alt={product?.title}
-                      height={250}
-                      width={250}
+                      height={150}
                     />
                   </div>
                 ))}
@@ -184,7 +221,7 @@ function ClientProductsPage() {
 
           <div className="container d-flex" style={{ overflowX: "auto" }}>
             {categories
-              ?.filter((product) => product.on_home_screen && product.active)
+              ?.filter((product) => product.on_home_screen)
               .map((item) => (
                 <div className="container w-100" key={item.id}>
                   <div
@@ -199,18 +236,19 @@ function ClientProductsPage() {
                         },
                       });
                     }}
-                    style={{ backgroundColor: "#EF774C" }}
+                    style={{ backgroundColor: "#de3d33" }}
                   >
                     <div className="container text-center d-flex rounded p-3">
                       <b
                         className="text-center"
                         style={{
                           fontSize: "16px",
-                          color: "#FFECDF",
+                          color: "white",
                           fontWeight: "bold",
                           textOverflow: "ellipsis",
                           whiteSpace: "nowrap",
                           overflow: "hidden",
+                          alignItems: "center",
                         }}
                       >
                         {item.title}
@@ -224,15 +262,15 @@ function ClientProductsPage() {
           <hr />
           {/* products section */}
           <div
-            className="container-fluid"
+            className="container-fluid "
             style={{ height: window.innerHeight - 100, overflowY: "auto" }}
           >
             {data
               ?.filter((product) => product.on_home_screen)
               .map((product) => (
-                <div className="container-fluid" key={product.id}>
+                <div className="container-fluid " key={product.id}>
                   <div className="container-fluid mb-2">
-                    <div className="container-fluid d-flex">
+                    <div className="container-fluid bg-light rounded d-flex">
                       <img
                         className="rounded"
                         onClick={() => {

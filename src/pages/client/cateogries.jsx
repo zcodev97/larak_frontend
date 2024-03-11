@@ -82,10 +82,10 @@ function ClientCategoriesPage() {
                   }}
                 >
                   <div
-                    className="container rounded p-3"
+                    className="container-fluid rounded p-4"
                     style={{
                       fontSize: "20px",
-                      color: "#ff8000",
+                      color: "#de3d33",
                       fontWeight: "bold",
                     }}
                   >

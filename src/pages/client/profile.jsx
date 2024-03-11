@@ -37,7 +37,7 @@ function ClientProfilePage() {
             className="btn btn-light p-4"
             style={{
               fontSize: "20px",
-              color: "#ff8000",
+              color: "#de3d33",
               fontWeight: "bold",
               display:
                 localStorage.getItem("user_type") === "user" ? "none" : "block",
@@ -60,7 +60,7 @@ function ClientProfilePage() {
             className="btn btn-light p-4"
             style={{
               fontSize: "20px",
-              color: "#ff8000",
+              color: "#de3d33",
               fontWeight: "bold",
               display:
                 localStorage.getItem("user_type") === "user" ? "none" : "block",
@@ -73,20 +73,17 @@ function ClientProfilePage() {
           </div>
         </div>
 
-        <div
-          className="container text-center mt-4"
-          style={{ fontSize: "20px" }}
-        >
+        <div className="container text-end mt-4" style={{ fontSize: "20px" }}>
           <div className="container  text-center p-4">
             Role : {localStorage.getItem("user_type")}
           </div>
 
           <div
-            className="btn btn-light text-danger border border-danger p-3"
+            className="btn btn-light text-danger p-3"
             onClick={handleLogout}
             style={{ fontSize: "20px" }}
           >
-            خروج
+            <b> خروج </b>
           </div>
         </div>
       </div>
