@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../../components/navbar";
 import { Larak_System_URL } from "../../globals";
+import { load } from "ol/Image";
+import Loading from "../Loading";
 
 function ClientCategoriesPage() {
   const [loading, setLoading] = useState(false);
@@ -53,44 +55,48 @@ function ClientCategoriesPage() {
   return (
     <>
       <NavBar />
-      <div
-        className="container "
-        style={{
-          height: window.innerHeight - 85,
-          overflowY: "auto",
-        }}
-      >
-        {data?.map((item) => (
-          <div className="container-fluid text-center">
-            <div className="container w-100" key={item.id}>
-              <div
-                className="container w-100 bg-light rounded mt-2  text-dark"
-                onClick={() => {
-                  let data = window.products?.filter(
-                    (i) => i.category === item.title
-                  );
-                  navigate("/client_products_cateogry", {
-                    state: {
-                      d: data,
-                    },
-                  });
-                }}
-              >
+      {loading ? (
+        <Loading />
+      ) : (
+        <div
+          className="container "
+          style={{
+            height: window.innerHeight - 85,
+            overflowY: "auto",
+          }}
+        >
+          {data?.map((item) => (
+            <div className="container-fluid text-center">
+              <div className="container w-100" key={item.id}>
                 <div
-                  className="container rounded p-3"
-                  style={{
-                    fontSize: "20px",
-                    color: "#ff8000",
-                    fontWeight: "bold",
+                  className="container w-100 bg-light rounded mt-2  text-dark"
+                  onClick={() => {
+                    let data = window.products?.filter(
+                      (i) => i.category === item.title
+                    );
+                    navigate("/client_products_cateogry", {
+                      state: {
+                        d: data,
+                      },
+                    });
                   }}
                 >
-                  {item.title}
+                  <div
+                    className="container rounded p-3"
+                    style={{
+                      fontSize: "20px",
+                      color: "#ff8000",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {item.title}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </>
   );
 }

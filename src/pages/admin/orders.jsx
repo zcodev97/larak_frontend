@@ -17,27 +17,14 @@ function AdminOrdersPage() {
     },
 
     {
-      dataField: "price",
+      dataField: "client",
       text: "سعر البيع",
       sort: true,
       filter: textFilter(),
     },
     {
-      dataField: "amount",
+      dataField: "order_id",
       text: "الكمية",
-      sort: true,
-      filter: textFilter(),
-    },
-    {
-      dataField: "product",
-      text: "المنتج",
-      sort: true,
-      filter: textFilter(),
-    },
-
-    {
-      dataField: "client",
-      text: "العميل",
       sort: true,
       filter: textFilter(),
     },

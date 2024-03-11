@@ -1,11 +1,25 @@
 function Loading() {
-    return (
-      <div className="d-flex justify-content-center m-4 p-4">
-        <div className="spinner-border spinner-border-lg" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
+  return (
+    <div
+      className="container-flex"
+      style={{
+        height: window.innerHeight,
+        color: "#ff8000",
+        fontSize: "40px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <div
+        className="spinner-grow"
+        style={{ width: "10rem", height: "10rem" }}
+        role="status"
+      >
+        <span className="sr-only">Loading...</span>
       </div>
-    );
-  }
-  
-  export default Loading;
+    </div>
+  );
+}
+
+export default Loading;

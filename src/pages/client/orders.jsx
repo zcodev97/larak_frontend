@@ -3,6 +3,7 @@ import NavBar from "../../components/navbar";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { FormatDateTime, Larak_System_URL } from "../../globals";
+import Loading from "../Loading";
 
 function ClientOrdersPage() {
   const navigate = useNavigate();
@@ -50,7 +51,7 @@ function ClientOrdersPage() {
     <>
       <NavBar />
       {loading ? (
-        "loading"
+        <Loading />
       ) : (
         <div
           className="container-fluid"

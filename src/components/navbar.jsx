@@ -17,11 +17,26 @@ function NavBar() {
 
   const [normalStyle, setnormalStyle] = useState("nav-link text-center");
 
-  function normalUser() {
-    return {};
-  }
+  const [selectedItem, setSelectedItem] = useState("");
 
-  return (
+  const liClassName = " nav-item flex-grow-1 border rounded p-1 m-1 ";
+  const liStyle = {
+    color: "#ff8000",
+    fontSize: "20px",
+    fontWeight: "bold",
+  };
+
+  const navItems = [
+    { name: "Orders", path: "/client_products" },
+    { name: "Categories", path: "/client_products" },
+    { name: "Products", path: "/client_products" },
+    { name: "Users", path: "/client_products" },
+    { name: "Sub Users", path: "/client_products" },
+    { name: "Bikers", path: "/client_products" },
+    { name: "Invoices", path: "/client_products" },
+  ];
+
+  let clientNavBar = (
     <>
       <nav
         className="navbar navbar-expand-sm navbar-dark fixed-bottom "
@@ -94,11 +109,11 @@ function NavBar() {
               </Link>
             </li>
             {/* <li className="nav-item rounded text flex-grow-1 m-0">
-              <Link className={normalStyle} to="/payments">
-                <p>🚗</p>
-                <b className="text-dark"> الكباتن</b>
-              </Link>
-            </li> */}
+          <Link className={normalStyle} to="/payments">
+            <p>🚗</p>
+            <b className="text-dark"> الكباتن</b>
+          </Link>
+        </li> */}
 
             {/* End of the logout button */}
           </ul>
@@ -109,6 +124,34 @@ function NavBar() {
       <Outlet />
     </>
   );
+
+  let adminNavBar = (
+    <>
+      <nav className="navbar navbar-expand-sm navbar-dark">
+        <div className="container-fluid d-flex justify-content-around">
+          <ul className="navbar-nav d-flex flex-row w-100">
+            {navItems.map((item) => (
+              <li
+                key={item.name}
+                className={liClassName}
+                onClick={() => setSelectedItem(item.name)}
+              >
+                <Link className={normalStyle} to={item.path}>
+                  <p style={liStyle}>{item.name}</p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </nav>
+
+      <Outlet />
+    </>
+  );
+
+  return localStorage.getItem("usertype") === "admin"
+    ? clientNavBar
+    : adminNavBar;
 }
 
 export default NavBar;
