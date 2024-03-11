@@ -1,6 +1,10 @@
 .react-bootstrap-table table {
   table-layout: auto !important;
 }
+.selectedStyle {
+  background-color: orange;
+  color: #000;
+}
 
 table {
   table-layout: auto !important;
