@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/static/css/main.9e6b4df0.css",
-    "main.js": "/static/js/main.bf0d11db.js",
+    "main.js": "/static/js/main.9ac9acf0.js",
     "static/media/logo_larak.png": "/static/media/logo_larak.998db0c6f3104d6c7fa3.png",
     "index.html": "/index.html",
     "main.9e6b4df0.css.map": "/static/css/main.9e6b4df0.css.map",
-    "main.bf0d11db.js.map": "/static/js/main.bf0d11db.js.map"
+    "main.9ac9acf0.js.map": "/static/js/main.9ac9acf0.js.map"
   },
   "entrypoints": [
     "static/css/main.9e6b4df0.css",
-    "static/js/main.bf0d11db.js"
+    "static/js/main.9ac9acf0.js"
   ]
 }
