@@ -119,7 +119,7 @@ function App() {
                 element={<ClientCategoriesPage />}
               />
               <Route
-                path="/client_products_cateogry"
+                path="/client_products_category"
                 element={<ProductsCategoryPage />}
               />
               <Route
