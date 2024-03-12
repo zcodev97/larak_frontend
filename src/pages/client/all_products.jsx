@@ -123,6 +123,18 @@ function AllClientProductsPage() {
                 >
                   {/* image section */}
                   <div
+                    onClick={() => {
+                      navigate("/product_details", {
+                        state: {
+                          id: product.id,
+                          cateogry: product.cateogry,
+                          image: product.image,
+                          title: product.title,
+                          description: product.description,
+                          price: product.price,
+                        },
+                      });
+                    }}
                     className="text-center"
                     style={{
                       marginTop: "5px",
@@ -133,7 +145,7 @@ function AllClientProductsPage() {
                       backgroundPosition: "center",
                       backgroundSize: "150px",
                       backgroundRepeat: "no-repeat",
-                      borderRadius: "50px",
+                      // borderRadius: "25px",
                     }}
                   >
                     <div
