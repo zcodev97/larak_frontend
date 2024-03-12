@@ -55,7 +55,10 @@ function ClientOrdersPage() {
       ) : (
         <div
           className="container-fluid"
-          style={{ height: window.innerHeight - 85, overflowY: "auto" }}
+          style={{
+            height: window.innerHeight - 85,
+            overflowY: "auto",
+          }}
         >
           <table className="table text-center">
             <thead style={{ fontSize: "20px" }}>
