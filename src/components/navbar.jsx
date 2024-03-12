@@ -38,15 +38,17 @@ function NavBar() {
         className="navbar navbar-expand-sm navbar-dark fixed-bottom "
         style={{
           // marginTop: "5px",
-          marginBottom: "14px",
-          paddingTop: "0px",
-          marginLeft: "-10px",
-          marginRight: "-5px",
+          // marginBottom: "14px",
+          // paddingTop: "0px",
+          // marginLeft: "-10px",
+          // marginRight: "-5px",
           // backgroundColor: "light",
           height: "60px",
           borderTopLeftRadius: "20px",
           borderTopRightRadius: "20px",
-          borderTop: "solid 0.5",
+          // borderTopStyle: "sold",
+          // borderStyle: "solid",
+          borderWidth: "1px",
           borderColor: "lightgray",
           borderBottom: "none",
         }}
@@ -67,10 +69,7 @@ function NavBar() {
             <li className="nav-item rounded text flex-grow-1 m-0">
               <Link className={normalStyle} to="/all_client_products">
                 <p style={{ color: "#8c8c8c" }}>
-                  <i
-                    class="fi fi-rr-menu-burger"
-                    style={{ fontSize: "20px" }}
-                  ></i>
+                  <i class="fi fi-rr-boxes" style={{ fontSize: "20px" }}></i>
                   <br />
                   <p style={{ fontSize: "10px" }}>Items</p>
                 </p>
@@ -90,8 +89,14 @@ function NavBar() {
               <Link className={normalStyle} to={"/client_orders"}>
                 <p style={{ color: "#8c8c8c" }}>
                   <i
-                    class="fi fi-rr-apps-sort"
-                    style={{ fontSize: "20px" }}
+                    class="fi fi-rr-list"
+                    style={{
+                      fontSize: "20px",
+                      // border: "1px",
+                      // borderStyle: "solid",
+                      // padding: "5px",
+                      // borderRadius: "10px",
+                    }}
                   ></i>
                   <br />
                   <p style={{ fontSize: "10px" }}>Orders</p>
