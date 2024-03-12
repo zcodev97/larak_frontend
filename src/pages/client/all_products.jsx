@@ -106,7 +106,8 @@ function AllClientProductsPage() {
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(2, 1fr)",
-              gap: "10px",
+              gap: "20px",
+              padding: "20px",
             }}
           >
             {/* products section */}
@@ -123,29 +124,14 @@ function AllClientProductsPage() {
                 >
                   {/* image section */}
                   <div
-                    onClick={() => {
-                      navigate("/product_details", {
-                        state: {
-                          id: product.id,
-                          cateogry: product.cateogry,
-                          image: product.image,
-                          title: product.title,
-                          description: product.description,
-                          price: product.price,
-                        },
-                      });
-                    }}
                     className="text-center"
                     style={{
-                      marginTop: "5px",
                       padding: "10px",
-                      height: "150px",
-                      width: "auto",
                       backgroundImage: `url(${product.image})`,
                       backgroundPosition: "center",
-                      backgroundSize: "150px",
+                      backgroundSize: "contain",
                       backgroundRepeat: "no-repeat",
-                      // borderRadius: "25px",
+                      borderRadius: "25px",
                     }}
                   >
                     <div
@@ -232,7 +218,21 @@ function AllClientProductsPage() {
                       </div>
                     </div>
                   </div>
-                  <div className="container text-center mt-4">
+                  <div
+                    className="container text-center mt-4"
+                    onClick={() => {
+                      navigate("/product_details", {
+                        state: {
+                          id: product.id,
+                          cateogry: product.cateogry,
+                          image: product.image,
+                          title: product.title,
+                          description: product.description,
+                          price: product.price,
+                        },
+                      });
+                    }}
+                  >
                     <p style={{ fontSize: "16px" }}>
                       {product.price.toLocaleString("en-US", {
                         style: "currency",

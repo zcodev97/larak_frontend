@@ -59,7 +59,7 @@ function NavBar() {
                 <p style={{ color: "#8c8c8c" }}>
                   <i class="fi fi-rr-home" style={{ fontSize: "20px" }}></i>
                   <br />
-                  <p style={{ fontSize: "14px" }}>Home</p>
+                  <p style={{ fontSize: "10px" }}>Home</p>
                 </p>
               </Link>
             </li>
@@ -72,7 +72,7 @@ function NavBar() {
                     style={{ fontSize: "20px" }}
                   ></i>
                   <br />
-                  <p style={{ fontSize: "14px" }}>Items</p>
+                  <p style={{ fontSize: "10px" }}>Items</p>
                 </p>
               </Link>
             </li>
@@ -81,7 +81,7 @@ function NavBar() {
                 <p style={{ color: "#8c8c8c" }}>
                   <i class="fa fa-object-group fa-3x" aria-hidden="true"></i>
                   <br />
-                  <p style={{ fontSize: "14px" }}>Categories</p>
+                  <p style={{ fontSize: "10px" }}>Categories</p>
                 </p>
               </Link>
             </li> */}
@@ -94,7 +94,7 @@ function NavBar() {
                     style={{ fontSize: "20px" }}
                   ></i>
                   <br />
-                  <p style={{ fontSize: "14px" }}>Orders</p>
+                  <p style={{ fontSize: "10px" }}>Orders</p>
                 </p>
               </Link>
             </li>
@@ -107,7 +107,7 @@ function NavBar() {
                     style={{ fontSize: "20px" }}
                   ></i>
                   <br />
-                  <p style={{ fontSize: "14px" }}>Cart</p>
+                  <p style={{ fontSize: "10px" }}>Cart</p>
                 </p>
               </Link>
             </li>
@@ -116,7 +116,7 @@ function NavBar() {
                 <p style={{ color: "#8c8c8c" }}>
                   <i class="fi fi-rr-user" style={{ fontSize: "20px" }}></i>
                   <br />
-                  <p style={{ fontSize: "14px" }}>Profile</p>
+                  <p style={{ fontSize: "10px" }}>Profile</p>
                 </p>
               </Link>
             </li>

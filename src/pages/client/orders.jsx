@@ -66,7 +66,7 @@ function ClientOrdersPage() {
                 <td>حالة الطلب</td>
                 {/* <td>تاريخ الطلب</td> */}
 
-                <td>السلة</td>
+                {/* <td>السلة</td> */}
                 <td>رقم الطلب</td>
               </tr>
             </thead>
@@ -80,7 +80,7 @@ function ClientOrdersPage() {
                   </td>
                   {/* <td>{FormatDateTime(i.created_at)}</td> */}
 
-                  <td className="text-end">
+                  {/* <td className="text-end">
                     <table className="table rounded">
                       <thead>
                         <td>السعر</td>
@@ -113,7 +113,7 @@ function ClientOrdersPage() {
                         </tbody>
                       ))}
                     </table>
-                  </td>
+                  </td> */}
                   <td>
                     <b> {d.order_id} </b>
                   </td>
