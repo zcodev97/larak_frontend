@@ -44,18 +44,6 @@ function ProductsCategoryPage() {
               >
                 {/* image section */}
                 <div
-                  onClick={() => {
-                    navigate("/product_details", {
-                      state: {
-                        id: product.id,
-                        cateogry: product.cateogry,
-                        image: product.image,
-                        title: product.title,
-                        description: product.description,
-                        price: product.price,
-                      },
-                    });
-                  }}
                   className="text-center"
                   style={{
                     marginTop: "5px",
@@ -153,7 +141,21 @@ function ProductsCategoryPage() {
                     </div>
                   </div>
                 </div>
-                <div className="container text-center mt-4">
+                <div
+                  className="container text-center mt-4"
+                  onClick={() => {
+                    navigate("/product_details", {
+                      state: {
+                        id: product.id,
+                        cateogry: product.cateogry,
+                        image: product.image,
+                        title: product.title,
+                        description: product.description,
+                        price: product.price,
+                      },
+                    });
+                  }}
+                >
                   <p style={{ fontSize: "16px" }}>
                     {product.price.toLocaleString("en-US", {
                       style: "currency",

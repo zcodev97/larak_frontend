@@ -126,6 +126,7 @@ function AllClientProductsPage() {
                   <div
                     className="text-center"
                     style={{
+                      width: "auto",
                       padding: "10px",
                       backgroundImage: `url(${product.image})`,
                       backgroundPosition: "center",

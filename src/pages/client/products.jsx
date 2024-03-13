@@ -8,8 +8,11 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
 import Loading from "../Loading";
+import Select from "react-select";
+
 function ClientProductsPage() {
   const [loading, setLoading] = useState(false);
+  const [products, setProducts] = useState([]);
   const navigate = useNavigate();
 
   // Retrieve the string from the local storage
@@ -51,6 +54,57 @@ function ClientProductsPage() {
       });
   }
 
+  const [selectedProduct, setSelectedProduct] = useState({});
+  const [productsDropDown, setProductsDropDown] = useState([]);
+  let dropdownMenuproductTemp = [];
+
+  async function loadProducts() {
+    setLoading(true);
+    await fetch(Larak_System_URL + "client_products/", {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.detail === "Given token not valid for any token type") {
+          navigate("/login", { replace: true });
+          return;
+        }
+        if (data.detail) {
+          alert(data.detail);
+          return;
+        }
+        // console.log(data);
+        data.forEach((i) => {
+          dropdownMenuproductTemp.push({
+            label: i.title,
+            value: i.id,
+            title: i.title,
+            price: i.price,
+            on_home_screen: i.on_home_screen,
+            on_banner: i.on_banner,
+            image: i.image,
+            id: i.id,
+            discount: i.discount,
+            description: i.description,
+            category: i.category,
+            active: i.active,
+          });
+        });
+        setProductsDropDown(dropdownMenuproductTemp);
+      })
+      .catch((error) => {
+        alert(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
+
   async function loadData() {
     setLoading(true);
     await fetch(Larak_System_URL + "client_products/", {
@@ -75,6 +129,9 @@ function ClientProductsPage() {
         window.products = data;
 
         setData(data);
+
+        loadCategories();
+        loadProducts();
       })
       .catch((error) => {
         alert(error);
@@ -83,12 +140,9 @@ function ClientProductsPage() {
         setLoading(false);
       });
   }
-  // Parse the string into a JavaScript object
-  var categoriesAsJson = JSON.parse(storedCategories);
 
   useEffect(() => {
     loadData();
-    loadCategories();
   }, []);
   return (
     <>
@@ -121,19 +175,25 @@ function ClientProductsPage() {
             ></i>
             <div style={{ width: "10px" }}></div>
 
-            <input
-              maxLength={11}
-              type="tel"
-              className="form-control text-end"
-              style={{
-                backgroundColor: "#e6e6e6",
-                fontSize: "20px",
-                padding: "20px",
-              }}
-              id="phone"
-              placeholder="البحث عن صنف"
-              name="phone"
-            />
+            <div className="container" style={{ fontSize: "16px" }}>
+              <Select
+                defaultValue={selectedProduct}
+                options={productsDropDown}
+                onChange={(opt) => {
+                  navigate("/product_details", {
+                    state: {
+                      id: opt.id,
+                      cateogry: opt.cateogry,
+                      image: opt.image,
+                      title: opt.title,
+                      description: opt.description,
+                      price: opt.price,
+                    },
+                  });
+                }}
+                placeholder={"product"}
+              />
+            </div>
           </div>
           <div
             id="carouselExampleIndicators"

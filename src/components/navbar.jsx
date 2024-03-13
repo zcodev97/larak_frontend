@@ -37,19 +37,9 @@ function NavBar() {
       <nav
         className="navbar navbar-expand-sm navbar-dark fixed-bottom "
         style={{
-          // marginTop: "5px",
-          // marginBottom: "14px",
-          // paddingTop: "0px",
-          // marginLeft: "-10px",
-          // marginRight: "-5px",
-          // backgroundColor: "light",
           height: "60px",
           borderTopLeftRadius: "20px",
           borderTopRightRadius: "20px",
-          // borderTopStyle: "sold",
-          // borderStyle: "solid",
-          borderWidth: "1px",
-          borderColor: "lightgray",
           borderBottom: "none",
         }}
       >
