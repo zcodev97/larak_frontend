@@ -92,7 +92,12 @@ function ProductsCategoryPage() {
                             window.cart.push({ ...product, amount: 1 });
                           }
 
-                          navigate("/all_client_products", { replace: true });
+                          navigate("/client_products_category", {
+                            state: {
+                              d: location.state.d,
+                            },
+                            replace: true,
+                          });
                         }}
                       >
                         <b style={{ fontSize: "20px" }}> + </b>
@@ -133,7 +138,14 @@ function ProductsCategoryPage() {
                               existingItem.amount -= 1;
                             }
                           }
-                          navigate("/all_client_products", { replace: true });
+                          // navigate("/all_client_products", { replace: true });
+
+                          navigate("/client_products_category", {
+                            state: {
+                              d: location.state.d,
+                            },
+                            replace: true,
+                          });
                         }}
                       >
                         <b style={{ fontSize: "20px" }}> - </b>

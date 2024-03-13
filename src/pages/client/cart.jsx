@@ -139,17 +139,12 @@ function ClientCartPage() {
           className="container-fluid"
           style={{ height: window.innerHeight - 85, overflowY: "auto" }}
         >
-          <table className="table table-striped text-center">
+          <table className="table table-sm text-center">
             <thead style={{ fontSize: "16px", fontWeight: "bold" }}>
               <tr>
                 <td> </td>
-                <td> </td>
-                <td> </td>
 
-                <td>السعر</td>
-
-                <td>الكمية</td>
-                <td>المنتج</td>
+                <td> </td>
               </tr>
             </thead>
             <tbody style={{ fontSize: "16px" }}>
@@ -157,53 +152,85 @@ function ClientCartPage() {
                 ?.filter((i) => i.amount !== 0 || i.amount < 0)
                 .map((i) => (
                   <tr>
-                    <td
-                      onClick={() => {
-                        navigate("/client_cart", { replace: true });
-                        i.amount += 1;
-                      }}
-                      style={{
-                        color: "#de3d33",
-                        fontSize: "24px",
-                      }}
-                    >
-                      <b> +</b>
-                    </td>
-                    <td></td>
-                    <td
-                      onClick={() => {
-                        navigate("/client_cart", { replace: true });
-                        if (i.amount === 1) {
-                          let index = window.cart.findIndex(
-                            (x) => x.id === i.id
-                          );
-                          window.cart.splice(index, 1);
-                        } else {
-                          i.amount -= 1;
-                        }
-                      }}
-                      style={{
-                        color: "#de3d33",
-                        fontSize: "24px",
-                      }}
-                    >
-                      <b> - </b>
+                    <td>
+                      <div className="d-flex justify-content-center align-items-center">
+                        <div className="container d-flex justify-content-center align-items-center">
+                          <p
+                            onClick={() => {
+                              navigate("/client_cart", { replace: true });
+                              i.amount += 1;
+                            }}
+                            style={{
+                              color: "#de3d33",
+                              fontSize: "20px",
+                            }}
+                          >
+                            {" "}
+                            <i class="fi fi-rs-plus"></i>
+                          </p>
+                        </div>
+                        <div className="container d-flex justify-content-center align-items-center">
+                          <p>{i.amount}</p>
+                        </div>
+
+                        <div className="container">
+                          <p
+                            onClick={() => {
+                              navigate("/client_cart", { replace: true });
+                              if (i.amount === 1) {
+                                let index = window.cart.findIndex(
+                                  (x) => x.id === i.id
+                                );
+                                window.cart.splice(index, 1);
+                              } else {
+                                i.amount -= 1;
+                              }
+                            }}
+                            style={{
+                              color: "#de3d33",
+                              fontSize: "20px",
+                            }}
+                          >
+                            <i class="fi fi-rs-minuss"></i>
+                          </p>
+                        </div>
+                      </div>
                     </td>
 
                     <td>
-                      {(i.price * i.amount).toLocaleString("en-US", {
-                        style: "currency",
-                        currency: "IQD",
-                        minimumFractionDigits: 0,
-                        maximumFractionDigits: 2,
-                      })}
-                    </td>
+                      <div className="container justify-content-end d-flex">
+                        <div className="p-2 text-end">
+                          <p>
+                            {i.title?.length > 16
+                              ? i.title.substring(0, 16)
+                              : i.title}
+                          </p>
 
-                    <td>{i.amount}</td>
-                    <td>
-                      {i.title?.length > 16
-                        ? i.title.substring(0, 16)
-                        : i.title}
+                          <p>
+                            {(i.price * i.amount).toLocaleString("en-US", {
+                              style: "currency",
+                              currency: "IQD",
+                              minimumFractionDigits: 0,
+                              maximumFractionDigits: 2,
+                            })}
+                          </p>
+                        </div>
+
+                        <img
+                          src={i.image}
+                          alt={i.title}
+                          style={{
+                            alignItems: "center",
+                            borderRadius: "20px",
+                            boxShadow: "0px 2px 2px 2px #e6e6e6",
+                            margin: "5px",
+                            width: "25%",
+                            height: "25%",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        />
+                      </div>
                     </td>
                   </tr>
                 ))}

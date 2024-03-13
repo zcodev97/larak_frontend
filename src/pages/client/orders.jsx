@@ -60,26 +60,28 @@ function ClientOrdersPage() {
             overflowY: "auto",
           }}
         >
-          <table className="table text-center">
+          <table
+            className="table text-center"
+            style={{
+              borderCollapse: "separate",
+              borderSpacing: "0 15px",
+            }}
+          >
             <thead style={{ fontSize: "20px" }}>
               <tr>
-                <td>حالة الطلب</td>
-                {/* <td>تاريخ الطلب</td> */}
-
-                {/* <td>السلة</td> */}
-                <td>رقم الطلب</td>
+                <td> </td>
               </tr>
             </thead>
             <tbody style={{ fontSize: "16px" }}>
               {data.reverse().map((d) => (
-                <tr className="text-center">
-                  <td>
-                    {d?.status[0]?.manager_status !== undefined
-                      ? d?.status[0]?.manager_status.accept
-                      : d?.status[0]?.vendor_status.accept}
-                  </td>
-                  {/* <td>{FormatDateTime(i.created_at)}</td> */}
-
+                <tr
+                  className="text-center"
+                  style={{
+                    borderRadius: "10px",
+                    boxShadow: "0px 1px 2px 2px #e6e6e6",
+                    margin: "5px",
+                  }}
+                >
                   {/* <td className="text-end">
                     <table className="table rounded">
                       <thead>
@@ -114,8 +116,15 @@ function ClientOrdersPage() {
                       ))}
                     </table>
                   </td> */}
-                  <td>
-                    <b> {d.order_id} </b>
+                  <td className="text-end">
+                    <b> {d.order_id} </b> رقم الطلب
+                    <p>{FormatDateTime(d.created_at)}</p>
+                    <p>
+                      {d?.status[0]?.manager_status !== undefined
+                        ? d?.status[0]?.manager_status.accept
+                        : d?.status[0]?.vendor_status.accept}
+                      {" : "} حالة الطلب
+                    </p>
                   </td>
                 </tr>
               ))}
