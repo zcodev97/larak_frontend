@@ -77,41 +77,10 @@ function ClientOrdersPage() {
                     boxShadow: "4px 4px 4px  #e6e6e6",
                     margin: "5px",
                   }}
+                  onClick={() => {
+                    navigate("/client_order_details", { state: d });
+                  }}
                 >
-                  {/* <td className="text-end">
-                    <table className="table rounded">
-                      <thead>
-                        <td>السعر</td>
-                        <td>الكمية</td>
-                        <td>المنتج</td>
-                      </thead>
-                      {d.cart?.map((i) => (
-                        <tbody>
-                          <tr>
-                            <td>
-                              <b>
-                                {(i.price * i.amount).toLocaleString("en-US", {
-                                  style: "currency",
-                                  currency: "IQD",
-                                  minimumFractionDigits: 0,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </b>
-                            </td>
-                            <td>
-                              <b>
-                                {" "}
-                                <b className="pr-2 text-center">{i.amount}</b>
-                              </b>
-                            </td>
-                            <td>
-                              <b>{i.title}</b>
-                            </td>
-                          </tr>
-                        </tbody>
-                      ))}
-                    </table>
-                  </td> */}
                   <td className="text-end">
                     <b> {d.order_id} </b> رقم الطلب
                     <p>{FormatDateTime(d.created_at)}</p>

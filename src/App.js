@@ -2,10 +2,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Loading from "./pages/Loading";
 import { Larak_System_URL } from "./globals";
-import HomePage from "./pages/products/products";
 import LoginPage from "./pages/Login";
 import NoPage from "./pages/NoPage";
-import CategoriesPage from "./pages/Categories";
 import UsersPage from "./pages/users";
 import ClientProductsPage from "./pages/client/products";
 import ClientCartPage from "./pages/client/cart";
@@ -14,8 +12,6 @@ import ClientProfilePage from "./pages/client/profile";
 import ClientCategoriesPage from "./pages/client/cateogries";
 import ProductsCategoryPage from "./pages/client/products_category";
 import ProductDetailsPage from "./pages/client/product_details";
-import AdminOrdersPage from "./pages/admin/orders";
-import AdminOrderDetailsPage from "./pages/admin/order_details";
 import AllClientProductsPage from "./pages/client/all_products";
 import SignUpPage from "./pages/SignUp";
 import ClientProfileDetailsPage from "./pages/client/profileDetails";
@@ -23,6 +19,7 @@ import "leaflet/dist/leaflet.css";
 import ManagerEmployeesPage from "./pages/client/managerEmployees";
 import AddEmployeePage from "./pages/client/addEmployee";
 import EmployeeDetailsPage from "./pages/client/employeeDetails";
+import OrderDetailsPage from "./pages/client/order_details";
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -100,7 +97,6 @@ function App() {
                 }
               />
 
-              {/* clients */}
               <Route
                 path="/all_client_products"
                 element={<AllClientProductsPage />}
@@ -109,6 +105,10 @@ function App() {
               <Route path="/product_details" element={<ProductDetailsPage />} />
               <Route path="/client_cart" element={<ClientCartPage />} />
               <Route path="/client_orders" element={<ClientOrdersPage />} />
+              <Route
+                path="/client_order_details"
+                element={<OrderDetailsPage />}
+              />
               <Route path="/client_profile" element={<ClientProfilePage />} />
               <Route
                 path="/client_profile_details"
@@ -132,21 +132,6 @@ function App() {
               />
               <Route path="/add_employee" element={<AddEmployeePage />} />
 
-              {/* admin */}
-              {/* list of 
-              managers
-              users 
-              orders
-              bikers
-              */}
-              <Route path="/users" element={<UsersPage />} />
-              <Route path="/admin_orders" element={<AdminOrdersPage />} />
-              <Route
-                path="/admin_order_details"
-                element={<AdminOrderDetailsPage />}
-              />
-
-              {/* shared */}
               <Route path="/login" element={<LoginPage />} />
               <Route path="/sign_up" element={<SignUpPage />} />
 

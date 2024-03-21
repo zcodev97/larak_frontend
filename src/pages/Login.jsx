@@ -65,22 +65,17 @@ function LoginPage() {
     <>
       <div
         style={{
-          width: window.innerWidth,
-          height: window.innerHeight,
           backgroundColor: "#de3d33",
+          width: "100vw",
+          height: "100vh",
+          margin: "0px",
           marginLeft: "-8px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        <form
-          style={{
-            minHeight: window.innerHeight,
-            // minWidth: window.innerWidth,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            backgroundColor: "#de3d33",
-          }}
-        >
+        <form>
           <div className="container-fluid  text-center text-dark">
             <div className="container    rounded-circle">
               <img src={LarakLogo} alt="" srcset="" width={250} />
@@ -124,7 +119,6 @@ function LoginPage() {
                   />
                 </div>
               </div>
-              <hr />
             </div>
 
             <button
