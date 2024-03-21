@@ -67,18 +67,14 @@ function ClientOrdersPage() {
               borderSpacing: "0 15px",
             }}
           >
-            <thead style={{ fontSize: "20px" }}>
-              <tr>
-                <td> </td>
-              </tr>
-            </thead>
             <tbody style={{ fontSize: "16px" }}>
               {data.reverse().map((d) => (
                 <tr
                   className="text-center"
                   style={{
+                    borderTop: "0px",
                     borderRadius: "10px",
-                    boxShadow: "0px 1px 2px 2px #e6e6e6",
+                    boxShadow: "4px 4px 4px  #e6e6e6",
                     margin: "5px",
                   }}
                 >

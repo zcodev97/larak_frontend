@@ -247,7 +247,7 @@ function ClientProductsPage() {
                       className="d-block w-100   m-2"
                       src={product?.image}
                       alt={product?.title}
-                      height={150}
+                      height={200}
                     />
                   </div>
                 ))}
