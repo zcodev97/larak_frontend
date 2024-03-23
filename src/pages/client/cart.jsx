@@ -237,9 +237,25 @@ function ClientCartPage() {
             </tbody>
           </table>
 
+          <div className="container text-center" style={{ fontSize: "20px" }}>
+            <p>سعر السلة</p>
+            {window.cart
+              .map((i) => i.price * i.amount)
+              .reduce(
+                (accumulator, currentValue) => accumulator + currentValue,
+                0
+              )
+              .toLocaleString("en-US", {
+                style: "currency",
+                currency: "IQD",
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 2,
+              })}
+          </div>
+
           <div className="container text-center">
             <div
-              className="btn btn-success"
+              className="btn btn-light rounded  text-danger"
               onClick={() => {
                 if (window.confirm("هل متاكد للطلب!") == true) {
                   orderItems();
