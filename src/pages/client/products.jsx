@@ -38,7 +38,7 @@ function ClientProductsPage() {
           return;
         }
 
-        console.log(data);
+        // console.log(data);
         if (data.detail) {
           alert(data.detail);
           return;
@@ -241,10 +241,8 @@ function ClientProductsPage() {
                           },
                         });
                       }}
-                      style={{
-                        borderRadius: "5%",
-                      }}
-                      className="d-block w-100   m-2"
+                      style={{ borderRadius: "5%", cursor: "pointer" }} // Added cursor: pointer for visual feedback
+                      className="d-block w-100 m-2"
                       src={product?.image}
                       alt={product?.title}
                       height={200}
@@ -252,8 +250,33 @@ function ClientProductsPage() {
                   </div>
                 ))}
             </div>
-          </div>
 
+            {/* Added the carousel control buttons (optional) */}
+            <button
+              className="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="prev"
+            >
+              <span
+                className="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span className="visually-hidden">Previous</span>
+            </button>
+            <button
+              className="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="next"
+            >
+              <span
+                className="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+              <span className="visually-hidden">Next</span>
+            </button>
+          </div>
           {/* categories section */}
           <hr />
 
