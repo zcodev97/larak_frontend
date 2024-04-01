@@ -29,6 +29,10 @@ function OrderDetailsPage() {
           <b className="p-2"> رقم الطلب</b>
         </div>
 
+        <div className="text-center mt-2 mb-2" style={{ fontSize: "20px" }}>
+          {location.state?.status?.client?.text_location}
+        </div>
+
         <table
           className="table table-sm text-center rounded"
           style={{ fontSize: "16px", fontWeight: "normal" }}
@@ -98,12 +102,18 @@ function OrderDetailsPage() {
           className="container text-center d-flex justify-content-center align-items-center"
           style={{ fontSize: "20px" }}
         >
-          <p className="pr-2">
+          {/* <p className="pr-2">
             {location.state.status[0]?.manager_status !== undefined
               ? location.state?.status[0]?.manager_status.accept
               : location.state?.status[0]?.vendor_status.accept}
-          </p>
-          <p> حالة الطلب</p>
+          </p> */}
+          <b>
+            {location.state?.status?.biker
+              ? "تم التوصيل"
+              : location.state?.status?.vendor
+              ? "في انتظار تعيين سائق"
+              : "قيد الموافقة"}
+          </b>
         </div>
       </div>
     </>
