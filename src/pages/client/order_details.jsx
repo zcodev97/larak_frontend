@@ -19,7 +19,13 @@ function OrderDetailsPage() {
   return (
     <>
       <NavBar />
-      <div className="container">
+      <div
+        className="container"
+        style={{
+          height: window.innerHeight - 85,
+          overflowY: "auto",
+        }}
+      >
         <div
           className="container text-center d-flex justify-content-center align-items-center"
           style={{ fontSize: "20px", margin: "5px", padding: "5px" }}
@@ -28,7 +34,39 @@ function OrderDetailsPage() {
 
           <b className="p-2"> رقم الطلب</b>
         </div>
-
+        <div
+          className="container text-center d-flex justify-content-center align-items-center"
+          style={{ fontSize: "20px" }}
+        >
+          <b>
+            {location.state?.status?.biker
+              ? "تم التوصيل"
+              : location.state?.status?.vendor
+              ? "في انتظار تعيين سائق"
+              : "قيد الموافقة"}
+          </b>
+        </div>
+        <div
+          className="container text-center d-flex justify-content-center align-items-center"
+          style={{ fontSize: "20px" }}
+        >
+          <p className="pr-2">
+            {totalPrice.toLocaleString("en-US", {
+              style: "currency",
+              currency: "IQD",
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 2,
+            })}
+          </p>
+          <p>المبلغ الكلي</p>
+        </div>
+        <div
+          className="container text-center d-flex justify-content-center align-items-center"
+          style={{ fontSize: "20px" }}
+        >
+          <p className="pr-2">{FormatDateTime(location.state.created_at)}</p>
+          <p>تاريخ الطلب</p>
+        </div>
         <div className="text-center mt-2 mb-2" style={{ fontSize: "20px" }}>
           {location.state?.status?.client?.text_location}
         </div>
@@ -76,45 +114,6 @@ function OrderDetailsPage() {
             ))}
           </tbody>
         </table>
-
-        <div
-          className="container text-center d-flex justify-content-center align-items-center"
-          style={{ fontSize: "20px" }}
-        >
-          <p className="pr-2">
-            {totalPrice.toLocaleString("en-US", {
-              style: "currency",
-              currency: "IQD",
-              minimumFractionDigits: 0,
-              maximumFractionDigits: 2,
-            })}
-          </p>
-          <p>المبلغ الكلي</p>
-        </div>
-        <div
-          className="container text-center d-flex justify-content-center align-items-center"
-          style={{ fontSize: "20px" }}
-        >
-          <p className="pr-2">{FormatDateTime(location.state.created_at)}</p>
-          <p>تاريخ الطلب</p>
-        </div>
-        <div
-          className="container text-center d-flex justify-content-center align-items-center"
-          style={{ fontSize: "20px" }}
-        >
-          {/* <p className="pr-2">
-            {location.state.status[0]?.manager_status !== undefined
-              ? location.state?.status[0]?.manager_status.accept
-              : location.state?.status[0]?.vendor_status.accept}
-          </p> */}
-          <b>
-            {location.state?.status?.biker
-              ? "تم التوصيل"
-              : location.state?.status?.vendor
-              ? "في انتظار تعيين سائق"
-              : "قيد الموافقة"}
-          </b>
-        </div>
       </div>
     </>
   );
