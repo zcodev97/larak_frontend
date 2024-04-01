@@ -17,98 +17,6 @@ function ClientCartPage() {
     return String(uniqueId);
   }
 
-  async function orderItems() {
-    setLoading(true);
-
-    let status = [];
-    let currentUserType = localStorage.getItem("user_type");
-    if (currentUserType === "manager" || currentUserType === "admin") {
-      status = [
-        {
-          vendor_status: {
-            user: localStorage.getItem("username"),
-            accept: "pending",
-            date: null,
-            reason: "",
-          },
-        },
-        {
-          biker_status: {
-            biker: "",
-            delivered: false,
-            date: null,
-            reason: "",
-          },
-        },
-      ];
-    } else if (currentUserType === "user") {
-      status = [
-        {
-          manager_status: {
-            accept: "pending",
-            date: null,
-            reason: "",
-          },
-        },
-        {
-          vendor_status: {
-            accept: "",
-            date: null,
-            reason: "",
-          },
-        },
-        {
-          biker_status: {
-            delivered: "",
-            date: null,
-            reason: "",
-          },
-        },
-      ];
-    } else {
-      alert("You Don't have Permission To Order !?");
-      return;
-    }
-    let orderId = generateOrderId();
-
-    let dataTosend = JSON.stringify({
-      client: localStorage.getItem("username_id"),
-      cart: window.cart,
-      status: status,
-      order_id: orderId,
-    });
-
-    await fetch(Larak_System_URL + "client_submit_order/", {
-      method: "POST",
-      headers: {
-        accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-      body: dataTosend,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.detail === "Given token not valid for any token type") {
-          navigate("/login", { replace: true });
-          return;
-        }
-        if (data.detail) {
-          alert(data.detail);
-          return;
-        }
-      })
-      .catch((error) => {
-        alert(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-    window.cart = undefined;
-    setLoading(false);
-    navigate("/client_orders", { replace: true });
-  }
-
   useEffect(() => {
     setCart(window.cart);
   }, []);
@@ -257,12 +165,14 @@ function ClientCartPage() {
             <div
               className="btn btn-light rounded  text-danger"
               onClick={() => {
-                if (window.confirm("هل متاكد للطلب!") == true) {
-                  orderItems();
-                  alert("تم الطلب بنجاح, سيتم التواصل معك");
-                } else {
-                  alert("تم الغاء العملية");
-                }
+                navigate("/client_order_confirm");
+                // if (window.confirm("هل متاكد للطلب!") == true) {
+                //   orderItems();
+
+                //   alert("تم الطلب بنجاح, سيتم التواصل معك");
+                // } else {
+                //   alert("تم الغاء العملية");
+                // }
               }}
               style={{ fontSize: "24px" }}
             >

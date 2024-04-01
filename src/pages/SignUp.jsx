@@ -22,8 +22,8 @@ function SignUpPage() {
       body: JSON.stringify({
         username: phone,
         password: password,
-        user_type: "639a74b7-3311-458d-aa3a-ba20eb5bf0c4",
-        supervisor: "31dc0b00-85fd-49a1-9d4f-5a3345f5cb84",
+        user_type: "f251af39-be14-490f-942f-056b1ac0d00e",
+        supervisor: "161ea02e-217c-4abf-b027-33a131889e70",
       }),
     })
       .then((response) => response.json())

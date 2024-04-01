@@ -20,6 +20,7 @@ import ManagerEmployeesPage from "./pages/client/managerEmployees";
 import AddEmployeePage from "./pages/client/addEmployee";
 import EmployeeDetailsPage from "./pages/client/employeeDetails";
 import OrderDetailsPage from "./pages/client/order_details";
+import ConfirmOrderPage from "./pages/client/confirm_order";
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -104,6 +105,10 @@ function App() {
               <Route path="/client_products" element={<ClientProductsPage />} />
               <Route path="/product_details" element={<ProductDetailsPage />} />
               <Route path="/client_cart" element={<ClientCartPage />} />
+              <Route
+                path="/client_order_confirm"
+                element={<ConfirmOrderPage />}
+              />
               <Route path="/client_orders" element={<ClientOrdersPage />} />
               <Route
                 path="/client_order_details"

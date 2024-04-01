@@ -84,12 +84,12 @@ function ClientOrdersPage() {
                   <td className="text-end">
                     <b> {d.order_id} </b> رقم الطلب
                     <p>{FormatDateTime(d.created_at)}</p>
-                    <p>
+                    {/* <p>
                       {d?.status[0]?.manager_status !== undefined
                         ? d?.status[0]?.manager_status.accept
                         : d?.status[0]?.vendor_status.accept}
                       {" : "} حالة الطلب
-                    </p>
+                    </p> */}
                   </td>
                 </tr>
               ))}

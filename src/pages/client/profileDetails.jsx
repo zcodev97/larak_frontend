@@ -215,6 +215,8 @@ function ClientProfileDetailsPage() {
   async function submitUserInfo() {
     setLoading(true);
 
+    localStorage.setItem("text_location", location);
+
     await fetch(Larak_System_URL + "add_user_info/", {
       method: "POST",
       headers: {
@@ -237,6 +239,7 @@ function ClientProfileDetailsPage() {
           alert(data.detail);
           return;
         }
+        navigate(-1, { replace: true });
       })
       .catch((error) => {
         alert(error);

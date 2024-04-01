@@ -72,14 +72,23 @@ function ClientProfilePage() {
             الموظفين
           </div>
         </div>
-
-        <div className="container text-end mt-4" style={{ fontSize: "20px" }}>
-          <div className="container  text-center p-4">
-            Role : {localStorage.getItem("user_type")}
-          </div>
+        <div
+          className="container text-center mt-4"
+          style={{
+            fontSize: "24px",
+            fontWeight: "bold",
+            position: "absolute",
+            bottom: "0",
+            left: "0",
+            marginBottom: "80px",
+          }}
+        >
+          {/* <div className="container  text-center p-4">
+            {localStorage.getItem("user_type")}
+          </div> */}
 
           <div
-            className="btn btn-light text-danger p-3"
+            className="container btn btn-danger text-light p-3"
             onClick={handleLogout}
             style={{ fontSize: "20px" }}
           >
