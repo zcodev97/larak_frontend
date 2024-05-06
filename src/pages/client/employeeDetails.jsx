@@ -50,7 +50,9 @@ function EmployeeDetailsPage() {
     setLoading(true);
 
     await fetch(
-      Larak_System_URL + "employee_orders/" + location.state.username,
+      Larak_System_URL +
+        "get_employee_orders_for_supervisor/" +
+        location.state.username,
       {
         method: "GET",
         headers: {
@@ -128,6 +130,7 @@ function EmployeeDetailsPage() {
 
   useEffect(() => {
     console.log(location.state);
+
     clientOrders();
   }, []);
 
@@ -196,7 +199,6 @@ function EmployeeDetailsPage() {
                 {/* <td>تاريخ الطلب</td> */}
 
                 <td>السلة</td>
-                <td>رقم الطلب</td>
               </tr>
             </thead>
             <tbody style={{ fontSize: "16px" }}>
@@ -276,9 +278,6 @@ function EmployeeDetailsPage() {
                         </tbody>
                       ))}
                     </table>
-                  </td>
-                  <td>
-                    <b> {d.order_id} </b>
                   </td>
                 </tr>
               ))}

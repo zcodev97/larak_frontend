@@ -11,7 +11,7 @@ function ClientOrdersPage() {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
 
-  async function clientOrders() {
+  async function managerOrders() {
     setLoading(true);
 
     await fetch(Larak_System_URL + "client_orders/", {
@@ -42,9 +42,42 @@ function ClientOrdersPage() {
         setLoading(false);
       });
   }
+  async function userOrders() {
+    setLoading(true);
+
+    await fetch(Larak_System_URL + "get_employee_orders/", {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.detail === "Given token not valid for any token type") {
+          navigate("/login", { replace: true });
+          return;
+        }
+        if (data.detail) {
+          alert(data.detail);
+          return;
+        }
+
+        setData(data.results);
+      })
+      .catch((error) => {
+        alert(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
 
   useEffect(() => {
-    clientOrders();
+    localStorage.getItem("user_type") === "user"
+      ? userOrders()
+      : managerOrders();
   }, []);
 
   return (
@@ -82,7 +115,6 @@ function ClientOrdersPage() {
                   }}
                 >
                   <td className="text-end">
-                    <b> {d.order_id} </b> رقم الطلب
                     <p>{FormatDateTime(d.created_at)}</p>
                     <b className="m-1">
                       {d?.status?.biker

@@ -6,6 +6,7 @@ import { FormatDateTime } from "../../globals";
 function OrderDetailsPage() {
   const location = useLocation();
   const navigate = useNavigate();
+  console.log(location.state);
 
   let x = location.state.cart?.map((i) => i.price * i.amount);
 
@@ -75,7 +76,7 @@ function OrderDetailsPage() {
         >
           <thead></thead>
           <tbody>
-            {location.state.cart?.map((i) => (
+            {location.state?.cart?.map((i) => (
               <tr
                 className="text-center"
                 style={{

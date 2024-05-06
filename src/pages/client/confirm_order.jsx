@@ -175,7 +175,7 @@ function ConfirmOrderPage() {
     return String(uniqueId);
   }
 
-  async function orderItems() {
+  async function managerOrderItems() {
     setLoading(true);
 
     let orderId = generateOrderId();
@@ -234,6 +234,52 @@ function ConfirmOrderPage() {
     navigate("/client_orders", { replace: true });
   }
 
+  async function employeeOrderItems() {
+    setLoading(true);
+
+    let dataTosend = JSON.stringify({
+      employee: localStorage.getItem("username_id"),
+      manager: localStorage.getItem("supervisor"),
+      cart: window.cart,
+      status: {
+        vendor_status: "null",
+        biker_status: "null",
+        arrvied_status: "null",
+        decliened_status: "null",
+        manager_status: "null",
+      },
+    });
+
+    await fetch(Larak_System_URL + "add_employee_order/", {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: dataTosend,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.detail === "Given token not valid for any token type") {
+          navigate("/login", { replace: true });
+          return;
+        }
+        if (data.detail) {
+          alert(data.detail);
+          return;
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+    window.cart = undefined;
+    setLoading(false);
+    navigate("/client_orders", { replace: true });
+  }
   useEffect(() => {
     setCart(window.cart);
   }, []);
@@ -418,7 +464,9 @@ function ConfirmOrderPage() {
             <div
               className="btn btn-light    text-success"
               onClick={() => {
-                orderItems();
+                localStorage.getItem("user_type") === "user"
+                  ? employeeOrderItems()
+                  : managerOrderItems();
               }}
               style={{ fontSize: "24px" }}
             >
