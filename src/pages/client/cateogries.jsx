@@ -31,9 +31,9 @@ function ClientCategoriesPage() {
           return;
         }
 
-        console.log(data);
+        // console.log(data);
 
-        setData(data);
+        setData(data.results);
       })
       .catch((error) => {
         alert(error);

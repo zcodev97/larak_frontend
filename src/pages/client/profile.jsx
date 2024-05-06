@@ -20,18 +20,23 @@ function ClientProfilePage() {
 
       <div className="container-fluid">
         <p
-          className=" pt-4  text-end "
-          style={{ fontWeight: "bold", fontSize: "24px" }}
+          className=" pt-4  text-center "
+          style={{ fontWeight: "normal", fontSize: "24px" }}
         >
-          الاعدادات
+          الملف الشخصي
         </p>
         <p
-          className=" pt-4  text-end "
+          className=" pt-4  text-center "
           style={{ fontWeight: "bold", fontSize: "20px" }}
         >
           <b>{localStorage.getItem("username")}</b>
         </p>
-
+        <p
+          className=" pt-4  text-center "
+          style={{ fontWeight: "normal", fontSize: "20px" }}
+        >
+          {localStorage.getItem("user_type")}
+        </p>
         <div className="container text-end   mt-2 mb-1">
           <div
             className="btn btn-light p-4"

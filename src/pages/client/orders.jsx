@@ -32,8 +32,8 @@ function ClientOrdersPage() {
           alert(data.detail);
           return;
         }
-        console.log(data);
-        setData(data);
+        // console.log(data);
+        setData(data.results);
       })
       .catch((error) => {
         alert(error);

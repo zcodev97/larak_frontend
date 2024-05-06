@@ -4,11 +4,7 @@ import { Larak_System_URL } from "../../globals";
 import NavBar from "../../components/navbar";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { FormatDateTime } from "../../globals";
-import BootstrapTable from "react-bootstrap-table-next";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.css";
-import paginationFactory from "react-bootstrap-table2-paginator";
-import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
 function EmployeeDetailsPage() {
   const navigate = useNavigate();
@@ -41,8 +37,6 @@ function EmployeeDetailsPage() {
           alert(data.password);
           return;
         }
-
-        console.log(data);
       })
       .catch((error) => {
         alert(error);
@@ -79,7 +73,7 @@ function EmployeeDetailsPage() {
           return;
         }
 
-        setData(data);
+        setData(data.results);
       })
       .catch((error) => {
         console.log(error);
@@ -133,6 +127,7 @@ function EmployeeDetailsPage() {
   }
 
   useEffect(() => {
+    console.log(location.state);
     clientOrders();
   }, []);
 
@@ -146,13 +141,13 @@ function EmployeeDetailsPage() {
         style={{ color: "#ff8000", fontSize: "20px", marginTop: "20px" }}
       >
         <b> تحديث كلمة السر للمستخدم </b> <br />
-        <div className="container border rounded">
+        <div className="container ">
           <b> {location.state.username} </b>
         </div>
       </div>
       <form>
         <div
-          className="container p-2     text-center text-dark d-flex"
+          className="container p-2 text-center text-dark d-flex"
           style={{
             display: "flex",
             alignItems: "center",

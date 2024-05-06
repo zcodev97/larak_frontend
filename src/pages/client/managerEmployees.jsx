@@ -36,11 +36,11 @@ function ManagerEmployeesPage() {
           return;
         }
 
-        data.map((i) => {
+        data.results.map((i) => {
           i.date_joined = FormatDateTime(i.date_joined);
         });
 
-        setData(data);
+        setData(data.results);
       })
       .catch((error) => {
         alert(error);

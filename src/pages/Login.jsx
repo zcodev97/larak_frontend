@@ -37,6 +37,10 @@ function LoginPage() {
         localStorage.setItem("token", data.access);
         localStorage.setItem("username", data.user.username);
         localStorage.setItem("username_id", data.user.id);
+        localStorage.setItem("lon", data.user.lon);
+        localStorage.setItem("lat", data.user.lat);
+        localStorage.setItem("first_name", data.user.first_name);
+        localStorage.setItem("last_name", data.user.last_name);
 
         localStorage.setItem("user_type", data.user.user_type);
         localStorage.setItem("supervisor", data.user.supervisor);

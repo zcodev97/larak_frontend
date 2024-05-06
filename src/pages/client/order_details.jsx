@@ -7,8 +7,6 @@ function OrderDetailsPage() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  console.log(location.state);
-
   let x = location.state.cart?.map((i) => i.price * i.amount);
 
   let totalPrice = x.reduce(
@@ -20,7 +18,7 @@ function OrderDetailsPage() {
     <>
       <NavBar />
       <div
-        className="container"
+        className="container-fluid"
         style={{
           height: window.innerHeight - 85,
           overflowY: "auto",
@@ -84,7 +82,7 @@ function OrderDetailsPage() {
                   borderTop: "0px",
                   borderRadius: "10px",
                   boxShadow: "4px 4px 4px  #e6e6e6",
-                  margin: "5px",
+                  margin: "2px",
                 }}
               >
                 <td className="text-end">

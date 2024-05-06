@@ -70,9 +70,9 @@ function AllClientProductsPage() {
           return;
         }
 
-        window.products = data;
+        window.products = data.results;
 
-        setData(data);
+        setData(data.results);
       })
       .catch((error) => {
         alert(error);
@@ -86,7 +86,7 @@ function AllClientProductsPage() {
 
   useEffect(() => {
     loadData();
-    loadCategories();
+    // loadCategories();
   }, []);
   return (
     <>

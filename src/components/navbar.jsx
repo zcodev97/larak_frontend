@@ -49,7 +49,7 @@ function NavBar() {
             <li className="nav-item flex-grow-1 text-center m-0">
               <Link className={normalStyle} to="/client_products">
                 <p style={{ color: "#8c8c8c" }}>
-                  <i class="fi fi-rr-home" style={{ fontSize: "20px" }}></i>
+                  <i className="fi fi-rr-home" style={{ fontSize: "20px" }}></i>
                   <br />
                   <p style={{ fontSize: "10px" }}>Home</p>
                 </p>
@@ -59,7 +59,10 @@ function NavBar() {
             <li className="nav-item rounded text flex-grow-1 m-0">
               <Link className={normalStyle} to="/all_client_products">
                 <p style={{ color: "#8c8c8c" }}>
-                  <i class="fi fi-rr-boxes" style={{ fontSize: "20px" }}></i>
+                  <i
+                    className="fi fi-rr-boxes"
+                    style={{ fontSize: "20px" }}
+                  ></i>
                   <br />
                   <p style={{ fontSize: "10px" }}>Items</p>
                 </p>
@@ -79,7 +82,7 @@ function NavBar() {
               <Link className={normalStyle} to={"/client_orders"}>
                 <p style={{ color: "#8c8c8c" }}>
                   <i
-                    class="fi fi-rr-list"
+                    className="fi fi-rr-list"
                     style={{
                       fontSize: "20px",
                       // border: "1px",
@@ -109,7 +112,7 @@ function NavBar() {
             <li className="nav-item rounded text flex-grow-1 m-0">
               <Link className={normalStyle} to="/client_profile">
                 <p style={{ color: "#8c8c8c" }}>
-                  <i class="fi fi-rr-user" style={{ fontSize: "20px" }}></i>
+                  <i className="fi fi-rr-user" style={{ fontSize: "20px" }}></i>
                   <br />
                   <p style={{ fontSize: "10px" }}>Profile</p>
                 </p>
@@ -156,9 +159,7 @@ function NavBar() {
     </>
   );
 
-  return localStorage.getItem("user_type") === "admin"
-    ? adminNavBar
-    : clientNavBar;
+  return clientNavBar;
 }
 
 export default NavBar;

@@ -44,7 +44,7 @@ function ClientProductsPage() {
           return;
         }
 
-        setCategories(data);
+        setCategories(data.results);
       })
       .catch((error) => {
         alert(error);
@@ -79,7 +79,7 @@ function ClientProductsPage() {
           return;
         }
         // console.log(data);
-        data.forEach((i) => {
+        data.results.forEach((i) => {
           dropdownMenuproductTemp.push({
             label: i.title,
             value: i.id,
@@ -126,9 +126,9 @@ function ClientProductsPage() {
           return;
         }
 
-        window.products = data;
+        window.products = data.results;
 
-        setData(data);
+        setData(data.results);
 
         loadCategories();
         loadProducts();
@@ -169,7 +169,7 @@ function ClientProductsPage() {
             }}
           >
             <i
-              class="fa fa-bell fa-3x"
+              className="fa fa-bell fa-3x"
               aria-hidden="true"
               style={{ color: "lightgray" }}
             ></i>

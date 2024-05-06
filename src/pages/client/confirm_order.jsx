@@ -66,8 +66,6 @@ function MapComponent() {
   useEffect(() => {
     if (!map) return;
 
-    getSavedLocation();
-
     const draw = new Draw({
       source: map.getLayers().array_[1].getSource(),
       type: "Point",
@@ -87,7 +85,7 @@ function MapComponent() {
     });
 
     map.addInteraction(draw);
-
+    getSavedLocation();
     return () => {
       map.removeInteraction(draw);
     };
@@ -186,7 +184,14 @@ function ConfirmOrderPage() {
       client: localStorage.getItem("username_id"),
       cart: window.cart,
       status: {
+        vendor_status: "null",
+        biker_status: "null",
+        arrvied_status: "null",
+        decliened_status: "null",
         client: {
+          username: localStorage.getItem("username"),
+          firstname: localStorage.getItem("first_name"),
+          lastname: localStorage.getItem("last_name"),
           map_location: [
             localStorage.getItem("lon"),
             localStorage.getItem("lat"),
@@ -267,9 +272,27 @@ function ConfirmOrderPage() {
                 {localStorage.getItem("text_location")}
               </p>
 
-              <p style={{ fontSize: "24px" }}> موقعك الحالي </p>
+              <p
+                style={{
+                  fontSize: "24px",
+                  display:
+                    localStorage.getItem("user_type") === "user"
+                      ? "none"
+                      : "inline",
+                }}
+              >
+                {" "}
+                موقعك الحالي{" "}
+              </p>
 
-              <p>
+              <p
+                style={{
+                  display:
+                    localStorage.getItem("user_type") === "user"
+                      ? "none"
+                      : "inline",
+                }}
+              >
                 <MapComponent />
               </p>
             </div>
@@ -393,13 +416,13 @@ function ConfirmOrderPage() {
 
           <div className="container text-center">
             <div
-              className="btn btn-light rounded  text-danger"
+              className="btn btn-light    text-success"
               onClick={() => {
                 orderItems();
               }}
               style={{ fontSize: "24px" }}
             >
-              <b>طلب</b>
+              <b>ارسال الطلب</b>
             </div>
           </div>
         </div>

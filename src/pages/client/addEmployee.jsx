@@ -23,7 +23,7 @@ function AddEmployeePage() {
       body: JSON.stringify({
         username: phone,
         password: password,
-        user_type: "fb31097c-ad41-4336-8976-7a1e0716e3ac",
+        user_type: "30b0167a-a638-462e-a4b5-2d127cf71654",
         supervisor: localStorage.getItem("username_id"),
       }),
     })

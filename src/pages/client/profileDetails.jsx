@@ -66,8 +66,6 @@ function MapComponent() {
   useEffect(() => {
     if (!map) return;
 
-    getSavedLocation();
-
     const draw = new Draw({
       source: map.getLayers().array_[1].getSource(),
       type: "Point",
@@ -87,6 +85,7 @@ function MapComponent() {
     });
 
     map.addInteraction(draw);
+    getSavedLocation();
 
     return () => {
       map.removeInteraction(draw);
@@ -176,17 +175,14 @@ function ClientProfileDetailsPage() {
 
   async function loadData() {
     setLoading(true);
-    await fetch(
-      Larak_System_URL + "get_user_info/" + localStorage.getItem("username_id"),
-      {
-        method: "GET",
-        headers: {
-          accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    )
+    await fetch(Larak_System_URL + "get_user_info/", {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         if (data.detail === "Given token not valid for any token type") {
@@ -198,9 +194,14 @@ function ClientProfileDetailsPage() {
           return;
         }
 
+        console.log(data);
+
         setFirstName(data?.first_name);
         setLastName(data?.last_name);
         setLocation(data?.location);
+
+        localStorage.setItem("lon", data.lon);
+        localStorage.setItem("lat", data.lat);
 
         setData(data);
       })
@@ -216,23 +217,28 @@ function ClientProfileDetailsPage() {
     setLoading(true);
 
     localStorage.setItem("text_location", location);
+    localStorage.setItem("first_name", firstName);
+    localStorage.setItem("last_name", lastName);
 
-    await fetch(Larak_System_URL + "add_user_info/", {
-      method: "POST",
-      headers: {
-        accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-      body: JSON.stringify({
-        user: localStorage.getItem("username_id"),
-        first_name: firstName,
-        last_name: lastName,
-        location: location,
-        lon: localStorage.getItem("lon"),
-        lat: localStorage.getItem("lat"),
-      }),
-    })
+    await fetch(
+      Larak_System_URL + "add_user_info/" + localStorage.getItem("username_id"),
+      {
+        method: "PATCH",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          user: localStorage.getItem("username_id"),
+          first_name: firstName,
+          last_name: lastName,
+          location: location,
+          lon: localStorage.getItem("lon"),
+          lat: localStorage.getItem("lat"),
+        }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         if (data.detail) {
