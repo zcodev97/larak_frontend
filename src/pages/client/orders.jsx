@@ -116,13 +116,21 @@ function ClientOrdersPage() {
                 >
                   <td className="text-end">
                     <p>{FormatDateTime(d.created_at)}</p>
-                    <b className="m-1">
-                      {d?.status?.biker
-                        ? "تم التوصيل"
-                        : d?.status?.vendor
-                        ? "في انتظار تعيين سائق"
-                        : "قيد الموافقة"}
-                    </b>
+                    {localStorage.getItem("user_type") === "user" ? (
+                      <b className="m-1">
+                        {d?.status?.manager_action === null
+                          ? "قيد موافقة المدير"
+                          : "تمت الموافقة"}
+                      </b>
+                    ) : (
+                      <b className="m-1">
+                        {d?.status?.biker
+                          ? "تم التوصيل"
+                          : d?.status?.vendor
+                          ? "في انتظار تعيين سائق"
+                          : "قيد الموافقة"}
+                      </b>
+                    )}
                   </td>
                 </tr>
               ))}

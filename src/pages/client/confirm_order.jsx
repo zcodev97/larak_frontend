@@ -242,11 +242,7 @@ function ConfirmOrderPage() {
       manager: localStorage.getItem("supervisor"),
       cart: window.cart,
       status: {
-        vendor_status: "null",
-        biker_status: "null",
-        arrvied_status: "null",
-        decliened_status: "null",
-        manager_status: "null",
+        manager_action: null,
       },
     });
 

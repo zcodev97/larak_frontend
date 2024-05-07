@@ -1,11 +1,13 @@
 import { useState, React, useEffect } from "react";
 import Loading from "../Loading";
-import { Larak_System_URL } from "../../globals";
+import { FormatDateTime, Larak_System_URL } from "../../globals";
 import NavBar from "../../components/navbar";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.css";
 import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
+import { v4 as uuidv4 } from "uuid";
+
 function EmployeeDetailsPage() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -127,6 +129,113 @@ function EmployeeDetailsPage() {
         setLoading(false);
       });
   }
+  function generateOrderId() {
+    // Customize the prefix or length as needed
+    const uniqueId = uuidv4().replace(/-/g, "").substring(0, 6); // Extract 6 characters from the UUID
+    return String(uniqueId);
+  }
+
+  async function managerOrderItems(cart) {
+    setLoading(true);
+
+    let orderId = generateOrderId();
+
+    let dataTosend = JSON.stringify({
+      client: localStorage.getItem("username_id"),
+      cart: cart,
+      status: {
+        vendor_status: null,
+        biker_status: null,
+        arrvied_status: null,
+        decliened_status: null,
+        client: {
+          username: localStorage.getItem("username"),
+          firstname: localStorage.getItem("first_name"),
+          lastname: localStorage.getItem("last_name"),
+          map_location: [
+            localStorage.getItem("lon"),
+            localStorage.getItem("lat"),
+          ],
+          text_location: localStorage.getItem("text_location"),
+        },
+      },
+
+      order_id: orderId,
+    });
+
+    await fetch(Larak_System_URL + "client_submit_order/", {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: dataTosend,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.detail === "Given token not valid for any token type") {
+          navigate("/login", { replace: true });
+          return;
+        }
+        if (data.detail) {
+          alert(data.detail);
+          return;
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+    window.cart = undefined;
+    setLoading(false);
+    navigate("/client_orders", { replace: true });
+  }
+
+  async function updateEmployeeOrderStatus(order_id, status) {
+    setLoading(true);
+
+    let dataTosend = JSON.stringify({
+      status: {
+        manager_action: {
+          title: status,
+          date: new Date().now,
+        },
+      },
+    });
+
+    await fetch(Larak_System_URL + "update_employee_order/" + order_id, {
+      method: "PATCH",
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: dataTosend,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.detail === "Given token not valid for any token type") {
+          navigate("/login", { replace: true });
+          return;
+        }
+        if (data.detail) {
+          alert(data.detail);
+          return;
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+    window.cart = undefined;
+    setLoading(false);
+    navigate("/client_orders", { replace: true });
+  }
 
   useEffect(() => {
     console.log(location.state);
@@ -194,9 +303,8 @@ function EmployeeDetailsPage() {
           <table className="table text-center">
             <thead style={{ fontSize: "20px" }}>
               <tr>
+                <td>تاريخ الطلب</td>
                 <td> </td>
-                <td>حالة الطلب</td>
-                {/* <td>تاريخ الطلب</td> */}
 
                 <td>السلة</td>
               </tr>
@@ -204,46 +312,29 @@ function EmployeeDetailsPage() {
             <tbody style={{ fontSize: "16px" }}>
               {data?.reverse().map((d) => (
                 <tr className="text-center">
+                  <td>{FormatDateTime(d.created_at)}</td>
                   <td>
                     <button
-                      className="btn btn-success"
+                      className="btn btn-light text-success"
                       style={{ fontSize: "16px" }}
                       onClick={() => {
-                        updateOrder(d, "manager accept");
+                        updateEmployeeOrderStatus(d.id, "accepted");
+                        managerOrderItems(d.cart);
                       }}
-                      disabled={
-                        d?.status[0]?.manager_status?.accept === "pending"
-                          ? false
-                          : true
-                      }
                     >
-                      قبول
+                      <b>قبول</b>
                     </button>
                     <hr />
                     <button
-                      className="btn btn-danger"
+                      className="btn btn-light text-danger"
                       style={{ fontSize: "16px" }}
                       onClick={() => {
-                        updateOrder(d, "manager declined");
+                        updateEmployeeOrderStatus(d.id, "rejected");
                       }}
-                      disabled={
-                        d?.status[0]?.manager_status?.accept === "pending"
-                          ? false
-                          : true
-                      }
                     >
-                      رفض
+                      <b>رفض</b>
                     </button>
                   </td>
-                  <td>
-                    {d?.status[0]?.manager_status?.accept === "manager accept"
-                      ? "manager accept"
-                      : d?.status[0]?.manager_status?.accept ===
-                        "manager declined"
-                      ? "manager declined"
-                      : "pending"}
-                  </td>
-                  {/* <td>{FormatDateTime(i.created_at)}</td> */}
 
                   <td className="text-end">
                     <table className="table rounded">
