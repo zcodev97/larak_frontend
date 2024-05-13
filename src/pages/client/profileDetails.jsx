@@ -216,7 +216,7 @@ function ClientProfileDetailsPage() {
   async function submitUserInfo() {
     setLoading(true);
 
-    localStorage.setItem("text_location", location);
+    localStorage.setItem("location", location);
     localStorage.setItem("first_name", firstName);
     localStorage.setItem("last_name", lastName);
 

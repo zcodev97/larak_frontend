@@ -53,7 +53,7 @@ function EmployeeDetailsPage() {
 
     await fetch(
       Larak_System_URL +
-        "get_employee_orders_for_supervisor/" +
+        "get_employee_orders_for_supervisor/?employee=" +
         location.state.username,
       {
         method: "GET",
@@ -146,7 +146,7 @@ function EmployeeDetailsPage() {
       status: {
         vendor_status: null,
         biker_status: null,
-        arrvied_status: null,
+        arrived_status: null,
         decliened_status: null,
         client: {
           username: localStorage.getItem("username"),
@@ -250,7 +250,7 @@ function EmployeeDetailsPage() {
       <NavBar />
       <div
         className="container text-center"
-        style={{ color: "#ff8000", fontSize: "20px", marginTop: "20px" }}
+        style={{ fontSize: "20px", color: "#de3d33", fontWeight: "bold" }}
       >
         <b> تحديث كلمة السر للمستخدم </b> <br />
         <div className="container ">
@@ -273,7 +273,12 @@ function EmployeeDetailsPage() {
               updatePassword();
             }}
           >
-            <b style={{ fontWeight: "bold" }}> تحديث</b>
+            <b
+              style={{ fontSize: "20px", color: "#de3d33", fontWeight: "bold" }}
+            >
+              {" "}
+              تحديث
+            </b>
           </button>
           <div className="container">
             <input

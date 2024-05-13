@@ -169,9 +169,8 @@ function ClientProductsPage() {
             }}
           >
             <i
-              className="fa fa-bell fa-3x"
-              aria-hidden="true"
               style={{ color: "lightgray" }}
+              class="fi fi-sr-envelope-dot fa-3x"
             ></i>
             <div style={{ width: "10px" }}></div>
 
@@ -316,8 +315,8 @@ function ClientProductsPage() {
                       src={item.image}
                       alt={item.title}
                       style={{
-                        width: "75%",
-                        height: "50%",
+                        width: "50px",
+                        height: "50px",
                         alignItems: "center",
                         justifyContent: "center",
                       }}

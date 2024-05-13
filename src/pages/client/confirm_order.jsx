@@ -184,10 +184,10 @@ function ConfirmOrderPage() {
       client: localStorage.getItem("username_id"),
       cart: window.cart,
       status: {
-        vendor_status: "null",
-        biker_status: "null",
-        arrvied_status: "null",
-        decliened_status: "null",
+        vendor_status: null,
+        biker_status: null,
+        arrived_status: null,
+        decliened_status: null,
         client: {
           username: localStorage.getItem("username"),
           firstname: localStorage.getItem("first_name"),
@@ -196,10 +196,9 @@ function ConfirmOrderPage() {
             localStorage.getItem("lon"),
             localStorage.getItem("lat"),
           ],
-          text_location: localStorage.getItem("text_location"),
+          text_location: localStorage.getItem("location"),
         },
       },
-
       order_id: orderId,
     });
 

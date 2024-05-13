@@ -98,8 +98,8 @@ function ManagerEmployeesPage() {
             height: window.innerHeight - 85,
             overflowY: "auto",
 
-            fontSize: "16px",
-            color: "#ff8000",
+            fontSize: "20px",
+            color: "#de3d33",
             fontWeight: "bold",
           }}
         >
@@ -107,7 +107,7 @@ function ManagerEmployeesPage() {
             className="p-3 "
             style={{
               fontSize: "20px",
-              color: "#ff8000",
+              color: "#de3d33",
               fontWeight: "bold",
             }}
           >
@@ -130,7 +130,8 @@ function ManagerEmployeesPage() {
               className="btn border rounded"
               style={{
                 fontSize: "20px",
-                color: "#ff8000",
+                color: "#de3d33",
+                fontWeight: "bold",
               }}
               onClick={() => {
                 navigate("/add_employee");

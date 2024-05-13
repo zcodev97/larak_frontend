@@ -115,18 +115,23 @@ function ClientOrdersPage() {
                   }}
                 >
                   <td className="text-end">
+                    <p>{d.order_id}</p>
                     <p>{FormatDateTime(d.created_at)}</p>
                     {localStorage.getItem("user_type") === "user" ? (
                       <b className="m-1">
                         {d?.status?.manager_action === null
                           ? "قيد موافقة المدير"
-                          : "تمت الموافقة"}
+                          : d?.status?.manager_action?.title === "accepted"
+                          ? "تمت الموافقة"
+                          : "مرفوض"}
                       </b>
                     ) : (
                       <b className="m-1">
-                        {d?.status?.biker
+                        {d?.status?.arrived_status
                           ? "تم التوصيل"
-                          : d?.status?.vendor
+                          : d?.status?.biker_status?.biker
+                          ? "قيد الشحن"
+                          : d?.status?.vendor_status?.title
                           ? "في انتظار تعيين سائق"
                           : "قيد الموافقة"}
                       </b>
