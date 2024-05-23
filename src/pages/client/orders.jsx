@@ -122,18 +122,20 @@ function ClientOrdersPage() {
                         {d?.status?.manager_action === null
                           ? "قيد موافقة المدير"
                           : d?.status?.manager_action?.title === "accepted"
-                          ? "تمت الموافقة"
-                          : "مرفوض"}
+                            ? "تمت الموافقة"
+                            : "مرفوض"}
                       </b>
                     ) : (
                       <b className="m-1">
                         {d?.status?.arrived_status
                           ? "تم التوصيل"
                           : d?.status?.biker_status?.biker
-                          ? "قيد الشحن"
-                          : d?.status?.vendor_status?.title
-                          ? "في انتظار تعيين سائق"
-                          : "قيد الموافقة"}
+                            ? "قيد الشحن"
+                            : d?.status?.vendor_status?.title === 'accepted'
+                              ? "في انتظار تعيين سائق"
+                              : d?.status?.vendor_status === null && d?.status?.biker_status === null
+                                ? "في انتظار الموافقة" : 'الطلب مرفوض'
+                        }
                       </b>
                     )}
                   </td>
