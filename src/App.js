@@ -36,7 +36,7 @@ function App() {
       return;
     }
 
-    fetch(Larak_System_URL + "user-info/", {
+    fetch(Larak_System_URL + "get_user_info/", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

@@ -30,9 +30,9 @@ function LoginPage() {
           setLoading(false);
           return;
         }
-        console.log(data);
-        window.username = data.user.username;
-        window.username_id = data.user.id;
+        // console.log(data);
+        // window.username = data.user.username;
+        // window.username_id = data.user.id;
         // window.groups = data.user.groups[0];
         localStorage.setItem("token", data.access);
         localStorage.setItem("username", data.user.username);

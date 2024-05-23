@@ -16,7 +16,7 @@ import { fromLonLat, transform } from "ol/proj";
 import Circle from "ol/geom/Circle";
 import Icon from "ol/style/Icon";
 import { Larak_System_URL } from "../../globals";
-
+import 'ol/ol.css';
 function MapComponent() {
   const mapRef = useRef(null);
   const [map, setMap] = useState(null);
@@ -28,7 +28,7 @@ function MapComponent() {
       style: new Style({
         image: new Icon({
           anchor: [0.5, 1],
-          src: "https://openlayers.org/en/latest/examples/data/icon.png",
+          src: "https://a.larak.com.iq:8001/product_images/icons8-map-pin-64.png",
         }),
       }),
     });
@@ -38,7 +38,7 @@ function MapComponent() {
       layers: [
         new TileLayer({
           source: new XYZ({
-            url: "https://{1-4}.base.maps.api.here.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?app_id=aWkeLP21AKVpB5R5JZ3I&app_code=tmLcVPJ_CRu8j1Uq_4Y-ag",
+            url: "https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png",
             crossOrigin: "anonymous",
           }),
           visible: true,
@@ -53,6 +53,9 @@ function MapComponent() {
         zoom: 15,
       }),
     });
+
+
+
 
     setMap(initialMap);
 
@@ -194,7 +197,7 @@ function ClientProfileDetailsPage() {
           return;
         }
 
-        console.log(data);
+        // console.log(data);
 
         setFirstName(data?.first_name);
         setLastName(data?.last_name);
@@ -263,12 +266,7 @@ function ClientProfileDetailsPage() {
     <>
       <NavBar />
 
-      <p
-        className=" pt-4  text-center "
-        style={{ fontWeight: "bold", fontSize: "24px" }}
-      >
-        تفاصيل المستخدم
-      </p>
+
 
       <div
         className="container-fluid"
@@ -278,6 +276,12 @@ function ClientProfileDetailsPage() {
           height: window.innerHeight - 125,
         }}
       >
+        <p
+          className=" pt-4  text-center "
+          style={{ fontWeight: "bold", fontSize: "24px" }}
+        >
+          تفاصيل المستخدم
+        </p>
         <p
           className=" pt-4  text-center "
           style={{ fontWeight: "bold", fontSize: "16px" }}
@@ -379,22 +383,7 @@ function ClientProfileDetailsPage() {
               fontWeight: "bold",
             }}
             onClick={() => {
-              // console.log(
-              //   firstName.length === 0 && data[0]?.first_name.length === 0
-              // );
 
-              // if (firstName.length !== 0 && data[0]?.first_name.length !== 0) {
-              //   alert("الرجاء تحديد الاسم الاول");
-              //   return;
-              // }
-              // if (lastName.length === 0 && data[0]?.last_name.length === 0) {
-              //   alert("الرجاء تحديد الاسم الاخير");
-              //   return;
-              // }
-              // if (location.length === 0 && data[0]?.location.length === 0) {
-              //   alert("الرجاء تحديد الموقع كتابتا");
-              //   return;
-              // }
               if (
                 localStorage.getItem("lon").length === 0 &&
                 localStorage.getItem("lat").length === 0

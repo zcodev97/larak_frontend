@@ -28,7 +28,7 @@ function MapComponent() {
       style: new Style({
         image: new Icon({
           anchor: [0.5, 1],
-          src: "https://openlayers.org/en/latest/examples/data/icon.png",
+          src: "https://a.larak.com.iq:8001/product_images/icons8-map-pin-64.png",
         }),
       }),
     });
@@ -38,7 +38,7 @@ function MapComponent() {
       layers: [
         new TileLayer({
           source: new XYZ({
-            url: "https://{1-4}.base.maps.api.here.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?app_id=aWkeLP21AKVpB5R5JZ3I&app_code=tmLcVPJ_CRu8j1Uq_4Y-ag",
+            url: "https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png",
             crossOrigin: "anonymous",
           }),
           visible: true,
