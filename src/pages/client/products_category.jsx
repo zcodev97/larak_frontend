@@ -1,12 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import NavBar from "../../components/navbar";
-import { Larak_System_URL } from "../../globals";
-import BootstrapTable from "react-bootstrap-table-next";
-import "react-bootstrap-table-next/dist/react-bootstrap-table2.css";
-import paginationFactory from "react-bootstrap-table2-paginator";
-import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
-import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
+
 import Loading from "../Loading";
 function ProductsCategoryPage() {
   const [loading, setLoading] = useState(false);
@@ -33,7 +28,7 @@ function ProductsCategoryPage() {
               gap: "10px",
             }}
           >
-            {location.state.d?.map((product) => (
+            {location.state.d?.filter((product) => product.active).map((product) => (
               <div
                 key={product.id}
                 style={{
@@ -113,7 +108,7 @@ function ProductsCategoryPage() {
                         {window.cart === undefined
                           ? []
                           : window.cart.find((i) => i.id === product.id)
-                              ?.amount ?? 0}
+                            ?.amount ?? 0}
                       </b>
                       <div
                         className="btn btn-light"

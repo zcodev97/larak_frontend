@@ -12,42 +12,10 @@ function AllClientProductsPage() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // Retrieve the string from the local storage
-  var storedCategories = localStorage.getItem("categories");
   const [data, setData] = useState();
 
-  const [categories, setCategories] = useState([]);
 
-  async function loadCategories() {
-    setLoading(true);
-    await fetch(Larak_System_URL + "categories/", {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.detail === "Given token not valid for any token type") {
-          navigate("/login", { replace: true });
-          return;
-        }
-        if (data.detail) {
-          alert(data.detail);
-          return;
-        }
 
-        setCategories(data);
-      })
-      .catch((error) => {
-        alert(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }
 
   async function loadData() {
     setLoading(true);
@@ -81,8 +49,7 @@ function AllClientProductsPage() {
         setLoading(false);
       });
   }
-  // Parse the string into a JavaScript object
-  var categoriesAsJson = JSON.parse(storedCategories);
+
 
   useEffect(() => {
     loadData();
@@ -186,7 +153,7 @@ function AllClientProductsPage() {
                           {window.cart === undefined
                             ? []
                             : window.cart.find((i) => i.id === product.id)
-                                ?.amount ?? 0}
+                              ?.amount ?? 0}
                         </b>
                         <div
                           className="btn btn-light"
