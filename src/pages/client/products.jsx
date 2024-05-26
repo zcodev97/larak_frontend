@@ -240,11 +240,11 @@ function ClientProductsPage() {
                           },
                         });
                       }}
-                      style={{ borderRadius: "5%", cursor: "pointer" }} // Added cursor: pointer for visual feedback
-                      className="d-block w-100 m-2"
+                      style={{ borderRadius: "5%", cursor: "pointer", width: 'auto', height: '200px' }}
+                      // className="d-block w-100 m-2"
                       src={product?.image}
                       alt={product?.title}
-                      height={200}
+
                     />
                   </div>
                 ))}

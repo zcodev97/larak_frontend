@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, NavLink } from "react-router-dom";
 import Loading from "../pages/Loading";
 import { useNavigate } from "react-router-dom";
 import { Larak_System_URL } from "../globals";
@@ -43,80 +43,116 @@ function NavBar() {
           borderBottom: "none",
         }}
       >
-        <div className="container-fluid d-flex justify-content-around">
+        <div className="container-fluid d-flex justify-content-around align-items-center">
           {/* Start of the navbar links */}
-          <ul className="navbar-nav d-flex flex-row w-100">
+          <ul className="navbar-nav d-flex flex-row w-100" style={{ alignContent: 'center' }}>
             <li className="nav-item flex-grow-1 text-center m-0">
-              <Link className={normalStyle} to="/client_products">
-                <p style={{ color: "#8c8c8c" }}>
+              <NavLink
+
+                style={{ textDecoration: "none" }}
+                className={({ isActive }) =>
+                  "nav-link" + (isActive ? "active-link " : "")
+                }
+                to="/client_products">
+                <div  >
                   <i className="fi fi-rr-home" style={{ fontSize: "20px" }}></i>
                   <br />
                   <p style={{ fontSize: "10px" }}>Home</p>
-                </p>
-              </Link>
+                </div>
+              </NavLink>
             </li>
 
-            <li className="nav-item rounded text flex-grow-1 m-0">
-              <Link className={normalStyle} to="/all_client_products">
-                <p style={{ color: "#8c8c8c" }}>
+            <li className="nav-item flex-grow-1 text-center m-0">
+              <NavLink
+                style={{ textDecoration: "none" }}
+                className={({ isActive }) =>
+                  "nav-link" + (isActive ? "active-link" : "")
+                }
+
+                to="/all_client_products">
+
+                <div>
                   <i
                     className="fi fi-rr-boxes"
                     style={{ fontSize: "20px" }}
                   ></i>
                   <br />
                   <p style={{ fontSize: "10px" }}>Items</p>
-                </p>
-              </Link>
+                </div>
+
+              </NavLink>
             </li>
             {/* <li className="nav-item rounded text flex-grow-1 m-0">
-              <Link className={normalStyle} to="/client_cateogries">
+              <NavLink className={normalStyle} to="/client_cateogries">
                 <p style={{ color: "#8c8c8c" }}>
                   <i class="fa fa-object-group fa-3x" aria-hidden="true"></i>
                   <br />
                   <p style={{ fontSize: "10px" }}>Categories</p>
                 </p>
-              </Link>
+              </NavLink>
             </li> */}
 
-            <li className="nav-item rounded text flex-grow-1 m-0">
-              <Link className={normalStyle} to={"/client_orders"}>
-                <p style={{ color: "#8c8c8c" }}>
+            <li className="nav-item flex-grow-1 text-center m-0">
+              <NavLink
+                style={{ textDecoration: "none" }}
+                className={({ isActive }) =>
+                  "nav-link" + (isActive ? "active-link" : "")
+                }
+
+                to={"/client_orders"}>
+                <div>
                   <i
                     className="fi fi-rr-list"
                     style={{
                       fontSize: "20px",
-                      // border: "1px",
-                      // borderStyle: "solid",
-                      // padding: "5px",
-                      // borderRadius: "10px",
+
                     }}
                   ></i>
                   <br />
                   <p style={{ fontSize: "10px" }}>Orders</p>
-                </p>
-              </Link>
+                </div>
+
+
+              </NavLink>
             </li>
 
-            <li className="nav-item rounded text flex-grow-1 m-0">
-              <Link className={normalStyle} to="/client_cart">
-                <p style={{ color: "#8c8c8c" }}>
+            <li className="nav-item flex-grow-1 text-center m-0">
+              <NavLink
+
+                style={{ textDecoration: "none" }}
+                className={({ isActive }) =>
+                  "nav-link" + (isActive ? "active-link" : "")
+                }
+
+
+                to="/client_cart">
+                <div>
                   <i
                     className="fi fi-rr-shopping-cart"
                     style={{ fontSize: "20px" }}
                   ></i>
                   <br />
                   <p style={{ fontSize: "10px" }}>Cart</p>
-                </p>
-              </Link>
+                </div>
+              </NavLink>
             </li>
-            <li className="nav-item rounded text flex-grow-1 m-0">
-              <Link className={normalStyle} to="/client_profile">
-                <p style={{ color: "#8c8c8c" }}>
+            <li className="nav-item flex-grow-1 text-center m-0">
+              <NavLink
+
+                style={{ textDecoration: "none" }}
+                className={({ isActive }) =>
+                  "nav-link" + (isActive ? "active-link" : "")
+                }
+
+                to="/client_profile">
+
+                <div>
                   <i className="fi fi-rr-user" style={{ fontSize: "20px" }}></i>
                   <br />
                   <p style={{ fontSize: "10px" }}>Profile</p>
-                </p>
-              </Link>
+                </div>
+
+              </NavLink>
             </li>
             {/* <li className="nav-item rounded text flex-grow-1 m-0">
           <Link className={normalStyle} to="/payments">

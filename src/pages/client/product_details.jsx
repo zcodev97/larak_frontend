@@ -25,7 +25,7 @@ function ProductDetailsPage() {
             <img
               className="rounded"
               src={location.state.image}
-              style={{ width: "300px", height: "300px" }}
+              style={{ width: "auto", height: "200px" }}
               alt=""
             />
           </div>
@@ -168,7 +168,7 @@ function ProductDetailsPage() {
             {window.cart === undefined
               ? 0
               : window.cart.find((i) => i.id === location.state.id)?.amount ??
-                0}
+              0}
             <b style={{ fontSize: "20px" }}> +</b>
           </div>
         </div>

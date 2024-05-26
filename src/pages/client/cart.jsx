@@ -132,10 +132,11 @@ function ClientCartPage() {
                             borderRadius: "20px",
                             boxShadow: "0px 2px 2px 2px #e6e6e6",
                             margin: "5px",
-                            width: "25%",
-                            height: "25%",
+                            width: "60px",
+                            height: "100px",
                             alignItems: "center",
                             justifyContent: "center",
+                            padding: '2px'
                           }}
                         />
                       </div>

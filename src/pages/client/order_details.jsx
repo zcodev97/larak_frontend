@@ -37,13 +37,27 @@ function OrderDetailsPage() {
           className="container text-center d-flex justify-content-center align-items-center"
           style={{ fontSize: "20px" }}
         >
-          <b>
-            {location.state?.status?.biker
-              ? "تم التوصيل"
-              : location.state?.status?.vendor
-              ? "في انتظار تعيين سائق"
-              : "قيد الموافقة"}
-          </b>
+          {localStorage.getItem("user_type") === "user" ? (
+            <b className="m-1">
+              {location.state?.status?.manager_action === null
+                ? "قيد موافقة المدير"
+                : location.state?.status?.manager_action?.title === "accepted"
+                  ? "تمت الموافقة"
+                  : "مرفوض"}
+            </b>
+          ) : (
+            <b className="m-1">
+              {location.state?.status?.arrived_status
+                ? "تم التوصيل"
+                : location.state?.status?.biker_status?.biker
+                  ? "قيد الشحن"
+                  : location.state?.status?.vendor_status?.title === 'accepted'
+                    ? "في انتظار تعيين سائق"
+                    : location.state?.status?.vendor_status === null && location.state?.status?.biker_status === null
+                      ? "في انتظار الموافقة" : 'الطلب مرفوض'
+              }
+            </b>
+          )}
         </div>
         <div
           className="container text-center d-flex justify-content-center align-items-center"
@@ -74,7 +88,7 @@ function OrderDetailsPage() {
           className="table table-sm text-center rounded"
           style={{ fontSize: "16px", fontWeight: "normal" }}
         >
-          <thead></thead>
+
           <tbody>
             {location.state?.cart?.map((i) => (
               <tr
@@ -102,9 +116,12 @@ function OrderDetailsPage() {
                     </p>
 
                     <img
-                      className="rounded-circle"
+
                       src={i.image}
-                      width={75}
+                      style={{
+                        width: "60px",
+                        height: "100px",
+                      }}
                       alt=""
                     />
                   </div>

@@ -33,3 +33,15 @@ table {
   -webkit-text-stroke-color: #666;
   color: transparent;
 }
+
+.nav-link {
+  color: gray !important;
+}
+
+.acitve-link {
+  color: #de3d33 !important;
+}
+
+a {
+  color: #de3d33 !important;
+}
