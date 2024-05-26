@@ -315,8 +315,8 @@ function ClientProductsPage() {
                       src={item.image}
                       alt={item.title}
                       style={{
-                        width: "50px",
-                        height: "50px",
+                        width: "40px",
+                        height: "40px",
                         alignItems: "center",
                         justifyContent: "center",
                       }}
@@ -334,7 +334,7 @@ function ClientProductsPage() {
                       overflow: "hidden",
                     }}
                   >
-                    <p className="text-center"> {item.title}</p>
+                    <div style={{ fontSize: '12px' }}> {item.title}</div>
                   </div>
                 </div>
               ))}
