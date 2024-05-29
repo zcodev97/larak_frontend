@@ -41,15 +41,13 @@ function ProductsCategoryPage() {
                 <div
                   className="text-center"
                   style={{
-                    marginTop: "5px",
-                    padding: "10px",
-                    height: "150px",
                     width: "auto",
+                    padding: "10px",
                     backgroundImage: `url(${product.image})`,
                     backgroundPosition: "center",
-                    backgroundSize: "150px",
+                    backgroundSize: "contain",
                     backgroundRepeat: "no-repeat",
-                    // borderRadius: "25px",
+                    borderRadius: "25px",
                   }}
                 >
                   <div

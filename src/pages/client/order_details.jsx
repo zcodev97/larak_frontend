@@ -120,7 +120,7 @@ function OrderDetailsPage() {
                       src={i.image}
                       style={{
                         width: "60px",
-                        height: "100px",
+                        height: "60px",
                       }}
                       alt=""
                     />

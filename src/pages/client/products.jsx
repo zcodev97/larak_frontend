@@ -312,11 +312,12 @@ function ClientProductsPage() {
                     style={{ alignItems: "center", justifyContent: "center" }}
                   >
                     <img
+                      className="rounded-circle"
                       src={item.image}
                       alt={item.title}
                       style={{
-                        width: "40px",
-                        height: "40px",
+                        width: "60px",
+                        height: "60px",
                         alignItems: "center",
                         justifyContent: "center",
                       }}
@@ -326,7 +327,7 @@ function ClientProductsPage() {
                   <div
                     className="container text-center text-dark"
                     style={{
-                      fontSize: "16px",
+                      fontSize: "20px",
                       color: "white",
                       fontWeight: "normal",
                       textOverflow: "ellipsis",
@@ -334,7 +335,7 @@ function ClientProductsPage() {
                       overflow: "hidden",
                     }}
                   >
-                    <div style={{ fontSize: '12px' }}> {item.title}</div>
+                    <div style={{ fontSize: '18px' }}> {item.title}</div>
                   </div>
                 </div>
               ))}
